@@ -9,10 +9,14 @@ public class Config
 	public static boolean floppyB=false;
 	public static String floppyA_image="floppyA.img";
 	public static String floppyB_image="floppyB.img";
-	public static boolean ata0=false;
-	public static boolean ata1=false;
-	public static String ata0_image="ata0.img";
-	public static String ata1_image="ata1.img";
+	public static boolean ata0m=false;
+	public static boolean ata0s=false;
+	public static boolean ata1m=false;
+	public static boolean ata1s=false;
+	public static String ata0m_image="ata0-master.img";
+	public static String ata0s_image="ata0-slave.img";
+	public static String ata1m_image="ata1-master.img";
+	public static String ata1s_image="ata1-slave.img";
 	public static int megs=32;
 
 	final static String path = "/storage/sdcard0/Android/data/net.sourceforge.bochs/files/bochsrc.txt";
@@ -56,12 +60,20 @@ public class Config
 				}
 			}
 			
-			if (str.startsWith("ata0:")) {
-				ata0 = true;
+			if (str.startsWith("ata0-master:")) {
+				ata0m = true;
 			}
 			
-			if (str.startsWith("ata1:")) {
-				ata1 = true;
+			if (str.startsWith("ata0-slave:")) {
+				ata0s = true;
+			}
+			
+			if (str.startsWith("ata1-master:")) {
+				ata1m = true;
+			}
+
+			if (str.startsWith("ata1-slave:")) {
+				ata1s = true;
 			}
 			
 			if (str.startsWith("megs:"))

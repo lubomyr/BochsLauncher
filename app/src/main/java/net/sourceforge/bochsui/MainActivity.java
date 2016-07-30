@@ -10,24 +10,21 @@ import android.content.*;
 
 public class MainActivity extends TabActivity 
 {
-	TextView infoView;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-		infoView = (TextView) findViewById(R.id.mainTextView1);
-		
 		try
 		{
 			Config.readConfig();
 		}
 		catch (FileNotFoundException e)
 		{
-			infoView.setText("config not found");
+			Toast.makeText(MainActivity.this, "config not found", Toast.LENGTH_SHORT).show();
 		}
-		infoView.setText("config loaded");
+		Toast.makeText(MainActivity.this, "config loaded", Toast.LENGTH_SHORT).show();
 		
         TabHost tabHost = getTabHost();
 
@@ -44,8 +41,6 @@ public class MainActivity extends TabActivity
         tabHost.addTab(tabSpec);
     }
 	
-
-	
 	public void save(View view) {
 		try
 		{
@@ -53,9 +48,9 @@ public class MainActivity extends TabActivity
 		}
 		catch (IOException e)
 		{
-			infoView.setText("Error, config not saved");
+			Toast.makeText(MainActivity.this, "Error, config not saved", Toast.LENGTH_SHORT).show();
 		}
-		infoView.setText("config saved");
+		Toast.makeText(MainActivity.this, "config saved", Toast.LENGTH_SHORT).show();
 	}
 	
 }

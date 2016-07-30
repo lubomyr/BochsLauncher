@@ -7,35 +7,88 @@
 	android:gravity="center_horizontal">
 
 	<LinearLayout
-		android:layout_width="match_parent"
+		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:orientation="horizontal"
-		android:gravity="center_vertical|center_horizontal"
-		android:layout_marginTop="10dp">
+		android:gravity="center_horizontal">
 
-		<CheckBox
-			android:layout_height="wrap_content"
+		<LinearLayout
 			android:layout_width="wrap_content"
-			android:id="@+id/storageCheckBox1"
-			android:text="Floppy A"/>
+			android:layout_height="match_parent"
+			android:orientation="vertical"
+			android:gravity="center_horizontal">
 
-		<Button
-			style="?android:attr/buttonStyleSmall"
-			android:layout_height="wrap_content"
+			<LinearLayout
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+				android:gravity="center_vertical|center_horizontal">
+
+				<CheckBox
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:id="@+id/storageCheckBoxFloppyA"
+					android:text="Floppy A"/>
+
+				<Button
+					style="?android:attr/buttonStyleSmall"
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:text="browse"
+					android:layout_marginLeft="10dp"
+					android:onClick="browseFloppyA"
+					android:id="@+id/storageButtonFloppyA"/>
+
+			</LinearLayout>
+
+			<TextView
+				android:layout_height="wrap_content"
+				android:textAppearance="?android:attr/textAppearanceMedium"
+				android:layout_width="wrap_content"
+				android:text="floppy A image"
+				android:id="@+id/storageTextViewFloppyA"/>
+
+		</LinearLayout>
+
+		<LinearLayout
 			android:layout_width="wrap_content"
-			android:text="browse"
-			android:layout_marginLeft="10dp"
-			android:onClick="browseFloppyA"
-			android:id="@+id/storageButton1"/>
+			android:layout_height="match_parent"
+			android:orientation="vertical"
+			android:gravity="center_horizontal">
+
+			<LinearLayout
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+				android:gravity="center_vertical|center_horizontal">
+
+				<CheckBox
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:id="@+id/storageCheckBoxFloppyB"
+					android:text="Floppy B"/>
+
+				<Button
+					style="?android:attr/buttonStyleSmall"
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:text="browse"
+					android:layout_marginLeft="10dp"
+					android:onClick="browseFloppyB"
+					android:id="@+id/storageButtonFloppyB"/>
+
+			</LinearLayout>
+
+			<TextView
+				android:layout_height="wrap_content"
+				android:textAppearance="?android:attr/textAppearanceMedium"
+				android:layout_width="wrap_content"
+				android:text="floppy B image"
+				android:id="@+id/storageTextViewFloppyB"/>
+
+		</LinearLayout>
 
 	</LinearLayout>
-
-	<TextView
-		android:layout_height="wrap_content"
-		android:textAppearance="?android:attr/textAppearanceMedium"
-		android:layout_width="wrap_content"
-		android:text="floppy A image"
-		android:id="@+id/storageTextView1"/>
 
 	<LinearLayout
 		android:layout_width="match_parent"
@@ -47,46 +100,15 @@
 		<CheckBox
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
-			android:id="@+id/storageCheckBox2"
-			android:text="Floppy B"/>
-
-		<Button
-			style="?android:attr/buttonStyleSmall"
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:text="browse"
-			android:layout_marginLeft="10dp"
-			android:onClick="browseFloppyB"
-			android:id="@+id/storageButton2"/>
-
-	</LinearLayout>
-
-	<TextView
-		android:layout_height="wrap_content"
-		android:textAppearance="?android:attr/textAppearanceMedium"
-		android:layout_width="wrap_content"
-		android:text="floppy B image"
-		android:id="@+id/storageTextView2"/>
-
-	<LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:orientation="horizontal"
-		android:gravity="center_vertical|center_horizontal"
-		android:layout_marginTop="10dp">
-
-		<CheckBox
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:text="ata0"
-			android:id="@+id/storageCheckBox3"/>
+			android:text="ata0-master"
+			android:id="@+id/storageCheckBoxAta0m"/>
 
 		<Spinner
 			android:layout_height="match_parent"
 			android:layout_width="wrap_content"
 			android:layout_marginRight="10dp"
 			android:layout_marginLeft="10dp"
-			android:id="@+id/storageSpinner1"/>
+			android:id="@+id/storageSpinnerAta0m"/>
 
 		<CheckBox
 			android:layout_height="wrap_content"
@@ -94,23 +116,31 @@
 			android:text="vvfat"
 			android:id="@+id/storageCheckBox5"/>
 
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		android:gravity="center_vertical|center_horizontal">
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_width="wrap_content"
+			android:text="ata0 master image"
+			android:id="@+id/storageTextViewAta0m"/>
+
 		<Button
 			style="?android:attr/buttonStyleSmall"
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:text="browse"
-			android:layout_marginLeft="10dp"
-			android:onClick="browseAta0"
-			android:id="@+id/storageButton3"/>
+			android:onClick="browseAta0m"
+			android:id="@+id/storageButtonAta0m"
+			android:layout_marginLeft="10dp"/>
 
 	</LinearLayout>
-
-	<TextView
-		android:layout_height="wrap_content"
-		android:textAppearance="?android:attr/textAppearanceMedium"
-		android:layout_width="wrap_content"
-		android:text="ata0 image"
-		android:id="@+id/storageTextView3"/>
 
 	<LinearLayout
 		android:layout_width="match_parent"
@@ -122,15 +152,15 @@
 		<CheckBox
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
-			android:text="ata1"
-			android:id="@+id/storageCheckBox4"/>
+			android:text="ata0-slave"
+			android:id="@+id/storageCheckBoxAta0s"/>
 
 		<Spinner
 			android:layout_height="match_parent"
 			android:layout_width="wrap_content"
 			android:layout_marginRight="10dp"
 			android:layout_marginLeft="10dp"
-			android:id="@+id/storageSpinner2"/>
+			android:id="@+id/storageSpinnerAta0s"/>
 
 		<CheckBox
 			android:layout_height="wrap_content"
@@ -138,23 +168,135 @@
 			android:text="vvfat"
 			android:id="@+id/storageCheckBox6"/>
 
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		android:gravity="center_vertical|center_horizontal">
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_width="wrap_content"
+			android:text="ata0 slave image"
+			android:id="@+id/storageTextViewAta0s"/>
+
 		<Button
 			style="?android:attr/buttonStyleSmall"
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:text="browse"
 			android:layout_marginLeft="10dp"
-			android:onClick="browseAta1"
-			android:id="@+id/storageButton4"/>
+			android:onClick="browseAta0s"
+			android:id="@+id/storageButtonAta0s"/>
 
 	</LinearLayout>
 
-	<TextView
+	<LinearLayout
+		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:textAppearance="?android:attr/textAppearanceMedium"
+		android:orientation="horizontal"
+		android:gravity="center_vertical|center_horizontal"
+		android:layout_marginTop="10dp">
+
+		<CheckBox
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="ata1-master"
+			android:id="@+id/storageCheckBoxAta1m"/>
+
+		<Spinner
+			android:layout_height="match_parent"
+			android:layout_width="wrap_content"
+			android:layout_marginRight="10dp"
+			android:layout_marginLeft="10dp"
+			android:id="@+id/storageSpinnerAta1m"/>
+
+		<CheckBox
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="vvfat"
+			android:id="@+id/storageCheckBox5"/>
+
+	</LinearLayout>
+
+	<LinearLayout
 		android:layout_width="wrap_content"
-		android:text="ata1 image"
-		android:id="@+id/storageTextView4"/>
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		android:gravity="center_vertical|center_horizontal">
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_width="wrap_content"
+			android:text="ata1 master image"
+			android:id="@+id/storageTextViewAta1m"/>
+
+		<Button
+			style="?android:attr/buttonStyleSmall"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="browse"
+			android:layout_marginLeft="10dp"
+			android:onClick="browseAta1m"
+			android:id="@+id/storageButtonAta1m"/>
+
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		android:gravity="center_vertical|center_horizontal"
+		android:layout_marginTop="10dp">
+
+		<CheckBox
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="ata1-slave"
+			android:id="@+id/storageCheckBoxAta1s"/>
+
+		<Spinner
+			android:layout_height="match_parent"
+			android:layout_width="wrap_content"
+			android:layout_marginRight="10dp"
+			android:layout_marginLeft="10dp"
+			android:id="@+id/storageSpinnerAta1s"/>
+
+		<CheckBox
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="vvfat"
+			android:id="@+id/storageCheckBox6"/>
+
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		android:gravity="center_vertical|center_horizontal">
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_width="wrap_content"
+			android:text="ata1 slave image"
+			android:id="@+id/storageTextViewAta1s"/>
+
+		<Button
+			style="?android:attr/buttonStyleSmall"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="browse"
+			android:layout_marginLeft="10dp"
+			android:onClick="browseAta1s"
+			android:id="@+id/storageButtonAta1s"/>
+
+	</LinearLayout>
 
 	<LinearLayout
 		android:layout_width="match_parent"
@@ -173,7 +315,7 @@
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:layout_marginLeft="10dp"
-			android:id="@+id/storageSpinner3"/>
+			android:id="@+id/storageSpinnerBoot"/>
 
 	</LinearLayout>
 
