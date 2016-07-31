@@ -21,6 +21,10 @@ public class StorageActivity extends Activity implements TabService {
 	private TextView tvAta0s;
 	private TextView tvAta1m;
 	private TextView tvAta1s;
+	private CheckBox cbVvfatAta0m;
+	private CheckBox cbVvfatAta0s;
+	private CheckBox cbVvfatAta1m;
+	private CheckBox cbVvfatAta1s;
 	private Button btBrowseFloppyA;
 	private Button btBrowseFloppyB;
 	private Button btBrowseAta0m;
@@ -53,15 +57,19 @@ public class StorageActivity extends Activity implements TabService {
 		btBrowseFloppyB = (Button) findViewById(R.id.storageButtonFloppyB);
 		cbAta0m = (CheckBox) findViewById(R.id.storageCheckBoxAta0m);
 		tvAta0m = (TextView) findViewById(R.id.storageTextViewAta0m);
+		cbVvfatAta0m = (CheckBox) findViewById(R.id.storageCheckBoxAta0mVvfat);
 		btBrowseAta0m = (Button) findViewById(R.id.storageButtonAta0m);
 		cbAta0s = (CheckBox) findViewById(R.id.storageCheckBoxAta0s);
 		tvAta0s = (TextView) findViewById(R.id.storageTextViewAta0s);
+		cbVvfatAta0s = (CheckBox) findViewById(R.id.storageCheckBoxAta0sVvfat);
 		btBrowseAta0s = (Button) findViewById(R.id.storageButtonAta0s);
 		cbAta1m = (CheckBox) findViewById(R.id.storageCheckBoxAta1m);
 		tvAta1m = (TextView) findViewById(R.id.storageTextViewAta1m);
+		cbVvfatAta1m = (CheckBox) findViewById(R.id.storageCheckBoxAta1mVvfat);
 		btBrowseAta1m = (Button) findViewById(R.id.storageButtonAta1m);
 		cbAta1s = (CheckBox) findViewById(R.id.storageCheckBoxAta1s);
 		tvAta1s = (TextView) findViewById(R.id.storageTextViewAta1s);
+		cbVvfatAta1s = (CheckBox) findViewById(R.id.storageCheckBoxAta1sVvfat);
 		btBrowseAta1s = (Button) findViewById(R.id.storageButtonAta1s);	
 		cbFloppyA.setChecked(Config.floppyA);
 		tvFloppyA.setText(Config.floppyA_image);
@@ -74,18 +82,22 @@ public class StorageActivity extends Activity implements TabService {
 		cbAta0m.setChecked(Config.ata0m);
 		tvAta0m.setText(Config.ata0m_image);
 		tvAta0m.setEnabled(Config.ata0m);
+		cbVvfatAta0m.setEnabled(Config.ata0m);
 		btBrowseAta0m.setEnabled(Config.ata0m);
 		cbAta0s.setChecked(Config.ata0s);
 		tvAta0s.setText(Config.ata0s_image);
 		tvAta0s.setEnabled(Config.ata0s);
+		cbVvfatAta0s.setEnabled(Config.ata0s);
 		btBrowseAta0s.setEnabled(Config.ata0s);
 		cbAta1m.setChecked(Config.ata1m);
 		tvAta1m.setText(Config.ata1m_image);
 		tvAta1m.setEnabled(Config.ata1m);
+		cbVvfatAta1m.setEnabled(Config.ata1m);
 		btBrowseAta1m.setEnabled(Config.ata1m);
 		cbAta1s.setChecked(Config.ata1s);
 		tvAta1s.setText(Config.ata1s_image);
 		tvAta1s.setEnabled(Config.ata1s);
+		cbVvfatAta1s.setEnabled(Config.ata1s);
 		btBrowseAta1s.setEnabled(Config.ata1s);
 	}
 
@@ -119,6 +131,8 @@ public class StorageActivity extends Activity implements TabService {
 					Config.ata0m = cbAta0m.isChecked();
 					btBrowseAta0m.setEnabled(Config.ata0m);
 					tvAta0m.setEnabled(Config.ata0m);
+					spAta0mType.setEnabled(Config.ata0m);
+					cbVvfatAta0m.setEnabled(Config.ata0m);
 				}
 			}
 		);
@@ -129,6 +143,8 @@ public class StorageActivity extends Activity implements TabService {
 					Config.ata0s = cbAta0s.isChecked();
 					btBrowseAta0s.setEnabled(Config.ata0s);
 					tvAta0s.setEnabled(Config.ata0s);
+					spAta0sType.setEnabled(Config.ata0s);
+					cbVvfatAta0s.setEnabled(Config.ata0s);
 				}
 			}
 		);
@@ -139,6 +155,8 @@ public class StorageActivity extends Activity implements TabService {
 					Config.ata1m = cbAta1m.isChecked();
 					btBrowseAta1m.setEnabled(Config.ata1m);
 					tvAta1m.setEnabled(Config.ata1m);
+					spAta1mType.setEnabled(Config.ata1m);
+					cbVvfatAta1m.setEnabled(Config.ata1m);
 				}
 			}
 		);
@@ -149,6 +167,8 @@ public class StorageActivity extends Activity implements TabService {
 					Config.ata1s = cbAta1s.isChecked();
 					btBrowseAta1s.setEnabled(Config.ata1s);
 					tvAta1s.setEnabled(Config.ata1s);
+					spAta1sType.setEnabled(Config.ata1s);
+					cbVvfatAta1s.setEnabled(Config.ata1s);
 				}
 			}
 		);
@@ -162,6 +182,10 @@ public class StorageActivity extends Activity implements TabService {
 		spAta1mType = (Spinner) findViewById(R.id.storageSpinnerAta1m);
 		spAta1sType = (Spinner) findViewById(R.id.storageSpinnerAta1s);
 		spBoot = (Spinner) findViewById(R.id.storageSpinnerBoot);
+		spAta0mType.setEnabled(Config.ata0m);
+		spAta0sType.setEnabled(Config.ata0s);
+		spAta1mType.setEnabled(Config.ata1m);
+		spAta1sType.setEnabled(Config.ata1s);
 		SpinnerAdapter adapterType = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, typeList);
 		SpinnerAdapter adapterBoot = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, bootList);
 		spAta0mType.setAdapter(adapterType);

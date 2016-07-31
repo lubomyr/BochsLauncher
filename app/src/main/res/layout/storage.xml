@@ -95,7 +95,7 @@
 		android:layout_height="wrap_content"
 		android:orientation="horizontal"
 		android:gravity="center_vertical|center_horizontal"
-		android:layout_marginTop="10dp">
+		android:layout_marginTop="5dp">
 
 		<CheckBox
 			android:layout_height="wrap_content"
@@ -114,7 +114,7 @@
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:text="vvfat"
-			android:id="@+id/storageCheckBox5"/>
+			android:id="@+id/storageCheckBoxAta0mVvfat"/>
 
 	</LinearLayout>
 
@@ -147,7 +147,7 @@
 		android:layout_height="wrap_content"
 		android:orientation="horizontal"
 		android:gravity="center_vertical|center_horizontal"
-		android:layout_marginTop="10dp">
+		android:layout_marginTop="5dp">
 
 		<CheckBox
 			android:layout_height="wrap_content"
@@ -166,7 +166,7 @@
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:text="vvfat"
-			android:id="@+id/storageCheckBox6"/>
+			android:id="@+id/storageCheckBoxAta0sVvfat"/>
 
 	</LinearLayout>
 
@@ -199,7 +199,7 @@
 		android:layout_height="wrap_content"
 		android:orientation="horizontal"
 		android:gravity="center_vertical|center_horizontal"
-		android:layout_marginTop="10dp">
+		android:layout_marginTop="5dp">
 
 		<CheckBox
 			android:layout_height="wrap_content"
@@ -218,7 +218,7 @@
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:text="vvfat"
-			android:id="@+id/storageCheckBox5"/>
+			android:id="@+id/storageCheckBoxAta1mVvfat"/>
 
 	</LinearLayout>
 
@@ -251,7 +251,7 @@
 		android:layout_height="wrap_content"
 		android:orientation="horizontal"
 		android:gravity="center_vertical|center_horizontal"
-		android:layout_marginTop="10dp">
+		android:layout_marginTop="5dp">
 
 		<CheckBox
 			android:layout_height="wrap_content"
@@ -270,7 +270,7 @@
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:text="vvfat"
-			android:id="@+id/storageCheckBox6"/>
+			android:id="@+id/storageCheckBoxAta1sVvfat"/>
 
 	</LinearLayout>
 
@@ -303,7 +303,7 @@
 		android:layout_height="wrap_content"
 		android:orientation="horizontal"
 		android:gravity="center_vertical|center_horizontal"
-		android:layout_marginTop="20dp">
+		android:layout_marginTop="10dp">
 
 		<TextView
 			android:layout_height="wrap_content"
