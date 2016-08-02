@@ -16,7 +16,8 @@
 			android:layout_width="wrap_content"
 			android:layout_height="match_parent"
 			android:orientation="vertical"
-			android:gravity="center_horizontal">
+			android:gravity="center_horizontal"
+			android:background="@drawable/my_border">
 
 			<LinearLayout
 				android:layout_width="wrap_content"
@@ -54,7 +55,8 @@
 			android:layout_width="wrap_content"
 			android:layout_height="match_parent"
 			android:orientation="vertical"
-			android:gravity="center_horizontal">
+			android:gravity="center_horizontal"
+			android:background="@drawable/my_border">
 
 			<LinearLayout
 				android:layout_width="wrap_content"
@@ -89,13 +91,20 @@
 		</LinearLayout>
 
 	</LinearLayout>
+	
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		android:gravity="center_vertical|center_horizontal"
+		android:background="@drawable/my_border"
+		android:layout_marginTop="5dp">
 
 	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:orientation="horizontal"
-		android:gravity="center_vertical|center_horizontal"
-		android:layout_marginTop="5dp">
+		android:gravity="center_vertical|center_horizontal">
 
 		<CheckBox
 			android:layout_height="wrap_content"
@@ -141,13 +150,22 @@
 			android:layout_marginLeft="10dp"/>
 
 	</LinearLayout>
+	
+	</LinearLayout>
+	
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		android:gravity="center_vertical|center_horizontal"
+		android:background="@drawable/my_border"
+		android:layout_marginTop="5dp">
 
 	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:orientation="horizontal"
-		android:gravity="center_vertical|center_horizontal"
-		android:layout_marginTop="5dp">
+		android:gravity="center_vertical|center_horizontal">
 
 		<CheckBox
 			android:layout_height="wrap_content"
@@ -193,13 +211,22 @@
 			android:id="@+id/storageButtonAta0s"/>
 
 	</LinearLayout>
+	
+	</LinearLayout>
+	
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		android:gravity="center_vertical|center_horizontal"
+		android:background="@drawable/my_border"
+		android:layout_marginTop="5dp">
 
 	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:orientation="horizontal"
-		android:gravity="center_vertical|center_horizontal"
-		android:layout_marginTop="5dp">
+		android:gravity="center_vertical|center_horizontal">
 
 		<CheckBox
 			android:layout_height="wrap_content"
@@ -245,13 +272,22 @@
 			android:id="@+id/storageButtonAta1m"/>
 
 	</LinearLayout>
+	
+	</LinearLayout>
+	
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		android:gravity="center_vertical|center_horizontal"
+		android:background="@drawable/my_border"
+		android:layout_marginTop="5dp">
 
 	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:orientation="horizontal"
-		android:gravity="center_vertical|center_horizontal"
-		android:layout_marginTop="5dp">
+		android:gravity="center_vertical|center_horizontal">
 
 		<CheckBox
 			android:layout_height="wrap_content"
@@ -297,13 +333,16 @@
 			android:id="@+id/storageButtonAta1s"/>
 
 	</LinearLayout>
+	
+	</LinearLayout>
 
 	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:orientation="horizontal"
 		android:gravity="center_vertical|center_horizontal"
-		android:layout_marginTop="10dp">
+		android:background="@drawable/my_border"
+		android:layout_marginTop="5dp">
 
 		<TextView
 			android:layout_height="wrap_content"
