@@ -13,6 +13,7 @@ import java.io.*;
 import android.widget.*;
 import android.view.*;
 import android.util.*;
+import android.content.*;
 
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener
 {
@@ -128,6 +129,20 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			});
 
     }
+	
+	public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+    }
+	
+	public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.start) {
+            save(null);
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     public void onTabReselected(Tab tab, FragmentTransaction ft)
@@ -158,6 +173,12 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			Toast.makeText(MainActivity.this, "Error, config not saved", Toast.LENGTH_SHORT).show();
 		}
 		Toast.makeText(MainActivity.this, "config saved", Toast.LENGTH_SHORT).show();
+		
+		// run bochs app
+		/*ComponentName cn = new ComponentName("net.sourceforge.bochs", "net.sourceforge.bochs.MainActivity");
+		Intent intent = new Intent();
+		intent.setComponent(cn);
+		startActivity(intent);*/
 	}
 
 	public void applyTabStorage()
@@ -185,30 +206,30 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		cbVvfatAta1s = (CheckBox) findViewById(R.id.storageCheckBoxAta1sVvfat);
 		btBrowseAta1s = (Button) findViewById(R.id.storageButtonAta1s);	
 		cbFloppyA.setChecked(Config.floppyA);
-		tvFloppyA.setText(Config.floppyA_image);
+		tvFloppyA.setText(getFileName(Config.floppyA_image));
 		tvFloppyA.setEnabled(Config.floppyA);
 		btBrowseFloppyA.setEnabled(Config.floppyA);
 		cbFloppyB.setChecked(Config.floppyB);
-		tvFloppyB.setText(Config.floppyB_image);
+		tvFloppyB.setText(getFileName(Config.floppyB_image));
 		tvFloppyB.setEnabled(Config.floppyB);
 		btBrowseFloppyB.setEnabled(Config.floppyB);
 		cbAta0m.setChecked(Config.ata0m);
-		tvAta0m.setText(Config.ata0m_image);
+		tvAta0m.setText(getFileName(Config.ata0m_image));
 		tvAta0m.setEnabled(Config.ata0m);
 		cbVvfatAta0m.setEnabled(Config.ata0m);
 		btBrowseAta0m.setEnabled(Config.ata0m);
 		cbAta0s.setChecked(Config.ata0s);
-		tvAta0s.setText(Config.ata0s_image);
+		tvAta0s.setText(getFileName(Config.ata0s_image));
 		tvAta0s.setEnabled(Config.ata0s);
 		cbVvfatAta0s.setEnabled(Config.ata0s);
 		btBrowseAta0s.setEnabled(Config.ata0s);
 		cbAta1m.setChecked(Config.ata1m);
-		tvAta1m.setText(Config.ata1m_image);
+		tvAta1m.setText(getFileName(Config.ata1m_image));
 		tvAta1m.setEnabled(Config.ata1m);
 		cbVvfatAta1m.setEnabled(Config.ata1m);
 		btBrowseAta1m.setEnabled(Config.ata1m);
 		cbAta1s.setChecked(Config.ata1s);
-		tvAta1s.setText(Config.ata1s_image);
+		tvAta1s.setText(getFileName(Config.ata1s_image));
 		tvAta1s.setEnabled(Config.ata1s);
 		cbVvfatAta1s.setEnabled(Config.ata1s);
 		btBrowseAta1s.setEnabled(Config.ata1s);
@@ -490,14 +511,24 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		tvRomImage = (TextView) findViewById(R.id.miscTextViewRomImage);
 		tvVgaRomImage = (TextView) findViewById(R.id.miscTextViewVgaRomImage);
 		editMegs = (EditText) findViewById(R.id.miscEditText1);
-		tvRomImage.setText(Config.romImage);
-		tvVgaRomImage.setText(Config.vgaRomImage);
+		tvRomImage.setText(getFileName(Config.romImage));
+		tvVgaRomImage.setText(getFileName(Config.vgaRomImage));
 		editMegs.setText(String.valueOf(Config.megs));
 	}
 
 	public void setupTabMisc()
 	{
 		Config.megs = Integer.parseInt(editMegs.getText().toString());
+	}
+	
+	private String getFileName(String path) {
+		String result;
+		if (path.contains("/")) {
+			result = path.substring(path.lastIndexOf("/")+1, path.length());
+		} else {
+			result = path;
+		}
+		return result;
 	}
 
 }

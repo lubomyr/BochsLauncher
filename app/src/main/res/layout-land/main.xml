@@ -5,12 +5,6 @@
 	android:layout_width="wrap_content"
 	android:orientation="vertical">
 
-	<Button
-		android:layout_height="wrap_content"
-		android:layout_width="match_parent"
-		android:text="Start"
-		android:onClick="save"/>
-
 	<android.support.v4.view.ViewPager
 		android:id="@+id/pager"
 		android:layout_width="match_parent"
