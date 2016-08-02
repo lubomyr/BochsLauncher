@@ -317,7 +317,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	public void setupSpinnersStorage()
 	{
 		String[] typeList = {"disk", "cdrom"};
-		String[] bootList = {"disk", "cdrom"};
+		String[] bootList = {"disk", "cdrom", "floppy"};
 		spAta0mType = (Spinner) findViewById(R.id.storageSpinnerAta0m);
 		spAta0sType = (Spinner) findViewById(R.id.storageSpinnerAta0s);
 		spAta1mType = (Spinner) findViewById(R.id.storageSpinnerAta1m);

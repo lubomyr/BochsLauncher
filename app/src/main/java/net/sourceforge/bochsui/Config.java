@@ -27,9 +27,18 @@ public class Config
 	public static String ata1sMode="";
 	public static String boot="disk";
 	
-	public static String romImage="";
-	public static String vgaRomImage="";
+	public static String romImage="BIOS-bochs-latest";
+	public static String vgaRomImage="VGABIOS-lgpl-latest-cirrus";
 	public static int megs=32;
+	public static String vgaExtension="cirrus";
+	public static int vgaUpdateFreq=15;
+	public static String chipset="";
+	public static String slot1="";
+	public static String slot2="";
+	public static String slot3="";
+	public static String cpuModel="bx_generic";
+	public static String mac="";
+	public static String ethmod="";
 
 	final static String path = "/storage/sdcard0/Android/data/net.sourceforge.bochs/files/bochsrc.txt";
 	static String configFile;
@@ -158,7 +167,7 @@ public class Config
 			}
 			
 			if (str.startsWith("boot:")) {
-				boot = str.substring(6, str.length());
+				boot = str.substring(6, str.length()-1);
 			}
 			
 			if (str.startsWith("romimage:"))
@@ -181,6 +190,72 @@ public class Config
 				}
 			}
 			
+			if (str.startsWith("vga:")) {
+				if (str.contains("extension="))
+				{
+					String str2 = str.substring(str.indexOf("extension="), str.length() - 1);
+					vgaExtension = str2.contains(",") ?
+					    str2.substring(10, str2.indexOf(",")) : str2.substring(10, str2.length());			
+				}
+				if (str.contains("update_freq="))
+				{
+					String str2 = str.substring(str.indexOf("update_freq="), str.length() - 1);
+					vgaUpdateFreq = str2.contains(",") ?
+					    Integer.parseInt(str2.substring(12, str2.indexOf(","))) : Integer.parseInt(str2.substring(12, str2.length()));			
+				}
+			}
+			
+			if (str.startsWith("pci:")) {
+				if (str.contains("chipset="))
+				{
+					String str2 = str.substring(str.indexOf("chipset="), str.length() - 1);
+					chipset = str2.contains(",") ?
+					    str2.substring(8, str2.indexOf(",")) : str2.substring(8, str2.length());			
+				}
+				if (str.contains("slot1="))
+				{
+					String str2 = str.substring(str.indexOf("slot1="), str.length() - 1);
+					slot1 = str2.contains(",") ?
+					    str2.substring(6, str2.indexOf(",")) : str2.substring(6, str2.length());			
+				}
+				if (str.contains("slot2="))
+				{
+					String str2 = str.substring(str.indexOf("slot2="), str.length() - 1);
+					slot2 = str2.contains(",") ?
+					    str2.substring(6, str2.indexOf(",")) : str2.substring(6, str2.length());			
+				}
+				if (str.contains("slot3="))
+				{
+					String str2 = str.substring(str.indexOf("slot3="), str.length() - 1);
+					slot3 = str2.contains(",") ?
+					    str2.substring(6, str2.indexOf(",")) : str2.substring(6, str2.length());			
+				}
+			}
+			
+			if (str.startsWith("cpu:")) {
+				if (str.contains("model="))
+				{
+					String str2 = str.substring(str.indexOf("model="), str.length() - 1);
+					cpuModel = str2.contains(",") ?
+					    str2.substring(6, str2.indexOf(",")) : str2.substring(6, str2.length());			
+				}
+			}
+			
+			if (str.startsWith("ne2k:")) {
+				if (str.contains("mac="))
+				{
+					String str2 = str.substring(str.indexOf("mac="), str.length() - 1);
+					mac = str2.contains(",") ?
+					    str2.substring(4, str2.indexOf(",")) : str2.substring(4, str2.length());			
+				}
+				if (str.contains("ethmod="))
+				{
+					String str2 = str.substring(str.indexOf("ethmod="), str.length() - 1);
+					ethmod = str2.contains(",") ?
+					    str2.substring(7, str2.indexOf(",")) : str2.substring(7, str2.length());			
+				}
+			}
+			
 			if (str.startsWith("megs:"))
 			{
 				megs = Integer.parseInt(str.substring(6, str.length() - 1));
@@ -197,6 +272,20 @@ public class Config
 		FileWriter fw = new FileWriter(file);
 		fw.write("romimage: file=" + romImage + "\n");
 		fw.write("vgaromimage: file=" + vgaRomImage + "\n");
+		fw.write("cpu: model=" + cpuModel + "\n");
+		fw.write("vga: extension=" + vgaExtension + ", update_freq=" + vgaUpdateFreq + "\n");
+		fw.write("pci: enabled=1, chipset=" + chipset);
+		if (!slot1.equals("")) {
+			fw.write(", slot1=" + slot1);
+		}
+		if (!slot2.equals("")) {
+			fw.write(", slot2=" + slot2);
+		}
+		if (!slot3.equals("")) {
+			fw.write(", slot3=" + slot3);
+		}
+		fw.write("\n");
+		fw.write("ne2k: irq=10, mac=" + mac + ", ethmod=" + ethmod + "\n");
 		if (floppyA) {
 			fw.write("floppya: 1_44=" + floppyA_image + ", status=inserted\n");
 		}
@@ -206,18 +295,58 @@ public class Config
 		fw.write("ata0: enabled=1, ioaddr1=0x1f0, ioaddr2=0x3f0, irq=14\n");
 		fw.write("ata1: enabled=1, ioaddr1=0x170, ioaddr2=0x370, irq=15\n");
 		if (ata0m) {
-			fw.write("ata0-master: type=" + ata0mType + ", mode=" + ata0mMode + ", path=\"" + ata0m_image + "\"\n");
+			fw.write("ata0-master: type=" + ata0mType);
+			if (ata0mType.equals("cdrom")) {
+				fw.write(", status=inserted");
+			}
+			if (!ata0mMode.equals("")) {
+				fw.write(", mode=" + ata0mMode);
+			}
+			fw.write(", path=\"" + ata0m_image + "\"\n");
 		}
 		if (ata0s) {
-			fw.write("ata0-slave: type=" + ata0sType + ", mode=" + ata0sMode + ", path=\"" + ata0s_image + "\"\n");
+			fw.write("ata0-slave: type=" + ata0sType);
+			if (ata0sType.equals("cdrom")) {
+				fw.write(", status=inserted");
+			}
+			if (!ata0sMode.equals("")) {
+				fw.write(", mode=" + ata0sMode);
+			}
+			fw.write(", path=\"" + ata0s_image + "\"\n");
 		}
 		if (ata1m) {
-			fw.write("ata1-master: type=" + ata1mType + ", mode=" + ata1mMode + ", path=\"" + ata1m_image + "\"\n");
+			fw.write("ata1-master: type=" + ata1mType);
+			if (ata1mType.equals("cdrom")) {
+				fw.write(", status=inserted");
+			}
+			if (!ata1mMode.equals("")) {
+				fw.write(", mode=" + ata1mMode);
+			}
+			fw.write(", path=\"" + ata1m_image + "\"\n");
 		}
 		if (ata1s) {
-			fw.write("ata1-slave: type=" + ata1sType + ", mode=" + ata1sMode + ", path=\"" + ata1s_image + "\"\n");
+			fw.write("ata1-slave: type=" + ata1sType);
+			if (ata1sType.equals("cdrom")) {
+				fw.write(", status=inserted");
+			}
+			if (!ata1sMode.equals("")) {
+				fw.write(", mode=" + ata1sMode);
+			}
+			fw.write(", path=\"" + ata1s_image + "\"\n");
 		}
-		fw.write("boot: " + boot);
+		fw.write("boot: " + boot + "\n");
+		fw.write("megs: " + megs + "\n");
+		fw.write("sound: waveoutdrv=sdl\n");
+		fw.write("speaker: enabled=1, mode=sound\n");
+		fw.write("sb16: wavemode=1, dmatimer=500000\n");
+		fw.write("es1370: enabled=1\n");
+		fw.write("mouse: enabled=1\n");
+		fw.write("clock: time0=local\n");
+		fw.write("debug: action=ignore\n");
+		fw.write("info: action=ignore\n");
+		fw.write("error: action=ignore\n");
+		fw.write("panic: action=report\n");
+		fw.write("log: bochsout.txt\n");
 		fw.close();
 	}
 }
