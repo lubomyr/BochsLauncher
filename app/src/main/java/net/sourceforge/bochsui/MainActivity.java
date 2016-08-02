@@ -44,6 +44,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	private Spinner spAta1sType;
 	private Spinner spBoot;
 
+	private Button btRomImage;
+	private Button btVgaRomImage;
+	private TextView tvRomImage;
+	private TextView tvVgaRomImage;
 	private EditText editMegs;
 
     private ViewPager viewPager;
@@ -321,7 +325,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 					// ....do something with the file
 					String filename = file.getAbsolutePath();
 					Log.d("File", filename);
-					tvFloppyA.setText(filename);
+					tvFloppyA.setText(file.getName());
 					Config.floppyA_image = filename;
 					// then actually do something in another module
 
@@ -342,7 +346,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 					// ....do something with the file
 					String filename = file.getAbsolutePath();
 					Log.d("File", filename);
-					tvFloppyB.setText(filename);
+					tvFloppyB.setText(file.getName());
 					Config.floppyB_image = filename;
 					// then actually do something in another module
 
@@ -363,7 +367,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 					// ....do something with the file
 					String filename = file.getAbsolutePath();
 					Log.d("File", filename);
-					tvAta0m.setText(filename);
+					tvAta0m.setText(file.getName());
 					Config.ata0m_image = filename;
 					// then actually do something in another module
 
@@ -384,7 +388,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 					// ....do something with the file
 					String filename = file.getAbsolutePath();
 					Log.d("File", filename);
-					tvAta0s.setText(filename);
+					tvAta0s.setText(file.getName());
 					Config.ata0s_image = filename;
 					// then actually do something in another module
 
@@ -405,7 +409,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 					// ....do something with the file
 					String filename = file.getAbsolutePath();
 					Log.d("File", filename);
-					tvAta1m.setText(filename);
+					tvAta1m.setText(file.getName());
 					Config.ata1m_image = filename;
 					// then actually do something in another module
 
@@ -426,8 +430,50 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 					// ....do something with the file
 					String filename = file.getAbsolutePath();
 					Log.d("File", filename);
-					tvAta1s.setText(filename);
+					tvAta1s.setText(file.getName());
 					Config.ata1s_image = filename;
+					// then actually do something in another module
+
+				}
+			});
+        // Set up and filter my extension I am looking for
+		//filechooser.setExtension("img");
+		filechooser.showDialog();
+	}
+	
+	public void browseRomImage(View view)
+	{
+		FileChooser filechooser = new FileChooser(MainActivity.this);
+		filechooser.setFileListener(new FileChooser.FileSelectedListener() {
+				@Override
+				public void fileSelected(final File file)
+				{
+					// ....do something with the file
+					String filename = file.getAbsolutePath();
+					Log.d("File", filename);
+					tvRomImage.setText(file.getName());
+					Config.romImage = filename;
+					// then actually do something in another module
+
+				}
+			});
+        // Set up and filter my extension I am looking for
+		//filechooser.setExtension("img");
+		filechooser.showDialog();
+	}
+	
+	public void browseVgaRomImage(View view)
+	{
+		FileChooser filechooser = new FileChooser(MainActivity.this);
+		filechooser.setFileListener(new FileChooser.FileSelectedListener() {
+				@Override
+				public void fileSelected(final File file)
+				{
+					// ....do something with the file
+					String filename = file.getAbsolutePath();
+					Log.d("File", filename);
+					tvVgaRomImage.setText(file.getName());
+					Config.vgaRomImage = filename;
 					// then actually do something in another module
 
 				}
@@ -439,7 +485,13 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
 	public void applyTabMisc()
 	{
+		btRomImage = (Button) findViewById(R.id.miscButtonRomImage);
+		btVgaRomImage = (Button) findViewById(R.id.miscButtonVgaRomImage);
+		tvRomImage = (TextView) findViewById(R.id.miscTextViewRomImage);
+		tvVgaRomImage = (TextView) findViewById(R.id.miscTextViewVgaRomImage);
 		editMegs = (EditText) findViewById(R.id.miscEditText1);
+		tvRomImage.setText(Config.romImage);
+		tvVgaRomImage.setText(Config.vgaRomImage);
 		editMegs.setText(String.valueOf(Config.megs));
 	}
 

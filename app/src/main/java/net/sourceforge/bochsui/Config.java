@@ -176,7 +176,7 @@ public class Config
 				if (str.contains("file="))
 				{
 					String str2 = str.substring(str.indexOf("file="), str.length() - 1);
-					romImage = str2.contains(",") ?
+					vgaRomImage = str2.contains(",") ?
 					    str2.substring(5, str2.indexOf(",")) : str2.substring(5, str2.length());			
 				}
 			}

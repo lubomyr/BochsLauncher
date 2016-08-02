@@ -13,6 +13,56 @@
 		android:gravity="center_vertical|center_horizontal"
 		android:layout_marginTop="10dp">
 
+		<Button
+			style="?android:attr/buttonStyleSmall"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="rom image"
+			android:id="@+id/miscButtonRomImage"
+			android:onClick="browseRomImage"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_width="wrap_content"
+			android:text="rom image"
+			android:layout_marginLeft="10dp"
+			android:id="@+id/miscTextViewRomImage"/>
+
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		android:gravity="center_vertical|center_horizontal"
+		android:layout_marginTop="10dp">
+
+		<Button
+			style="?android:attr/buttonStyleSmall"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="vga rom image"
+			android:id="@+id/miscButtonVgaRomImage"
+			android:onClick="browseVgaRomImage"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_width="wrap_content"
+			android:text="vga rom image"
+			android:layout_marginLeft="10dp"
+			android:id="@+id/miscTextViewVgaRomImage"/>
+
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		android:gravity="center_vertical|center_horizontal"
+		android:layout_marginTop="10dp">
+
 		<TextView
 			android:layout_height="wrap_content"
 			android:textAppearance="?android:attr/textAppearanceMedium"
@@ -22,6 +72,7 @@
 
 		<EditText
 			android:layout_height="wrap_content"
+			android:inputType="number"
 			android:layout_width="wrap_content"
 			android:ems="10"
 			android:id="@+id/miscEditText1"/>
