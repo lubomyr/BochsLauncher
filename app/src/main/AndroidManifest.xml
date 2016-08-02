@@ -18,12 +18,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-		<activity
-            android:name=".StorageActivity">
-        </activity>
-        <activity
-            android:name=".MiscActivity">
-        </activity>
     </application>
 
 </manifest>

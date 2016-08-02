@@ -26,10 +26,14 @@ public class Config
 	public static String ata1mMode="";
 	public static String ata1sMode="";
 	public static String boot="disk";
+	
+	public static String romImage="";
+	public static String vgaRomImage="";
 	public static int megs=32;
 
 	final static String path = "/storage/sdcard0/Android/data/net.sourceforge.bochs/files/bochsrc.txt";
 	static String configFile;
+	static boolean configLoaded = false;
 
 	public static void readConfig() throws FileNotFoundException
 	{
@@ -157,6 +161,26 @@ public class Config
 				boot = str.substring(6, str.length());
 			}
 			
+			if (str.startsWith("romimage:"))
+			{
+				if (str.contains("file="))
+				{
+					String str2 = str.substring(str.indexOf("file="), str.length() - 1);
+					romImage = str2.contains(",") ?
+					    str2.substring(5, str2.indexOf(",")) : str2.substring(5, str2.length());			
+				}
+			}
+			
+			if (str.startsWith("vgaromimage:"))
+			{
+				if (str.contains("file="))
+				{
+					String str2 = str.substring(str.indexOf("file="), str.length() - 1);
+					romImage = str2.contains(",") ?
+					    str2.substring(5, str2.indexOf(",")) : str2.substring(5, str2.length());			
+				}
+			}
+			
 			if (str.startsWith("megs:"))
 			{
 				megs = Integer.parseInt(str.substring(6, str.length() - 1));
@@ -171,6 +195,8 @@ public class Config
 	{
 		File file = new File(path+".2");
 		FileWriter fw = new FileWriter(file);
+		fw.write("romimage: file=" + romImage + "\n");
+		fw.write("vgaromimage: file=" + vgaRomImage + "\n");
 		if (floppyA) {
 			fw.write("floppya: 1_44=" + floppyA_image + ", status=inserted\n");
 		}
