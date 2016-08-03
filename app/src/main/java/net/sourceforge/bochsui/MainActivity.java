@@ -384,7 +384,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
 	public void browseAta1s(View view)
 	{
-		if (cbVvfatAta0s.isChecked()) {
+		if (cbVvfatAta1s.isChecked()) {
 			dirSelection(3);
 		} else {
 			fileSelection(3);
