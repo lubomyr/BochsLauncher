@@ -15,6 +15,8 @@ import android.view.*;
 import android.util.*;
 import android.content.*;
 import android.text.*;
+import java.util.*;
+import android.widget.AdapterView.*;
 
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener
 {
@@ -324,8 +326,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
 	public void setupSpinnersStorage()
 	{
-		String[] typeList = {"disk", "cdrom"};
-		String[] bootList = {"disk", "cdrom", "floppy"};
+		final List typeList = Arrays.asList("disk", "cdrom");
+		final List bootList = Arrays.asList("disk", "cdrom", "floppy");
 		spAta0mType = (Spinner) findViewById(R.id.storageSpinnerAta0m);
 		spAta0sType = (Spinner) findViewById(R.id.storageSpinnerAta0s);
 		spAta1mType = (Spinner) findViewById(R.id.storageSpinnerAta1m);
@@ -342,6 +344,86 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		spAta1mType.setAdapter(adapterType);
 		spAta1sType.setAdapter(adapterType);
 		spBoot.setAdapter(adapterBoot);
+		spAta0mType.setSelection(typeList.indexOf(Config.ata0mType));
+		spAta0sType.setSelection(typeList.indexOf(Config.ata0sType));
+		spAta1mType.setSelection(typeList.indexOf(Config.ata1mType));
+		spAta1sType.setSelection(typeList.indexOf(Config.ata1sType));
+		spBoot.setSelection(bootList.indexOf(Config.boot));
+		
+		spAta0mType.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+				@Override
+				public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4)
+				{
+					Config.ata0mType = (String) typeList.get(p3);
+				}
+
+				@Override
+				public void onNothingSelected(AdapterView<?> p1)
+				{
+					// TODO: Implement this method
+				}
+			});
+			
+		spAta0sType.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+				@Override
+				public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4)
+				{
+					Config.ata0sType = (String) typeList.get(p3);
+				}
+
+				@Override
+				public void onNothingSelected(AdapterView<?> p1)
+				{
+					// TODO: Implement this method
+				}
+			});
+			
+		spAta1mType.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+				@Override
+				public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4)
+				{
+					Config.ata1mType = (String) typeList.get(p3);
+				}
+
+				@Override
+				public void onNothingSelected(AdapterView<?> p1)
+				{
+					// TODO: Implement this method
+				}
+			});
+			
+		spAta1sType.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+				@Override
+				public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4)
+				{
+					Config.ata1sType = (String) typeList.get(p3);
+				}
+
+				@Override
+				public void onNothingSelected(AdapterView<?> p1)
+				{
+					// TODO: Implement this method
+				}
+			});
+			
+		spBoot.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+				@Override
+				public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4)
+				{
+					Config.boot = (String) bootList.get(p3);
+				}
+
+				@Override
+				public void onNothingSelected(AdapterView<?> p1)
+				{
+					// TODO: Implement this method
+				}
+			});
 	}
 
 	public void browseFloppyA(View view)
