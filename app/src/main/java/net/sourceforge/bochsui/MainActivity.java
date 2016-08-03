@@ -14,6 +14,7 @@ import android.widget.*;
 import android.view.*;
 import android.util.*;
 import android.content.*;
+import android.text.*;
 
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener
 {
@@ -56,7 +57,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     private ActionBar actionBar;
     // Tab titles
     private String[] tabs = { "Storage", "Misc" };
-
+	
+	private String m_chosenDir = "";
+	private boolean m_newFolderEnabled = true;
+	
     @Override
     protected void onCreate(Bundle savedInstanceState)
 	{
@@ -119,6 +123,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 					else if (arg0 == 1)
 					{
 						applyTabMisc();
+						setupTabMisc();
 					}
 				}
 
@@ -129,16 +134,19 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			});
 
     }
-	
-	public boolean onCreateOptionsMenu(Menu menu) {
+
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
         return true;
     }
-	
-	public boolean onOptionsItemSelected(MenuItem item) {
+
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
         int id = item.getItemId();
-        if (id == R.id.start) {
+        if (id == R.id.start)
+		{
             save(null);
         }
         return super.onOptionsItemSelected(item);
@@ -173,12 +181,12 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			Toast.makeText(MainActivity.this, "Error, config not saved", Toast.LENGTH_SHORT).show();
 		}
 		Toast.makeText(MainActivity.this, "config saved", Toast.LENGTH_SHORT).show();
-		
+
 		// run bochs app
 		/*ComponentName cn = new ComponentName("net.sourceforge.bochs", "net.sourceforge.bochs.MainActivity");
-		Intent intent = new Intent();
-		intent.setComponent(cn);
-		startActivity(intent);*/
+		 Intent intent = new Intent();
+		 intent.setComponent(cn);
+		 startActivity(intent);*/
 	}
 
 	public void applyTabStorage()
@@ -338,170 +346,59 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
 	public void browseFloppyA(View view)
 	{
-		FileChooser filechooser = new FileChooser(MainActivity.this);
-		filechooser.setFileListener(new FileChooser.FileSelectedListener() {
-				@Override
-				public void fileSelected(final File file)
-				{
-					// ....do something with the file
-					String filename = file.getAbsolutePath();
-					Log.d("File", filename);
-					tvFloppyA.setText(file.getName());
-					Config.floppyA_image = filename;
-					// then actually do something in another module
-
-				}
-			});
-        // Set up and filter my extension I am looking for
-		//filechooser.setExtension("img");
-		filechooser.showDialog();
+		fileSelection(4);
 	}
 
 	public void browseFloppyB(View view)
 	{
-		FileChooser filechooser = new FileChooser(MainActivity.this);
-		filechooser.setFileListener(new FileChooser.FileSelectedListener() {
-				@Override
-				public void fileSelected(final File file)
-				{
-					// ....do something with the file
-					String filename = file.getAbsolutePath();
-					Log.d("File", filename);
-					tvFloppyB.setText(file.getName());
-					Config.floppyB_image = filename;
-					// then actually do something in another module
-
-				}
-			});
-        // Set up and filter my extension I am looking for
-		//filechooser.setExtension("img");
-		filechooser.showDialog();
+		fileSelection(5);
 	}
-
-	public void browseAta0m(View view)
-	{
-		FileChooser filechooser = new FileChooser(MainActivity.this);
-		filechooser.setFileListener(new FileChooser.FileSelectedListener() {
-				@Override
-				public void fileSelected(final File file)
-				{
-					// ....do something with the file
-					String filename = file.getAbsolutePath();
-					Log.d("File", filename);
-					tvAta0m.setText(file.getName());
-					Config.ata0m_image = filename;
-					// then actually do something in another module
-
-				}
-			});
-        // Set up and filter my extension I am looking for
-		//filechooser.setExtension("img");
-		filechooser.showDialog();
+	
+	public void browseAta0m(View view) {
+		
+		if (cbVvfatAta0m.isChecked()) {
+			dirSelection(0);
+		} else {
+			fileSelection(0);
+		}
+		
 	}
 
 	public void browseAta0s(View view)
 	{
-		FileChooser filechooser = new FileChooser(MainActivity.this);
-		filechooser.setFileListener(new FileChooser.FileSelectedListener() {
-				@Override
-				public void fileSelected(final File file)
-				{
-					// ....do something with the file
-					String filename = file.getAbsolutePath();
-					Log.d("File", filename);
-					tvAta0s.setText(file.getName());
-					Config.ata0s_image = filename;
-					// then actually do something in another module
-
-				}
-			});
-        // Set up and filter my extension I am looking for
-		//filechooser.setExtension("img");
-		filechooser.showDialog();
+		if (cbVvfatAta0s.isChecked()) {
+			dirSelection(1);
+		} else {
+			fileSelection(1);
+		}
 	}
 
 	public void browseAta1m(View view)
 	{
-		FileChooser filechooser = new FileChooser(MainActivity.this);
-		filechooser.setFileListener(new FileChooser.FileSelectedListener() {
-				@Override
-				public void fileSelected(final File file)
-				{
-					// ....do something with the file
-					String filename = file.getAbsolutePath();
-					Log.d("File", filename);
-					tvAta1m.setText(file.getName());
-					Config.ata1m_image = filename;
-					// then actually do something in another module
-
-				}
-			});
-        // Set up and filter my extension I am looking for
-		//filechooser.setExtension("img");
-		filechooser.showDialog();
+		if (cbVvfatAta1m.isChecked()) {
+			dirSelection(2);
+		} else {
+			fileSelection(2);
+		}
 	}
 
 	public void browseAta1s(View view)
 	{
-		FileChooser filechooser = new FileChooser(MainActivity.this);
-		filechooser.setFileListener(new FileChooser.FileSelectedListener() {
-				@Override
-				public void fileSelected(final File file)
-				{
-					// ....do something with the file
-					String filename = file.getAbsolutePath();
-					Log.d("File", filename);
-					tvAta1s.setText(file.getName());
-					Config.ata1s_image = filename;
-					// then actually do something in another module
-
-				}
-			});
-        // Set up and filter my extension I am looking for
-		//filechooser.setExtension("img");
-		filechooser.showDialog();
+		if (cbVvfatAta0s.isChecked()) {
+			dirSelection(3);
+		} else {
+			fileSelection(3);
+		}
 	}
-	
+
 	public void browseRomImage(View view)
 	{
-		FileChooser filechooser = new FileChooser(MainActivity.this);
-		filechooser.setFileListener(new FileChooser.FileSelectedListener() {
-				@Override
-				public void fileSelected(final File file)
-				{
-					// ....do something with the file
-					String filename = file.getAbsolutePath();
-					Log.d("File", filename);
-					tvRomImage.setText(file.getName());
-					Config.romImage = filename;
-					// then actually do something in another module
-
-				}
-			});
-        // Set up and filter my extension I am looking for
-		//filechooser.setExtension("img");
-		filechooser.showDialog();
+		fileSelection(6);
 	}
-	
+
 	public void browseVgaRomImage(View view)
 	{
-		FileChooser filechooser = new FileChooser(MainActivity.this);
-		filechooser.setFileListener(new FileChooser.FileSelectedListener() {
-				@Override
-				public void fileSelected(final File file)
-				{
-					// ....do something with the file
-					String filename = file.getAbsolutePath();
-					Log.d("File", filename);
-					tvVgaRomImage.setText(file.getName());
-					Config.vgaRomImage = filename;
-					// then actually do something in another module
-
-				}
-			});
-        // Set up and filter my extension I am looking for
-		//filechooser.setExtension("img");
-		filechooser.showDialog();
+		fileSelection(7);
 	}
 
 	public void applyTabMisc()
@@ -518,16 +415,153 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
 	public void setupTabMisc()
 	{
-		Config.megs = Integer.parseInt(editMegs.getText().toString());
+		editMegs.addTextChangedListener(new TextWatcher() {
+
+				@Override
+				public void beforeTextChanged(CharSequence p1, int p2, int p3, int p4)
+				{
+					// TODO: Implement this method
+				}
+
+				@Override
+				public void onTextChanged(CharSequence p1, int p2, int p3, int p4)
+				{
+					// TODO: Implement this method
+					//Config.megs = Integer.parseInt(editMegs.getText().toString());
+				}
+
+				@Override
+				public void afterTextChanged(Editable p1)
+				{
+					// TODO: Implement this method
+					if (!p1.toString().equals(""))
+					{
+						Config.megs = Integer.parseInt(editMegs.getText().toString());
+					}
+				}
+
+			});
 	}
 	
-	private String getFileName(String path) {
+	private void dirSelection(final int num) {
+		// Create DirectoryChooserDialog and register a callback 
+		DirectoryChooserDialog directoryChooserDialog = 
+			new DirectoryChooserDialog(MainActivity.this, 
+			new DirectoryChooserDialog.ChosenDirectoryListener() 
+			{
+				@Override
+				public void onChosenDir(String chosenDir) 
+				{
+					m_chosenDir = chosenDir;
+					switch(num) {
+						case 0:
+							tvAta0m.setText(chosenDir);
+							Config.ata0m_image = chosenDir;
+							Config.ata0mMode = "vvfat";
+							break;
+						case 1:
+							tvAta0s.setText(chosenDir);
+							Config.ata0s_image = chosenDir;
+							Config.ata0sMode = "vvfat";
+							break;
+						case 2:
+							tvAta1m.setText(chosenDir);
+							Config.ata1m_image = chosenDir;
+							Config.ata1mMode = "vvfat";
+							break;
+						case 3:
+							tvAta1s.setText(chosenDir);
+							Config.ata1s_image = chosenDir;
+							Config.ata1sMode = "vvfat";
+							break;
+					}
+				}
+			}); 
+		// Toggle new folder button enabling
+		directoryChooserDialog.setNewFolderEnabled(m_newFolderEnabled);
+		// Load directory chooser dialog for initial 'm_chosenDir' directory.
+		// The registered callback will be called upon final directory selection.
+		directoryChooserDialog.chooseDirectory(m_chosenDir);
+		m_newFolderEnabled = ! m_newFolderEnabled;
+	}
+	
+	private void fileSelection(final int num) {
+		FileChooser filechooser = new FileChooser(MainActivity.this);
+		filechooser.setFileListener(new FileChooser.FileSelectedListener() {
+				@Override
+				public void fileSelected(final File file)
+				{
+					String filename = file.getAbsolutePath();
+					Log.d("File", filename);
+					switch(num) {
+						case 0:
+							tvAta0m.setText(file.getName());
+							Config.ata0m_image = filename;
+							Config.ata0mMode = getMode(file.getName());
+							break;
+						case 1:
+							tvAta0s.setText(file.getName());
+							Config.ata0s_image = filename;
+							Config.ata0sMode = getMode(file.getName());
+							break;
+						case 2:
+							tvAta1m.setText(file.getName());
+							Config.ata1m_image = filename;
+							Config.ata1mMode = getMode(file.getName());
+							break;
+						case 3:
+							tvAta1s.setText(file.getName());
+							Config.ata1s_image = filename;
+							Config.ata1sMode = getMode(file.getName());
+							break;
+						case 4:
+							tvFloppyA.setText(file.getName());
+							Config.floppyA_image = filename;
+							break;
+						case 5:
+							tvFloppyB.setText(file.getName());
+							Config.floppyB_image = filename;
+							break;
+						case 6:
+							tvRomImage.setText(file.getName());
+							Config.romImage = filename;
+							break;
+						case 7:
+							tvVgaRomImage.setText(file.getName());
+					        Config.vgaRomImage = filename;
+							break;
+					}
+					
+				}
+			});
+        // Set up and filter my extension I am looking for
+		//filechooser.setExtension("img");
+		filechooser.showDialog();
+	}
+
+	private String getFileName(String path)
+	{
 		String result;
-		if (path.contains("/")) {
-			result = path.substring(path.lastIndexOf("/")+1, path.length());
-		} else {
+		if (path.contains("/"))
+		{
+			result = path.substring(path.lastIndexOf("/") + 1, path.length());
+		}
+		else
+		{
 			result = path;
 		}
+		return result;
+	}
+
+	private String getMode(String str)
+	{
+		String result="";
+		if (str.endsWith(".vdmk"))
+			result = "vmvare4";
+		else if (str.endsWith(".vhd"))
+			result = "vpc";
+		else if (str.endsWith(".vdi"))
+			result = "vbox";
 		return result;
 	}
 
