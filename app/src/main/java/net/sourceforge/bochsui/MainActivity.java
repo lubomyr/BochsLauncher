@@ -58,7 +58,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     private TabsPagerAdapter mAdapter;
     private ActionBar actionBar;
     // Tab titles
-    private String[] tabs = { "Storage", "Misc" };
+    private String[] tabs = { "Storage", "Hardware", "Misc" };
 	
 	private String m_chosenDir = "";
 	private boolean m_newFolderEnabled = true;
@@ -122,7 +122,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 						applyTabStorage();
 						setupTabStorage();
 					}
-					else if (arg0 == 1)
+					else if (arg0 == 2)
 					{
 						applyTabMisc();
 						setupTabMisc();
