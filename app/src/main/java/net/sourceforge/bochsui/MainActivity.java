@@ -638,7 +638,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	private String getMode(String str)
 	{
 		String result="";
-		if (str.endsWith(".vdmk"))
+		if (str.endsWith(".vmdk"))
 			result = "vmvare4";
 		else if (str.endsWith(".vhd"))
 			result = "vpc";
