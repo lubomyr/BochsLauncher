@@ -639,7 +639,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	{
 		String result="";
 		if (str.endsWith(".vmdk"))
-			result = "vmvare4";
+			result = "vmware4";
 		else if (str.endsWith(".vhd"))
 			result = "vpc";
 		else if (str.endsWith(".vdi"))
