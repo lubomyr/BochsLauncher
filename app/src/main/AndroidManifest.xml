@@ -18,10 +18,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-		<activity
-			android:name="net.sourceforge.bochs.MainActivity">
-			
-		</activity>
+	
     </application>
 
 </manifest>
