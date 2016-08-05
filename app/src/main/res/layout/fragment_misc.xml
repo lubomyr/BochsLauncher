@@ -75,7 +75,8 @@
 			android:inputType="number"
 			android:layout_width="wrap_content"
 			android:ems="10"
-			android:id="@+id/miscEditText1"/>
+			android:id="@+id/miscEditText1"
+			android:width="80dp"/>
 
 	</LinearLayout>
 

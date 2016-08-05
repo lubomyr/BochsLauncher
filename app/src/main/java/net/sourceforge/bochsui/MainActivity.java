@@ -17,6 +17,8 @@ import android.content.*;
 import android.text.*;
 import java.util.*;
 import android.widget.AdapterView.*;
+import org.json.*;
+import net.sourceforge.bochsui.entity.*;
 
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener
 {
@@ -54,15 +56,21 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	private TextView tvVgaRomImage;
 	private EditText editMegs;
 
+	private Spinner spCpuModel;
+	private TextView tvCpuDescription;
+	private TextView tvCpuRequiredFeatures;
+
     private ViewPager viewPager;
     private TabsPagerAdapter mAdapter;
     private ActionBar actionBar;
     // Tab titles
     private String[] tabs = { "Storage", "Hardware", "Misc" };
-	
+
 	private String m_chosenDir = "";
 	private boolean m_newFolderEnabled = true;
-	
+
+	List<CpuModel> cpuModel = new ArrayList<CpuModel>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
 	{
@@ -121,8 +129,11 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 					{
 						applyTabStorage();
 						setupTabStorage();
-					}
-					else if (arg0 == 2)
+					} else if (arg0 == 1)
+					{
+						applyTabHardware();
+						setupTabHardware();
+					} else if (arg0 == 2)
 					{
 						applyTabMisc();
 						setupTabMisc();
@@ -349,7 +360,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		spAta1mType.setSelection(typeList.indexOf(Config.ata1mType));
 		spAta1sType.setSelection(typeList.indexOf(Config.ata1sType));
 		spBoot.setSelection(bootList.indexOf(Config.boot));
-		
+
 		spAta0mType.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 				@Override
@@ -364,7 +375,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 					// TODO: Implement this method
 				}
 			});
-			
+
 		spAta0sType.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 				@Override
@@ -379,7 +390,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 					// TODO: Implement this method
 				}
 			});
-			
+
 		spAta1mType.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 				@Override
@@ -394,7 +405,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 					// TODO: Implement this method
 				}
 			});
-			
+
 		spAta1sType.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 				@Override
@@ -409,7 +420,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 					// TODO: Implement this method
 				}
 			});
-			
+
 		spBoot.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 				@Override
@@ -435,40 +446,49 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	{
 		fileSelection(5);
 	}
-	
-	public void browseAta0m(View view) {
-		
-		if (cbVvfatAta0m.isChecked()) {
+
+	public void browseAta0m(View view)
+	{
+
+		if (cbVvfatAta0m.isChecked())
+		{
 			dirSelection(0);
-		} else {
+		} else
+		{
 			fileSelection(0);
 		}
-		
+
 	}
 
 	public void browseAta0s(View view)
 	{
-		if (cbVvfatAta0s.isChecked()) {
+		if (cbVvfatAta0s.isChecked())
+		{
 			dirSelection(1);
-		} else {
+		} else
+		{
 			fileSelection(1);
 		}
 	}
 
 	public void browseAta1m(View view)
 	{
-		if (cbVvfatAta1m.isChecked()) {
+		if (cbVvfatAta1m.isChecked())
+		{
 			dirSelection(2);
-		} else {
+		} else
+		{
 			fileSelection(2);
 		}
 	}
 
 	public void browseAta1s(View view)
 	{
-		if (cbVvfatAta1s.isChecked()) {
+		if (cbVvfatAta1s.isChecked())
+		{
 			dirSelection(3);
-		} else {
+		} else
+		{
 			fileSelection(3);
 		}
 	}
@@ -524,8 +544,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
 			});
 	}
-	
-	private void dirSelection(final int num) {
+
+	private void dirSelection(final int num)
+	{
 		// Create DirectoryChooserDialog and register a callback 
 		DirectoryChooserDialog directoryChooserDialog = 
 			new DirectoryChooserDialog(MainActivity.this, 
@@ -535,7 +556,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 				public void onChosenDir(String chosenDir) 
 				{
 					m_chosenDir = chosenDir;
-					switch(num) {
+					switch (num)
+					{
 						case 0:
 							tvAta0m.setText(chosenDir);
 							Config.ata0m_image = chosenDir;
@@ -566,8 +588,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		directoryChooserDialog.chooseDirectory(m_chosenDir);
 		m_newFolderEnabled = ! m_newFolderEnabled;
 	}
-	
-	private void fileSelection(final int num) {
+
+	private void fileSelection(final int num)
+	{
 		FileChooser filechooser = new FileChooser(MainActivity.this);
 		filechooser.setFileListener(new FileChooser.FileSelectedListener() {
 				@Override
@@ -575,7 +598,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 				{
 					String filename = file.getAbsolutePath();
 					Log.d("File", filename);
-					switch(num) {
+					switch (num)
+					{
 						case 0:
 							tvAta0m.setText(file.getName());
 							Config.ata0m_image = filename;
@@ -613,7 +637,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 					        Config.vgaRomImage = filename;
 							break;
 					}
-					
+
 				}
 			});
         // Set up and filter my extension I am looking for
@@ -627,8 +651,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		if (path.contains("/"))
 		{
 			result = path.substring(path.lastIndexOf("/") + 1, path.length());
-		}
-		else
+		} else
 		{
 			result = path;
 		}
@@ -645,6 +668,83 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		else if (str.endsWith(".vdi"))
 			result = "vbox";
 		return result;
+	}
+
+	private void readCpuList()
+	{
+		Scanner sc = new Scanner(getResources().openRawResource(R.raw.data_json)).useDelimiter("[\n]");
+		StringBuilder sb = new StringBuilder();
+		while (sc.hasNext())
+		{
+			sb.append(sc.next() + "\n");
+		}
+		sc.close();
+
+		JSONObject dataJsonObj = null;
+		try
+		{
+			dataJsonObj = new JSONObject(sb.toString());
+			JSONArray cpulist = dataJsonObj.getJSONArray("cpulist");
+			for (int i=0; i < cpulist.length() - 1; i++)
+			{
+				JSONObject model = cpulist.getJSONObject(i);
+				String value = model.getString("value");
+				String description = model.getString("description");
+				String required = model.getString("required");
+				cpuModel.add(new CpuModel(value, description, required));
+			}
+		}
+		catch (JSONException e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	private List<String> getCpuModelValues()
+	{
+		List<String> result = new ArrayList<String>();
+		for (CpuModel cm : cpuModel)
+		{
+			result.add(cm.getValue());
+		}
+		return result;
+	}
+
+	private void applyTabHardware()
+	{
+		if (cpuModel.size() == 0)
+			readCpuList();
+		
+		spCpuModel = (Spinner) findViewById(R.id.hardwareSpinnerCpuModel);
+		tvCpuDescription = (TextView) findViewById(R.id.hardwareTextViewCpuDesc);
+		tvCpuRequiredFeatures =  (TextView) findViewById(R.id.hardwareTextViewCpuReqF);
+		SpinnerAdapter adapterCpuModel = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, getCpuModelValues());
+		spCpuModel.setAdapter(adapterCpuModel);
+		int num = getCpuModelValues().indexOf(Config.cpuModel);
+		spCpuModel.setSelection(num);
+		tvCpuDescription.setText(cpuModel.get(num).getDescription());
+		tvCpuRequiredFeatures.setText(cpuModel.get(num).getReqFeat());
+	}
+
+	private void setupTabHardware()
+	{
+		spCpuModel.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+				@Override
+				public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4)
+				{
+					Config.cpuModel = getCpuModelValues().get(p3);
+					int num = getCpuModelValues().indexOf(Config.cpuModel);
+					tvCpuDescription.setText(cpuModel.get(num).getDescription());
+					tvCpuRequiredFeatures.setText(cpuModel.get(num).getReqFeat());
+				}
+
+				@Override
+				public void onNothingSelected(AdapterView<?> p1)
+				{
+					// TODO: Implement this method
+				}
+			});
 	}
 
 }
