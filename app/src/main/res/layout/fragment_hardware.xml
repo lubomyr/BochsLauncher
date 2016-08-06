@@ -13,44 +13,23 @@
 		android:gravity="center_vertical|center_horizontal"
 		android:background="@drawable/my_border">
 
-		<LinearLayout
+		<TextView
+			android:layout_height="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceSmall"
+			android:layout_width="wrap_content"
+			android:text="CPU Model:"/>
+
+		<Spinner
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
-			android:orientation="horizontal"
-			android:gravity="center_vertical|center_horizontal">
+			android:id="@+id/hardwareSpinnerCpuModel"
+			android:gravity="center_horizontal"/>
 
-			<TextView
-				android:layout_height="wrap_content"
-				android:textAppearance="?android:attr/textAppearanceMedium"
-				android:layout_width="wrap_content"
-				android:text="CPU Model:"/>
-
-			<Spinner
-				android:layout_height="wrap_content"
-				android:layout_width="wrap_content"
-				android:id="@+id/hardwareSpinnerCpuModel"/>
-
-		</LinearLayout>
-
-		<LinearLayout
+		<TextView
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
-			android:orientation="horizontal"
-			android:gravity="center_vertical|center_horizontal">
-
-			<TextView
-				android:layout_height="wrap_content"
-				android:layout_width="wrap_content"
-				android:text="Description:"
-				android:layout_marginRight="10dp"/>
-
-			<TextView
-				android:layout_height="wrap_content"
-				android:layout_width="wrap_content"
-				android:text="Text"
-				android:id="@+id/hardwareTextViewCpuDesc"/>
-
-		</LinearLayout>
+			android:text="Description"
+			android:id="@+id/hardwareTextViewCpuDesc"/>
 
 		<LinearLayout
 			android:layout_height="wrap_content"
