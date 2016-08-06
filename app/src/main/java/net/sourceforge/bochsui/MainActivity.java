@@ -77,7 +77,11 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	private String m_chosenDir = "";
 	private boolean m_newFolderEnabled = true;
 
-	List<CpuModel> cpuModel = new ArrayList<CpuModel>();
+	private List<CpuModel> cpuModel = new ArrayList<CpuModel>();
+
+	private enum Requestor
+	{ATA0_MASTER, ATA0_SLAVE, ATA1_MASTER, ATA1_SLAVE, FLOPPY_A, FLOPPY_B, ROM, VGAROM}
+	private Requestor requestor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -433,68 +437,54 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
 	public void browseFloppyA(View view)
 	{
-		fileSelection(4);
+		fileSelection(requestor.FLOPPY_A);
 	}
 
 	public void browseFloppyB(View view)
 	{
-		fileSelection(5);
+		fileSelection(requestor.FLOPPY_B);
 	}
 
 	public void browseAta0m(View view)
 	{
-
 		if (cbVvfatAta0m.isChecked())
-		{
-			dirSelection(0);
-		} else
-		{
-			fileSelection(0);
-		}
-
+			dirSelection(requestor.ATA0_MASTER);
+		else
+			fileSelection(requestor.ATA0_MASTER);
 	}
 
 	public void browseAta0s(View view)
 	{
 		if (cbVvfatAta0s.isChecked())
-		{
-			dirSelection(1);
-		} else
-		{
-			fileSelection(1);
-		}
+			dirSelection(requestor.ATA0_SLAVE);
+		else
+			fileSelection(requestor.ATA0_SLAVE);
 	}
 
 	public void browseAta1m(View view)
 	{
 		if (cbVvfatAta1m.isChecked())
-		{
-			dirSelection(2);
-		} else
-		{
-			fileSelection(2);
-		}
+			dirSelection(requestor.ATA1_MASTER);
+		else
+			fileSelection(requestor.ATA1_MASTER);
 	}
 
 	public void browseAta1s(View view)
 	{
 		if (cbVvfatAta1s.isChecked())
-		{
-			dirSelection(3);
-		} else
-		{
-			fileSelection(3);
-		}
+			dirSelection(requestor.ATA1_SLAVE);
+		else
+			fileSelection(requestor.ATA1_SLAVE);
 	}
 
 	public void browseRomImage(View view)
 	{
-		fileSelection(6);
+		fileSelection(requestor.ROM);
 	}
 
 	public void browseVgaRomImage(View view)
 	{
-		fileSelection(7);
+		fileSelection(requestor.VGAROM);
 	}
 
 	public void setupTabMisc()
@@ -536,7 +526,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			});
 	}
 
-	private void dirSelection(final int num)
+	private void dirSelection(final Requestor num)
 	{
 		// Create DirectoryChooserDialog and register a callback 
 		DirectoryChooserDialog directoryChooserDialog = 
@@ -549,22 +539,22 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 					m_chosenDir = chosenDir;
 					switch (num)
 					{
-						case 0:
+						case ATA0_MASTER:
 							tvAta0m.setText(chosenDir);
 							Config.ata0m_image = chosenDir;
 							Config.ata0mMode = "vvfat";
 							break;
-						case 1:
+						case ATA0_SLAVE:
 							tvAta0s.setText(chosenDir);
 							Config.ata0s_image = chosenDir;
 							Config.ata0sMode = "vvfat";
 							break;
-						case 2:
+						case ATA1_MASTER:
 							tvAta1m.setText(chosenDir);
 							Config.ata1m_image = chosenDir;
 							Config.ata1mMode = "vvfat";
 							break;
-						case 3:
+						case ATA1_SLAVE:
 							tvAta1s.setText(chosenDir);
 							Config.ata1s_image = chosenDir;
 							Config.ata1sMode = "vvfat";
@@ -580,7 +570,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		m_newFolderEnabled = ! m_newFolderEnabled;
 	}
 
-	private void fileSelection(final int num)
+	private void fileSelection(final Requestor num)
 	{
 		FileChooser filechooser = new FileChooser(MainActivity.this);
 		filechooser.setFileListener(new FileChooser.FileSelectedListener() {
@@ -591,39 +581,39 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 					Log.d("File", filename);
 					switch (num)
 					{
-						case 0:
+						case ATA0_MASTER:
 							tvAta0m.setText(file.getName());
 							Config.ata0m_image = filename;
 							Config.ata0mMode = getMode(file.getName());
 							break;
-						case 1:
+						case ATA0_SLAVE:
 							tvAta0s.setText(file.getName());
 							Config.ata0s_image = filename;
 							Config.ata0sMode = getMode(file.getName());
 							break;
-						case 2:
+						case ATA1_MASTER:
 							tvAta1m.setText(file.getName());
 							Config.ata1m_image = filename;
 							Config.ata1mMode = getMode(file.getName());
 							break;
-						case 3:
+						case ATA1_SLAVE:
 							tvAta1s.setText(file.getName());
 							Config.ata1s_image = filename;
 							Config.ata1sMode = getMode(file.getName());
 							break;
-						case 4:
+						case FLOPPY_A:
 							tvFloppyA.setText(file.getName());
 							Config.floppyA_image = filename;
 							break;
-						case 5:
+						case FLOPPY_B:
 							tvFloppyB.setText(file.getName());
 							Config.floppyB_image = filename;
 							break;
-						case 6:
+						case ROM:
 							tvRomImage.setText(file.getName());
 							Config.romImage = filename;
 							break;
-						case 7:
+						case VGAROM:
 							tvVgaRomImage.setText(file.getName());
 					        Config.vgaRomImage = filename;
 							break;
@@ -640,12 +630,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	{
 		String result;
 		if (path.contains("/"))
-		{
 			result = path.substring(path.lastIndexOf("/") + 1, path.length());
-		} else
-		{
+		else
 			result = path;
-		}
 		return result;
 	}
 
