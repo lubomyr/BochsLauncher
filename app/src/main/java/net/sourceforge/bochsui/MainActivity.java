@@ -62,6 +62,12 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	private RadioButton rbI430fx;
 	private RadioButton rbI440fx;
 
+	private Spinner spSlot1;
+	private Spinner spSlot2;
+	private Spinner spSlot3;
+	private Spinner spSlot4;
+	private Spinner spSlot5;
+
     private ViewPager viewPager;
     private TabsPagerAdapter mAdapter;
     private ActionBar actionBar;
@@ -128,18 +134,11 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 				public void onPageScrolled(int arg0, float arg1, int arg2)
 				{
 					if (arg0 == 0)
-					{
-						applyTabStorage();
 						setupTabStorage();
-					} else if (arg0 == 1)
-					{
-						applyTabHardware();
+					else if (arg0 == 1)
 						setupTabHardware();
-					} else if (arg0 == 2)
-					{
-						applyTabMisc();
+					else if (arg0 == 2)
 						setupTabMisc();
-					}
 				}
 
 				@Override
@@ -204,8 +203,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		 startActivity(intent);*/
 	}
 
-	public void applyTabStorage()
+	public void setupTabStorage()
 	{
+		final List typeList = Arrays.asList("disk", "cdrom");
+		final List bootList = Arrays.asList("disk", "cdrom", "floppy");
 		cbFloppyA = (CheckBox) findViewById(R.id.storageCheckBoxFloppyA);
 		tvFloppyA = (TextView) findViewById(R.id.storageTextViewFloppyA);
 		btBrowseFloppyA = (Button) findViewById(R.id.storageButtonFloppyA);
@@ -256,10 +257,29 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		tvAta1s.setEnabled(Config.ata1s);
 		cbVvfatAta1s.setEnabled(Config.ata1s);
 		btBrowseAta1s.setEnabled(Config.ata1s);
-	}
+		spAta0mType = (Spinner) findViewById(R.id.storageSpinnerAta0m);
+		spAta0sType = (Spinner) findViewById(R.id.storageSpinnerAta0s);
+		spAta1mType = (Spinner) findViewById(R.id.storageSpinnerAta1m);
+		spAta1sType = (Spinner) findViewById(R.id.storageSpinnerAta1s);
+		spBoot = (Spinner) findViewById(R.id.storageSpinnerBoot);
+		spAta0mType.setEnabled(Config.ata0m);
+		spAta0sType.setEnabled(Config.ata0s);
+		spAta1mType.setEnabled(Config.ata1m);
+		spAta1sType.setEnabled(Config.ata1s);
+		SpinnerAdapter adapterType = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, typeList);
+		SpinnerAdapter adapterBoot = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, bootList);
+		spAta0mType.setAdapter(adapterType);
+		spAta0sType.setAdapter(adapterType);
+		spAta1mType.setAdapter(adapterType);
+		spAta1sType.setAdapter(adapterType);
+		spBoot.setAdapter(adapterBoot);
+		spAta0mType.setSelection(typeList.indexOf(Config.ata0mType));
+		spAta0sType.setSelection(typeList.indexOf(Config.ata0sType));
+		spAta1mType.setSelection(typeList.indexOf(Config.ata1mType));
+		spAta1sType.setSelection(typeList.indexOf(Config.ata1sType));
+		spBoot.setSelection(bootList.indexOf(Config.boot));
 
-	public void setupTabStorage()
-	{
+
 		cbFloppyA.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
 				@Override
@@ -334,34 +354,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 				}
 			}
 		);
-		setupSpinnersStorage();
-	}
-
-	public void setupSpinnersStorage()
-	{
-		final List typeList = Arrays.asList("disk", "cdrom");
-		final List bootList = Arrays.asList("disk", "cdrom", "floppy");
-		spAta0mType = (Spinner) findViewById(R.id.storageSpinnerAta0m);
-		spAta0sType = (Spinner) findViewById(R.id.storageSpinnerAta0s);
-		spAta1mType = (Spinner) findViewById(R.id.storageSpinnerAta1m);
-		spAta1sType = (Spinner) findViewById(R.id.storageSpinnerAta1s);
-		spBoot = (Spinner) findViewById(R.id.storageSpinnerBoot);
-		spAta0mType.setEnabled(Config.ata0m);
-		spAta0sType.setEnabled(Config.ata0s);
-		spAta1mType.setEnabled(Config.ata1m);
-		spAta1sType.setEnabled(Config.ata1s);
-		SpinnerAdapter adapterType = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, typeList);
-		SpinnerAdapter adapterBoot = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, bootList);
-		spAta0mType.setAdapter(adapterType);
-		spAta0sType.setAdapter(adapterType);
-		spAta1mType.setAdapter(adapterType);
-		spAta1sType.setAdapter(adapterType);
-		spBoot.setAdapter(adapterBoot);
-		spAta0mType.setSelection(typeList.indexOf(Config.ata0mType));
-		spAta0sType.setSelection(typeList.indexOf(Config.ata0sType));
-		spAta1mType.setSelection(typeList.indexOf(Config.ata1mType));
-		spAta1sType.setSelection(typeList.indexOf(Config.ata1sType));
-		spBoot.setSelection(bootList.indexOf(Config.boot));
 
 		spAta0mType.setOnItemSelectedListener(new OnItemSelectedListener() {
 
@@ -505,7 +497,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		fileSelection(7);
 	}
 
-	public void applyTabMisc()
+	public void setupTabMisc()
 	{
 		btRomImage = (Button) findViewById(R.id.miscButtonRomImage);
 		btVgaRomImage = (Button) findViewById(R.id.miscButtonVgaRomImage);
@@ -515,10 +507,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		tvRomImage.setText(getFileName(Config.romImage));
 		tvVgaRomImage.setText(getFileName(Config.vgaRomImage));
 		editMegs.setText(String.valueOf(Config.megs));
-	}
 
-	public void setupTabMisc()
-	{
 		editMegs.addTextChangedListener(new TextWatcher() {
 
 				@Override
@@ -712,8 +701,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		return result;
 	}
 
-	private void applyTabHardware()
+	private void setupTabHardware()
 	{
+		final List slotList = Arrays.asList("none", "cirrus", "voodoo", "ne2k", "sb16", "es1370");
 		if (cpuModel.size() == 0)
 			readCpuList();
 
@@ -722,18 +712,36 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		tvCpuRequiredFeatures =  (TextView) findViewById(R.id.hardwareTextViewCpuReqF);
 		rbI430fx = (RadioButton) findViewById(R.id.hardwareRadioButtonI430fx);
 		rbI440fx = (RadioButton) findViewById(R.id.hardwareRadioButtonI440fx);
-		SpinnerAdapter adapterCpuModel = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, getCpuModelValues());
-		spCpuModel.setAdapter(adapterCpuModel);
-		int num = getCpuModelValues().indexOf(Config.cpuModel);
-		spCpuModel.setSelection(num);
-		tvCpuDescription.setText(cpuModel.get(num).getDescription());
-		tvCpuRequiredFeatures.setText(cpuModel.get(num).getReqFeat());
+		spSlot1 = (Spinner) findViewById(R.id.hardwareSpinnerSlot1);
+		spSlot2 = (Spinner) findViewById(R.id.hardwareSpinnerSlot2);
+		spSlot3 = (Spinner) findViewById(R.id.hardwareSpinnerSlot3);
+		spSlot4 = (Spinner) findViewById(R.id.hardwareSpinnerSlot4);
+		spSlot5 = (Spinner) findViewById(R.id.hardwareSpinnerSlot5);
+		SpinnerAdapter cpuModelAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, getCpuModelValues());
+		SpinnerAdapter slotAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, slotList);
+		spCpuModel.setAdapter(cpuModelAdapter);
+		spSlot1.setAdapter(slotAdapter);
+		spSlot2.setAdapter(slotAdapter);
+		spSlot3.setAdapter(slotAdapter);
+		spSlot4.setAdapter(slotAdapter);
+		spSlot5.setAdapter(slotAdapter);
+		int selectedCpuModel = getCpuModelValues().indexOf(Config.cpuModel);
+		spCpuModel.setSelection(selectedCpuModel);
+		tvCpuDescription.setText(cpuModel.get(selectedCpuModel).getDescription());
+		tvCpuRequiredFeatures.setText(cpuModel.get(selectedCpuModel).getReqFeat());
 		rbI430fx.setChecked(Config.chipset.equals("i430fx"));
 		rbI440fx.setChecked(Config.chipset.equals("i440fx"));
-	}
+		int selectedSlot1 = slotList.indexOf(Config.slot1);
+		int selectedSlot2 = slotList.indexOf(Config.slot2);
+		int selectedSlot3 = slotList.indexOf(Config.slot3);
+		int selectedSlot4 = slotList.indexOf(Config.slot4);
+		int selectedSlot5 = slotList.indexOf(Config.slot5);
+		spSlot1.setSelection((selectedSlot1 == -1) ? 0 : selectedSlot1);
+		spSlot2.setSelection((selectedSlot2 == -1) ? 0 : selectedSlot2);
+		spSlot3.setSelection((selectedSlot3 == -1) ? 0 : selectedSlot3);
+		spSlot4.setSelection((selectedSlot4 == -1) ? 0 : selectedSlot4);
+		spSlot5.setSelection((selectedSlot5 == -1) ? 0 : selectedSlot5);
 
-	private void setupTabHardware()
-	{
 		spCpuModel.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 				@Override
@@ -743,6 +751,81 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 					int num = getCpuModelValues().indexOf(Config.cpuModel);
 					tvCpuDescription.setText(cpuModel.get(num).getDescription());
 					tvCpuRequiredFeatures.setText(cpuModel.get(num).getReqFeat());
+				}
+
+				@Override
+				public void onNothingSelected(AdapterView<?> p1)
+				{
+					// TODO: Implement this method
+				}
+			});
+
+		spSlot1.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+				@Override
+				public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4)
+				{
+					Config.slot1 = (p3 == 0) ? "" : (String) slotList.get(p3);
+				}
+
+				@Override
+				public void onNothingSelected(AdapterView<?> p1)
+				{
+					// TODO: Implement this method
+				}
+			});
+
+		spSlot2.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+				@Override
+				public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4)
+				{
+					Config.slot2 = (p3 == 0) ? "" : (String) slotList.get(p3);
+				}
+
+				@Override
+				public void onNothingSelected(AdapterView<?> p1)
+				{
+					// TODO: Implement this method
+				}
+			});
+
+		spSlot3.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+				@Override
+				public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4)
+				{
+					Config.slot3 = (p3 == 0) ? "" : (String) slotList.get(p3);
+				}
+
+				@Override
+				public void onNothingSelected(AdapterView<?> p1)
+				{
+					// TODO: Implement this method
+				}
+			});
+
+		spSlot4.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+				@Override
+				public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4)
+				{
+					Config.slot4 = (p3 == 0) ? "" : (String) slotList.get(p3);
+				}
+
+				@Override
+				public void onNothingSelected(AdapterView<?> p1)
+				{
+					// TODO: Implement this method
+				}
+			});
+
+		spSlot5.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+				@Override
+				public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4)
+				{
+					Config.slot5 = (p3 == 0) ? "" : (String) slotList.get(p3);
 				}
 
 				@Override

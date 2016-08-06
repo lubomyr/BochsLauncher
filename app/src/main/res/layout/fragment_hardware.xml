@@ -23,7 +23,8 @@
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:id="@+id/hardwareSpinnerCpuModel"
-			android:gravity="center_horizontal"/>
+			android:gravity="center_horizontal"
+			android:padding="0dp"/>
 
 		<TextView
 			android:layout_height="wrap_content"
@@ -55,36 +56,158 @@
 
 	</LinearLayout>
 
-	<RadioGroup
+	<LinearLayout
 		android:layout_height="wrap_content"
 		android:layout_width="wrap_content"
 		android:orientation="horizontal"
-		android:gravity="center_vertical|center_horizontal"
-		android:background="@drawable/my_border"
 		android:layout_marginTop="5dp">
 
-		<TextView
+		<RadioGroup
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
-			android:text="Chipset:"
-			android:layout_marginLeft="10dp"/>
+			android:orientation="vertical"
+			android:gravity="center_vertical|center_horizontal"
+			android:background="@drawable/my_border">
 
-		<RadioButton
+			<TextView
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="Chipset:"/>
+
+			<RadioButton
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="i430fx"
+				android:id="@+id/hardwareRadioButtonI430fx"
+				android:onClick="onClickI430fx"
+				android:layout_marginRight="5dp"/>
+
+			<RadioButton
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="i440fx"
+				android:id="@+id/hardwareRadioButtonI440fx"
+				android:onClick="onClickI440fx"
+				android:layout_marginRight="5dp"/>
+
+		</RadioGroup>
+
+		<LinearLayout
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
-			android:text="i430fx"
-			android:id="@+id/hardwareRadioButtonI430fx"
-			android:onClick="onClickI430fx"/>
+			android:orientation="vertical"
+			android:gravity="center_vertical|center_horizontal"
+			android:background="@drawable/my_border"
+			android:layout_marginLeft="5dp">
 
-		<RadioButton
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:text="i440fx"
-			android:layout_marginRight="10dp"
-			android:id="@+id/hardwareRadioButtonI440fx"
-			android:onClick="onClickI440fx"/>
+			<LinearLayout
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:orientation="horizontal"
+				android:gravity="center_vertical"
+				android:layout_marginLeft="5dp">
 
-	</RadioGroup>
+				<TextView
+					android:layout_height="wrap_content"
+					android:textAppearance="?android:attr/textAppearanceMedium"
+					android:layout_width="wrap_content"
+					android:text="Slot1:"/>
+
+				<Spinner
+					android:layout_height="wrap_content"
+					android:layout_width="match_parent"
+					android:id="@+id/hardwareSpinnerSlot1"
+					android:padding="0dp"/>
+
+			</LinearLayout>
+
+			<LinearLayout
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:orientation="horizontal"
+				android:gravity="center_vertical"
+				android:layout_marginLeft="5dp">
+
+				<TextView
+					android:layout_height="wrap_content"
+					android:textAppearance="?android:attr/textAppearanceMedium"
+					android:layout_width="wrap_content"
+					android:text="Slot2:"/>
+
+				<Spinner
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:id="@+id/hardwareSpinnerSlot2"
+					android:padding="0dp"/>
+
+			</LinearLayout>
+
+			<LinearLayout
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:orientation="horizontal"
+				android:gravity="center_vertical"
+				android:layout_marginLeft="5dp">
+
+				<TextView
+					android:layout_height="wrap_content"
+					android:textAppearance="?android:attr/textAppearanceMedium"
+					android:layout_width="wrap_content"
+					android:text="Slot3:"/>
+
+				<Spinner
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:id="@+id/hardwareSpinnerSlot3"
+					android:padding="0dp"/>
+
+			</LinearLayout>
+
+			<LinearLayout
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:orientation="horizontal"
+				android:gravity="center_vertical"
+				android:layout_marginLeft="5dp">
+
+				<TextView
+					android:layout_height="wrap_content"
+					android:textAppearance="?android:attr/textAppearanceMedium"
+					android:layout_width="wrap_content"
+					android:text="Slot4:"/>
+
+				<Spinner
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:id="@+id/hardwareSpinnerSlot4"
+					android:padding="0dp"/>
+
+			</LinearLayout>
+
+			<LinearLayout
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:orientation="horizontal"
+				android:gravity="center_vertical"
+				android:layout_marginLeft="5dp">
+
+				<TextView
+					android:layout_height="wrap_content"
+					android:textAppearance="?android:attr/textAppearanceMedium"
+					android:layout_width="wrap_content"
+					android:text="Slot5:"/>
+
+				<Spinner
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:id="@+id/hardwareSpinnerSlot5"
+					android:padding="0dp"/>
+
+			</LinearLayout>
+
+		</LinearLayout>
+
+	</LinearLayout>
 
 </LinearLayout>
 
