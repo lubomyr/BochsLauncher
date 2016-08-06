@@ -26,7 +26,7 @@ public class Config
 	public static String ata1mMode="";
 	public static String ata1sMode="";
 	public static String boot="disk";
-	
+
 	public static String romImage="BIOS-bochs-latest";
 	public static String vgaRomImage="VGABIOS-lgpl-latest-cirrus";
 	public static int megs=32;
@@ -63,8 +63,14 @@ public class Config
 					floppyA_image = str2.contains(",") ?
 					    str2.substring(5, str2.indexOf(",")) : str2.substring(5, str2.length());			
 				}
+				if (str.contains("image="))
+				{
+					String str2 = str.substring(str.indexOf("image="), str.length() - 1);
+					floppyA_image = str2.contains(",") ?
+					    str2.substring(6, str2.indexOf(",")) : str2.substring(6, str2.length());			
+				}
 			}
-			
+
 			if (str.startsWith("floppyb:"))
 			{
 				floppyB = true;
@@ -74,9 +80,16 @@ public class Config
 					floppyB_image = str2.contains(",") ?
 						str2.substring(5, str2.indexOf(",")) : str2.substring(5, str2.length());	
 				}
+				if (str.contains("image="))
+				{
+					String str2 = str.substring(str.indexOf("image="), str.length() - 1);
+					floppyB_image = str2.contains(",") ?
+					    str2.substring(6, str2.indexOf(",")) : str2.substring(6, str2.length());			
+				}
 			}
-			
-			if (str.startsWith("ata0-master:")) {
+
+			if (str.startsWith("ata0-master:"))
+			{
 				ata0m = true;
 				if (str.contains("type="))
 				{
@@ -95,11 +108,12 @@ public class Config
 					String str2 = str.substring(str.indexOf("path="), str.length() - 1);
 					ata0m_image = str2.contains(",") ?
 						str2.substring(5, str2.indexOf(",")) : str2.substring(5, str2.length());
-					ata0m_image = ata0m_image.replace("\"","");
+					ata0m_image = ata0m_image.replace("\"", "");
 				}
 			}
-			
-			if (str.startsWith("ata0-slave:")) {
+
+			if (str.startsWith("ata0-slave:"))
+			{
 				ata0s = true;
 				if (str.contains("type="))
 				{
@@ -118,11 +132,12 @@ public class Config
 					String str2 = str.substring(str.indexOf("path="), str.length() - 1);
 					ata0s_image = str2.contains(",") ?
 						str2.substring(5, str2.indexOf(",")) : str2.substring(5, str2.length());
-					ata0s_image = ata0s_image.replace("\"","");
+					ata0s_image = ata0s_image.replace("\"", "");
 				}
 			}
-			
-			if (str.startsWith("ata1-master:")) {
+
+			if (str.startsWith("ata1-master:"))
+			{
 				ata1m = true;
 				if (str.contains("type="))
 				{
@@ -141,11 +156,12 @@ public class Config
 					String str2 = str.substring(str.indexOf("path="), str.length() - 1);
 					ata1m_image = str2.contains(",") ?
 						str2.substring(5, str2.indexOf(",")) : str2.substring(5, str2.length());
-					ata1m_image = ata1m_image.replace("\"","");
+					ata1m_image = ata1m_image.replace("\"", "");
 				}
 			}
 
-			if (str.startsWith("ata1-slave:")) {
+			if (str.startsWith("ata1-slave:"))
+			{
 				ata1s = true;
 				if (str.contains("type="))
 				{
@@ -164,14 +180,15 @@ public class Config
 					String str2 = str.substring(str.indexOf("path="), str.length() - 1);
 					ata1s_image = str2.contains(",") ?
 						str2.substring(5, str2.indexOf(",")) : str2.substring(5, str2.length());
-					ata1s_image = ata1s_image.replace("\"","");
+					ata1s_image = ata1s_image.replace("\"", "");
 				}
 			}
-			
-			if (str.startsWith("boot:")) {
-				boot = str.substring(6, str.length()-1);
+
+			if (str.startsWith("boot:"))
+			{
+				boot = str.substring(6, str.length() - 1);
 			}
-			
+
 			if (str.startsWith("romimage:"))
 			{
 				if (str.contains("file="))
@@ -181,7 +198,7 @@ public class Config
 					    str2.substring(5, str2.indexOf(",")) : str2.substring(5, str2.length());			
 				}
 			}
-			
+
 			if (str.startsWith("vgaromimage:"))
 			{
 				if (str.contains("file="))
@@ -191,8 +208,9 @@ public class Config
 					    str2.substring(5, str2.indexOf(",")) : str2.substring(5, str2.length());			
 				}
 			}
-			
-			if (str.startsWith("vga:")) {
+
+			if (str.startsWith("vga:"))
+			{
 				if (str.contains("extension="))
 				{
 					String str2 = str.substring(str.indexOf("extension="), str.length() - 1);
@@ -206,8 +224,9 @@ public class Config
 					    Integer.parseInt(str2.substring(12, str2.indexOf(","))) : Integer.parseInt(str2.substring(12, str2.length()));			
 				}
 			}
-			
-			if (str.startsWith("pci:")) {
+
+			if (str.startsWith("pci:"))
+			{
 				if (str.contains("chipset="))
 				{
 					String str2 = str.substring(str.indexOf("chipset="), str.length() - 1);
@@ -245,8 +264,9 @@ public class Config
 					    str2.substring(6, str2.indexOf(",")) : str2.substring(6, str2.length());			
 				}
 			}
-			
-			if (str.startsWith("cpu:")) {
+
+			if (str.startsWith("cpu:"))
+			{
 				if (str.contains("model="))
 				{
 					String str2 = str.substring(str.indexOf("model="), str.length() - 1);
@@ -254,8 +274,9 @@ public class Config
 					    str2.substring(6, str2.indexOf(",")) : str2.substring(6, str2.length());			
 				}
 			}
-			
-			if (str.startsWith("ne2k:")) {
+
+			if (str.startsWith("ne2k:"))
+			{
 				if (str.contains("mac="))
 				{
 					String str2 = str.substring(str.indexOf("mac="), str.length() - 1);
@@ -269,7 +290,7 @@ public class Config
 					    str2.substring(7, str2.indexOf(",")) : str2.substring(7, str2.length());			
 				}
 			}
-			
+
 			if (str.startsWith("megs:"))
 			{
 				megs = Integer.parseInt(str.substring(6, str.length() - 1));
@@ -282,74 +303,93 @@ public class Config
 
 	public static void writeConfig() throws IOException
 	{
-		File file = new File(path+".2");
+		File file = new File(path + ".2");
 		FileWriter fw = new FileWriter(file);
 		fw.write("romimage: file=" + romImage + "\n");
 		fw.write("vgaromimage: file=" + vgaRomImage + "\n");
 		fw.write("cpu: model=" + cpuModel + "\n");
 		fw.write("vga: extension=" + vgaExtension + ", update_freq=" + vgaUpdateFreq + "\n");
 		fw.write("pci: enabled=1, chipset=" + chipset);
-		if (!slot1.equals("")) {
+		if (!slot1.equals(""))
+		{
 			fw.write(", slot1=" + slot1);
 		}
-		if (!slot2.equals("")) {
+		if (!slot2.equals(""))
+		{
 			fw.write(", slot2=" + slot2);
 		}
-		if (!slot3.equals("")) {
+		if (!slot3.equals(""))
+		{
 			fw.write(", slot3=" + slot3);
 		}
-		if (!slot4.equals("")) {
+		if (!slot4.equals(""))
+		{
 			fw.write(", slot4=" + slot4);
 		}
-		if (!slot5.equals("")) {
+		if (!slot5.equals(""))
+		{
 			fw.write(", slot5=" + slot5);
 		}
 		fw.write("\n");
 		fw.write("ne2k: irq=10, mac=" + mac + ", ethmod=" + ethmod + "\n");
-		if (floppyA) {
-			fw.write("floppya: 1_44=" + floppyA_image + ", status=inserted\n");
+		if (floppyA)
+		{
+			fw.write("floppya: image=" + floppyA_image + ", status=inserted\n");
 		}
-		if (floppyB) {
-			fw.write("floppyb: 1_44=" + floppyB_image + ", status=inserted\n");
+		if (floppyB)
+		{
+			fw.write("floppyb: image=" + floppyB_image + ", status=inserted\n");
 		}
 		fw.write("ata0: enabled=1, ioaddr1=0x1f0, ioaddr2=0x3f0, irq=14\n");
 		fw.write("ata1: enabled=1, ioaddr1=0x170, ioaddr2=0x370, irq=15\n");
-		if (ata0m) {
+		if (ata0m)
+		{
 			fw.write("ata0-master: type=" + ata0mType);
-			if (ata0mType.equals("cdrom")) {
+			if (ata0mType.equals("cdrom"))
+			{
 				fw.write(", status=inserted");
 			}
-			if (!ata0mMode.equals("")) {
+			if (!ata0mMode.equals(""))
+			{
 				fw.write(", mode=" + ata0mMode);
 			}
 			fw.write(", path=\"" + ata0m_image + "\"\n");
 		}
-		if (ata0s) {
+		if (ata0s)
+		{
 			fw.write("ata0-slave: type=" + ata0sType);
-			if (ata0sType.equals("cdrom")) {
+			if (ata0sType.equals("cdrom"))
+			{
 				fw.write(", status=inserted");
 			}
-			if (!ata0sMode.equals("")) {
+			if (!ata0sMode.equals(""))
+			{
 				fw.write(", mode=" + ata0sMode);
 			}
 			fw.write(", path=\"" + ata0s_image + "\"\n");
 		}
-		if (ata1m) {
+		if (ata1m)
+		{
 			fw.write("ata1-master: type=" + ata1mType);
-			if (ata1mType.equals("cdrom")) {
+			if (ata1mType.equals("cdrom"))
+			{
 				fw.write(", status=inserted");
 			}
-			if (!ata1mMode.equals("")) {
+			if (!ata1mMode.equals(""))
+			{
 				fw.write(", mode=" + ata1mMode);
 			}
 			fw.write(", path=\"" + ata1m_image + "\"\n");
 		}
-		if (ata1s) {
+		if (ata1s)
+		{
 			fw.write("ata1-slave: type=" + ata1sType);
-			if (ata1sType.equals("cdrom")) {
+			if (ata1sType.equals("cdrom"))
+			{
 				fw.write(", status=inserted");
 			}
-			if (!ata1sMode.equals("")) {
+			if (!ata1sMode.equals(""))
+			{
 				fw.write(", mode=" + ata1sMode);
 			}
 			fw.write(", path=\"" + ata1s_image + "\"\n");
@@ -360,6 +400,7 @@ public class Config
 		fw.write("speaker: enabled=1, mode=sound\n");
 		fw.write("sb16: wavemode=1, dmatimer=500000\n");
 		fw.write("es1370: enabled=1\n");
+		fw.write("voodoo: enabled=1, model=voodoo1\n");
 		fw.write("mouse: enabled=1\n");
 		fw.write("clock: time0=local\n");
 		fw.write("debug: action=ignore\n");
