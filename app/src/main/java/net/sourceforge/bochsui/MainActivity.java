@@ -59,6 +59,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	private Spinner spCpuModel;
 	private TextView tvCpuDescription;
 	private TextView tvCpuRequiredFeatures;
+	private RadioButton rbI430fx;
+	private RadioButton rbI440fx;
 
     private ViewPager viewPager;
     private TabsPagerAdapter mAdapter;
@@ -714,16 +716,20 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	{
 		if (cpuModel.size() == 0)
 			readCpuList();
-		
+
 		spCpuModel = (Spinner) findViewById(R.id.hardwareSpinnerCpuModel);
 		tvCpuDescription = (TextView) findViewById(R.id.hardwareTextViewCpuDesc);
 		tvCpuRequiredFeatures =  (TextView) findViewById(R.id.hardwareTextViewCpuReqF);
+		rbI430fx = (RadioButton) findViewById(R.id.hardwareRadioButtonI430fx);
+		rbI440fx = (RadioButton) findViewById(R.id.hardwareRadioButtonI440fx);
 		SpinnerAdapter adapterCpuModel = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, getCpuModelValues());
 		spCpuModel.setAdapter(adapterCpuModel);
 		int num = getCpuModelValues().indexOf(Config.cpuModel);
 		spCpuModel.setSelection(num);
 		tvCpuDescription.setText(cpuModel.get(num).getDescription());
 		tvCpuRequiredFeatures.setText(cpuModel.get(num).getReqFeat());
+		rbI430fx.setChecked(Config.chipset.equals("i430fx"));
+		rbI440fx.setChecked(Config.chipset.equals("i440fx"));
 	}
 
 	private void setupTabHardware()
@@ -745,6 +751,16 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 					// TODO: Implement this method
 				}
 			});
+	}
+
+	public void onClickI430fx(View view)
+	{
+		Config.chipset = "i430fx";
+	}
+
+	public void onClickI440fx(View view)
+	{
+		Config.chipset = "i440fx";
 	}
 
 }
