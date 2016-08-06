@@ -36,6 +36,8 @@ public class Config
 	public static String slot1="";
 	public static String slot2="";
 	public static String slot3="";
+	public static String slot4="";
+	public static String slot5="";
 	public static String cpuModel="bx_generic";
 	public static String mac="";
 	public static String ethmod="";
@@ -230,6 +232,18 @@ public class Config
 					slot3 = str2.contains(",") ?
 					    str2.substring(6, str2.indexOf(",")) : str2.substring(6, str2.length());			
 				}
+				if (str.contains("slot4="))
+				{
+					String str2 = str.substring(str.indexOf("slot3="), str.length() - 1);
+					slot4 = str2.contains(",") ?
+					    str2.substring(6, str2.indexOf(",")) : str2.substring(6, str2.length());			
+				}
+				if (str.contains("slot5="))
+				{
+					String str2 = str.substring(str.indexOf("slot3="), str.length() - 1);
+					slot5 = str2.contains(",") ?
+					    str2.substring(6, str2.indexOf(",")) : str2.substring(6, str2.length());			
+				}
 			}
 			
 			if (str.startsWith("cpu:")) {
@@ -283,6 +297,12 @@ public class Config
 		}
 		if (!slot3.equals("")) {
 			fw.write(", slot3=" + slot3);
+		}
+		if (!slot4.equals("")) {
+			fw.write(", slot4=" + slot4);
+		}
+		if (!slot5.equals("")) {
+			fw.write(", slot5=" + slot5);
 		}
 		fw.write("\n");
 		fw.write("ne2k: irq=10, mac=" + mac + ", ethmod=" + ethmod + "\n");
