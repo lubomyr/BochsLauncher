@@ -703,7 +703,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		spSlot4 = (Spinner) findViewById(R.id.hardwareSpinnerSlot4);
 		spSlot5 = (Spinner) findViewById(R.id.hardwareSpinnerSlot5);
 		SpinnerAdapter cpuModelAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, getCpuModelValues());
-		SpinnerAdapter slotAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, slotList);
+		SpinnerAdapter slotAdapter = new ArrayAdapter<String>(this, R.layout.spinner_row, slotList);
 		spCpuModel.setAdapter(cpuModelAdapter);
 		spSlot1.setAdapter(slotAdapter);
 		spSlot2.setAdapter(slotAdapter);
