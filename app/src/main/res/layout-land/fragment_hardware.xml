@@ -36,49 +36,144 @@
 			android:layout_marginRight="5dp"/>
 
 	</LinearLayout>
+	
+		<RadioGroup
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:id="@+id/chipsetLayout"
+			android:layout_below="@id/cpuLayout"
+			android:orientation="vertical"
+			android:gravity="center_vertical|center_horizontal"
+			android:background="@drawable/my_border"
+			android:layout_marginLeft="5dp"
+			android:layout_marginTop="5dp">
 
-	<RadioGroup
+			<TextView
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="Chipset:"/>
+
+			<RadioButton
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="i430fx"
+				android:id="@+id/hardwareRadioButtonI430fx"
+				android:onClick="onClickI430fx"
+				android:layout_marginRight="5dp"/>
+
+			<RadioButton
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="i440fx"
+				android:id="@+id/hardwareRadioButtonI440fx"
+				android:onClick="onClickI440fx"
+				android:layout_marginRight="5dp"/>
+
+		</RadioGroup>
+
+		<RadioGroup
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:id="@+id/vgaLayout"
+			android:layout_toRightOf="@id/cpuLayout"
+			android:orientation="vertical"
+			android:gravity="left"
+			android:background="@drawable/my_border"
+			android:layout_marginTop="5dp"
+			android:layout_marginLeft="5dp">
+
+			<TextView
+				android:layout_height="wrap_content"
+				android:layout_width="match_parent"
+				android:text="VGA Card:"
+				android:gravity="center_horizontal"/>
+
+			<RadioButton
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="Bochs VBE"
+				android:id="@+id/hardwareRadioButtonBochsVbe"
+				android:onClick="onClickBochsVbe"
+				android:layout_marginRight="5dp"/>
+
+			<RadioButton
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="Cirrus Logic"
+				android:id="@+id/hardwareRadioButtonCirrusLogic"
+				android:onClick="onClickCirrusLogic"
+				android:layout_marginRight="5dp"/>
+
+		</RadioGroup>
+	
+	<LinearLayout
 		android:layout_height="wrap_content"
 		android:layout_width="wrap_content"
 		android:orientation="vertical"
+		android:id="@+id/soundLayout"
 		android:layout_below="@id/cpuLayout"
-		android:gravity="center_vertical|center_horizontal"
+		android:layout_toRightOf="@id/chipsetLayout"
+		android:gravity="left"
 		android:background="@drawable/my_border"
 		android:layout_marginLeft="5dp"
 		android:layout_marginTop="5dp">
 
 		<TextView
 			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:text="Chipset:"/>
+			android:layout_width="match_parent"
+			android:text="Sound Card:"
+			android:gravity="center_horizontal"/>
 
-		<RadioButton
+		<Spinner
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
-			android:text="i430fx"
-			android:id="@+id/hardwareRadioButtonI430fx"
-			android:onClick="onClickI430fx"
-			android:layout_marginRight="5dp"/>
+			android:id="@+id/hardwareSpinnerSound"/>
 
-		<RadioButton
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:text="i440fx"
-			android:id="@+id/hardwareRadioButtonI440fx"
-			android:onClick="onClickI440fx"
-			android:layout_marginRight="5dp"/>
-
-	</RadioGroup>
+	</LinearLayout>
 
 	<LinearLayout
 		android:layout_height="wrap_content"
 		android:layout_width="wrap_content"
-		android:layout_toRightOf="@id/cpuLayout"
+		android:orientation="vertical"
+		android:id="@+id/ethernetLayout"
+		android:layout_toRightOf="@id/soundLayout"
+		android:layout_below="@id/cpuLayout"
+		android:gravity="left"
+		android:background="@drawable/my_border"
+		android:layout_marginLeft="5dp"
+		android:layout_marginTop="5dp">
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:text="Ethernet Card:"
+			android:gravity="center_horizontal"/>
+
+		<Spinner
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:id="@+id/hardwareSpinnerEthernet"/>
+
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:id="@+id/pciLayout"
+		android:layout_toRightOf="@id/ethernetLayout"
 		android:orientation="vertical"
 		android:gravity="center_vertical|center_horizontal"
 		android:background="@drawable/my_border"
+		android:layout_marginTop="5dp"
 		android:layout_marginLeft="5dp">
 
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:text="PCI:"
+			android:gravity="center_horizontal"/>
+		
+		
 		<LinearLayout
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"

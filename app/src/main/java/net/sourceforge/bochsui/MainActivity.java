@@ -60,6 +60,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	private TextView tvCpuDescription;
 	private RadioButton rbI430fx;
 	private RadioButton rbI440fx;
+	private RadioButton rbBochsVbe;
+	private RadioButton rbCirrus;
+	private Spinner spSound;
+	private Spinner spEthernet;
 
 	private Spinner spSlot1;
 	private Spinner spSlot2;
@@ -690,6 +694,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	private void setupTabHardware()
 	{
 		final List slotList = Arrays.asList("none", "cirrus", "voodoo", "ne2k", "sb16", "es1370");
+		final List soundList = Arrays.asList("none", "Creative SB16", "Ensoniq ES1370");
+		final List ethernetList = Arrays.asList("none", "Novell NE2000", "Realtek RTL8029", "Intel 82540EM");
+		
 		if (cpuModel.size() == 0)
 			readCpuList();
 
@@ -697,6 +704,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		tvCpuDescription = (TextView) findViewById(R.id.hardwareTextViewCpuDesc);
 		rbI430fx = (RadioButton) findViewById(R.id.hardwareRadioButtonI430fx);
 		rbI440fx = (RadioButton) findViewById(R.id.hardwareRadioButtonI440fx);
+		rbBochsVbe = (RadioButton) findViewById(R.id.hardwareRadioButtonBochsVbe);
+		rbCirrus = (RadioButton) findViewById(R.id.hardwareRadioButtonCirrusLogic);
+		spSound = (Spinner) findViewById(R.id.hardwareSpinnerSound);
+		spEthernet = (Spinner) findViewById(R.id.hardwareSpinnerEthernet);
 		spSlot1 = (Spinner) findViewById(R.id.hardwareSpinnerSlot1);
 		spSlot2 = (Spinner) findViewById(R.id.hardwareSpinnerSlot2);
 		spSlot3 = (Spinner) findViewById(R.id.hardwareSpinnerSlot3);
@@ -704,7 +715,11 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		spSlot5 = (Spinner) findViewById(R.id.hardwareSpinnerSlot5);
 		SpinnerAdapter cpuModelAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, getCpuModelValues());
 		SpinnerAdapter slotAdapter = new ArrayAdapter<String>(this, R.layout.spinner_row, slotList);
+		SpinnerAdapter soundAdapter = new ArrayAdapter<String>(this, R.layout.spinner_row, soundList);
+		SpinnerAdapter ethernetAdapter = new ArrayAdapter<String>(this, R.layout.spinner_row, ethernetList);
 		spCpuModel.setAdapter(cpuModelAdapter);
+		spSound.setAdapter(soundAdapter);
+		spEthernet.setAdapter(ethernetAdapter);
 		spSlot1.setAdapter(slotAdapter);
 		spSlot2.setAdapter(slotAdapter);
 		spSlot3.setAdapter(slotAdapter);
@@ -715,6 +730,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		tvCpuDescription.setText(cpuModel.get(selectedCpuModel).getDescription());
 		rbI430fx.setChecked(Config.chipset.equals("i430fx"));
 		rbI440fx.setChecked(Config.chipset.equals("i440fx"));
+		rbBochsVbe.setChecked(Config.vgaExtension.equals("vbe"));
+		rbCirrus.setChecked(Config.vgaExtension.equals("cirrus"));
 		int selectedSlot1 = slotList.indexOf(Config.slot1);
 		int selectedSlot2 = slotList.indexOf(Config.slot2);
 		int selectedSlot3 = slotList.indexOf(Config.slot3);
@@ -827,6 +844,14 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	public void onClickI440fx(View view)
 	{
 		Config.chipset = "i440fx";
+	}
+	
+	public void onClickBochsVbe(View view)
+	{
+	}
+	
+	public void onClickCirrusLogic(View view)
+	{
 	}
 
 }
