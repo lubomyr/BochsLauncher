@@ -58,7 +58,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
 	private Spinner spCpuModel;
 	private TextView tvCpuDescription;
-	private TextView tvCpuRequiredFeatures;
 	private RadioButton rbI430fx;
 	private RadioButton rbI440fx;
 
@@ -696,7 +695,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
 		spCpuModel = (Spinner) findViewById(R.id.hardwareSpinnerCpuModel);
 		tvCpuDescription = (TextView) findViewById(R.id.hardwareTextViewCpuDesc);
-		tvCpuRequiredFeatures =  (TextView) findViewById(R.id.hardwareTextViewCpuReqF);
 		rbI430fx = (RadioButton) findViewById(R.id.hardwareRadioButtonI430fx);
 		rbI440fx = (RadioButton) findViewById(R.id.hardwareRadioButtonI440fx);
 		spSlot1 = (Spinner) findViewById(R.id.hardwareSpinnerSlot1);
@@ -715,7 +713,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		int selectedCpuModel = getCpuModelValues().indexOf(Config.cpuModel);
 		spCpuModel.setSelection(selectedCpuModel);
 		tvCpuDescription.setText(cpuModel.get(selectedCpuModel).getDescription());
-		tvCpuRequiredFeatures.setText(cpuModel.get(selectedCpuModel).getReqFeat());
 		rbI430fx.setChecked(Config.chipset.equals("i430fx"));
 		rbI440fx.setChecked(Config.chipset.equals("i440fx"));
 		int selectedSlot1 = slotList.indexOf(Config.slot1);
@@ -737,7 +734,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 					Config.cpuModel = getCpuModelValues().get(p3);
 					int num = getCpuModelValues().indexOf(Config.cpuModel);
 					tvCpuDescription.setText(cpuModel.get(num).getDescription());
-					tvCpuRequiredFeatures.setText(cpuModel.get(num).getReqFeat());
 				}
 
 				@Override
