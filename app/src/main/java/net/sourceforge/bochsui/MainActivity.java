@@ -693,7 +693,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
 	private void setupTabHardware()
 	{
-		final List slotList = Arrays.asList("none", "cirrus", "voodoo", "ne2k", "sb16", "es1370");
+		final List slotList = Arrays.asList("none", "pcivga", "cirrus", "voodoo", "es1370", "ne2k", "e1000");
 		final List soundList = Arrays.asList("none", "Creative SB16", "Ensoniq ES1370");
 		final List ethernetList = Arrays.asList("none", "Novell NE2000", "Realtek RTL8029", "Intel 82540EM");
 		
@@ -848,10 +848,14 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	
 	public void onClickBochsVbe(View view)
 	{
+		Config.vgaExtension = "vbe";
+		Config.vgaRomImage="VGABIOS-lgpl-latest";
 	}
 	
 	public void onClickCirrusLogic(View view)
 	{
+		Config.vgaExtension = "cirrus";
+		Config.vgaRomImage="VGABIOS-lgpl-latest-cirrus";
 	}
 
 }
