@@ -778,6 +778,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 					case 1:
 						Config.vgaExtension = "vbe";
 						Config.vgaRomImage = "VGABIOS-lgpl-latest";
+						setFreePciSlot("cirrus");
 						if (!checkPciSlotFor("pcivga") && getfreePciSlot()!=-1) {
 							spSlot[getfreePciSlot()].setSelection(slotList.indexOf("pcivga"));
 							slotAdapter.notifyDataSetChanged();
@@ -792,6 +793,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 					case 3:
 						Config.vgaExtension = "cirrus";
 						Config.vgaRomImage = "VGABIOS-lgpl-latest-cirrus";
+						setFreePciSlot("pcivga");
 						if (!checkPciSlotFor("cirrus") && getfreePciSlot()!=-1) {
 							spSlot[getfreePciSlot()].setSelection(slotList.indexOf("cirrus"));
 							slotAdapter.notifyDataSetChanged();
