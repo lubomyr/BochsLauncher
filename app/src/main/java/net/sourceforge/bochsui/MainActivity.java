@@ -60,11 +60,12 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	private TextView tvCpuDescription;
 	private RadioButton rbI430fx;
 	private RadioButton rbI440fx;
-	private RadioButton rbBochsVbe;
-	private RadioButton rbCirrus;
+	private Spinner spVga;
+	private TextView tvVgaDescription;
 	private Spinner spSound;
+	private TextView tvSoundDescription;
 	private Spinner spEthernet;
-
+	private TextView tvEthernetDescription;
 	private Spinner spSlot1;
 	private Spinner spSlot2;
 	private Spinner spSlot3;
@@ -81,6 +82,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	private boolean m_newFolderEnabled = true;
 
 	private List<CpuModel> cpuModel = new ArrayList<CpuModel>();
+	private List<VgaCard> vgaCard = new ArrayList<VgaCard>();
+	private List<SoundCard> soundCard = new ArrayList<SoundCard>();
+	private List<EthernetCard> ethernetCard = new ArrayList<EthernetCard>();
 
 	private enum Requestor
 	{ATA0_MASTER, ATA0_SLAVE, ATA1_MASTER, ATA1_SLAVE, FLOPPY_A, FLOPPY_B, ROM, VGAROM}
@@ -666,13 +670,37 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		{
 			dataJsonObj = new JSONObject(sb.toString());
 			JSONArray cpulist = dataJsonObj.getJSONArray("cpulist");
-			for (int i=0; i < cpulist.length() - 1; i++)
+			for (int i=0; i < cpulist.length(); i++)
 			{
 				JSONObject model = cpulist.getJSONObject(i);
 				String value = model.getString("value");
 				String description = model.getString("description");
 				String required = model.getString("required");
 				cpuModel.add(new CpuModel(value, description, required));
+			}
+			JSONArray vgalist = dataJsonObj.getJSONArray("vgalist");
+			for (int i=0; i < vgalist.length(); i++)
+			{
+				JSONObject model = vgalist.getJSONObject(i);
+				String value = model.getString("value");
+				String description = model.getString("description");
+				vgaCard.add(new VgaCard(value, description));
+			}
+			JSONArray soundlist = dataJsonObj.getJSONArray("soundlist");
+			for (int i=0; i < soundlist.length(); i++)
+			{
+				JSONObject model = soundlist.getJSONObject(i);
+				String value = model.getString("value");
+				String description = model.getString("description");
+				soundCard.add(new SoundCard(value, description));
+			}
+			JSONArray ethernetlist = dataJsonObj.getJSONArray("ethernetlist");
+			for (int i=0; i < ethernetlist.length(); i++)
+			{
+				JSONObject model = ethernetlist.getJSONObject(i);
+				String value = model.getString("value");
+				String description = model.getString("description");
+				ethernetCard.add(new EthernetCard(value, description));
 			}
 		}
 		catch (JSONException e)
@@ -690,12 +718,40 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		}
 		return result;
 	}
+	
+	private List<String> getVgaCardValues()
+	{
+		List<String> result = new ArrayList<String>();
+		for (VgaCard vc : vgaCard)
+		{
+			result.add(vc.getValue());
+		}
+		return result;
+	}
+	
+	private List<String> getSoundCardValues()
+	{
+		List<String> result = new ArrayList<String>();
+		for (SoundCard sc : soundCard)
+		{
+			result.add(sc.getValue());
+		}
+		return result;
+	}
+	
+	private List<String> getEthernetCardValues()
+	{
+		List<String> result = new ArrayList<String>();
+		for (EthernetCard ec : ethernetCard)
+		{
+			result.add(ec.getValue());
+		}
+		return result;
+	}
 
 	private void setupTabHardware()
 	{
 		final List slotList = Arrays.asList("none", "pcivga", "cirrus", "voodoo", "es1370", "ne2k", "e1000");
-		final List soundList = Arrays.asList("none", "Creative SB16", "Ensoniq ES1370");
-		final List ethernetList = Arrays.asList("none", "Novell NE2000", "Realtek RTL8029", "Intel 82540EM");
 		
 		if (cpuModel.size() == 0)
 			readCpuList();
@@ -704,20 +760,24 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		tvCpuDescription = (TextView) findViewById(R.id.hardwareTextViewCpuDesc);
 		rbI430fx = (RadioButton) findViewById(R.id.hardwareRadioButtonI430fx);
 		rbI440fx = (RadioButton) findViewById(R.id.hardwareRadioButtonI440fx);
-		rbBochsVbe = (RadioButton) findViewById(R.id.hardwareRadioButtonBochsVbe);
-		rbCirrus = (RadioButton) findViewById(R.id.hardwareRadioButtonCirrusLogic);
+		spVga = (Spinner) findViewById(R.id.hardwareSpinnerVga);
+		tvVgaDescription = (TextView) findViewById(R.id.hardwareTextViewVgaDesc);
 		spSound = (Spinner) findViewById(R.id.hardwareSpinnerSound);
+		tvSoundDescription = (TextView) findViewById(R.id.hardwareTextViewSoundDesc);
 		spEthernet = (Spinner) findViewById(R.id.hardwareSpinnerEthernet);
+		tvEthernetDescription = (TextView) findViewById(R.id.hardwareTextViewEthernetDesc);
 		spSlot1 = (Spinner) findViewById(R.id.hardwareSpinnerSlot1);
 		spSlot2 = (Spinner) findViewById(R.id.hardwareSpinnerSlot2);
 		spSlot3 = (Spinner) findViewById(R.id.hardwareSpinnerSlot3);
 		spSlot4 = (Spinner) findViewById(R.id.hardwareSpinnerSlot4);
 		spSlot5 = (Spinner) findViewById(R.id.hardwareSpinnerSlot5);
-		SpinnerAdapter cpuModelAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, getCpuModelValues());
+		SpinnerAdapter cpuModelAdapter = new ArrayAdapter<String>(this, R.layout.spinner_row, getCpuModelValues());
 		SpinnerAdapter slotAdapter = new ArrayAdapter<String>(this, R.layout.spinner_row, slotList);
-		SpinnerAdapter soundAdapter = new ArrayAdapter<String>(this, R.layout.spinner_row, soundList);
-		SpinnerAdapter ethernetAdapter = new ArrayAdapter<String>(this, R.layout.spinner_row, ethernetList);
+		SpinnerAdapter vgaAdapter = new ArrayAdapter<String>(this, R.layout.spinner_row, getVgaCardValues());
+		SpinnerAdapter soundAdapter = new ArrayAdapter<String>(this, R.layout.spinner_row, getSoundCardValues());
+		SpinnerAdapter ethernetAdapter = new ArrayAdapter<String>(this, R.layout.spinner_row, getEthernetCardValues());
 		spCpuModel.setAdapter(cpuModelAdapter);
+		spVga.setAdapter(vgaAdapter);
 		spSound.setAdapter(soundAdapter);
 		spEthernet.setAdapter(ethernetAdapter);
 		spSlot1.setAdapter(slotAdapter);
@@ -730,8 +790,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		tvCpuDescription.setText(cpuModel.get(selectedCpuModel).getDescription());
 		rbI430fx.setChecked(Config.chipset.equals("i430fx"));
 		rbI440fx.setChecked(Config.chipset.equals("i440fx"));
-		rbBochsVbe.setChecked(Config.vgaExtension.equals("vbe"));
-		rbCirrus.setChecked(Config.vgaExtension.equals("cirrus"));
 		int selectedSlot1 = slotList.indexOf(Config.slot1);
 		int selectedSlot2 = slotList.indexOf(Config.slot2);
 		int selectedSlot3 = slotList.indexOf(Config.slot3);
@@ -759,7 +817,52 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 					// TODO: Implement this method
 				}
 			});
+			
+		spVga.setOnItemSelectedListener(new OnItemSelectedListener() {
 
+				@Override
+				public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4)
+				{
+					tvVgaDescription.setText(vgaCard.get(p3).getDescription());
+				}
+
+				@Override
+				public void onNothingSelected(AdapterView<?> p1)
+				{
+					// TODO: Implement this method
+				}
+			});
+			
+		spSound.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+				@Override
+				public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4)
+				{
+					tvSoundDescription.setText(soundCard.get(p3).getDescription());
+				}
+
+				@Override
+				public void onNothingSelected(AdapterView<?> p1)
+				{
+					// TODO: Implement this method
+				}
+			});
+			
+		spEthernet.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+				@Override
+				public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4)
+				{
+					tvEthernetDescription.setText(ethernetCard.get(p3).getDescription());
+				}
+
+				@Override
+				public void onNothingSelected(AdapterView<?> p1)
+				{
+					// TODO: Implement this method
+				}
+			});
+		
 		spSlot1.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 				@Override
@@ -844,18 +947,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	public void onClickI440fx(View view)
 	{
 		Config.chipset = "i440fx";
-	}
-	
-	public void onClickBochsVbe(View view)
-	{
-		Config.vgaExtension = "vbe";
-		Config.vgaRomImage="VGABIOS-lgpl-latest";
-	}
-	
-	public void onClickCirrusLogic(View view)
-	{
-		Config.vgaExtension = "cirrus";
-		Config.vgaRomImage="VGABIOS-lgpl-latest-cirrus";
 	}
 
 }

@@ -123,6 +123,70 @@
 			"value":"corei7_haswell_4770",
 			"description":"Intel(R) Core(TM) i7-4770 CPU (Haswell)",
 			"required":"cpu level 6, x86-64, avx"
+		}
+
+	],
+	
+"vgalist":[
+		{
+			"value":"vbe",
+			"description":"Bochs VBE (ISA)"
+		},
+		
+		{
+			"value":"pcivga",
+			"description":"Bochs VBE (PCI)"
 		},
 
+		{
+			"value":"cirrus_5430",
+			"description":"Cirrus Logic CL-GD5430 (ISA)"
+		},
+		
+		{
+			"value":"cirrus_5446",
+			"description":"Cirrus Logic CL-GD5446 (PCI)"
+		}
+		
+	],
+	
+"soundlist":[
+		{
+			"value":"none",
+			"description":""
+		},
+		
+		{
+			"value":"sb16",
+			"description":"Creative SoundBlaster 16 (ISA)"
+		},
+
+		{
+			"value":"es1370",
+			"description":"Ensoniq ES1370 (PCI)"
+		}
+		
+	],
+	
+"ethernetlist":[
+		{
+			"value":"none",
+			"description":""
+		},
+		
+		{
+			"value":"ne2k",
+			"description":"Novell NE2000 (ISA)"
+		},
+
+		{
+			"value":"rtl8029",
+			"description":"Realtek RTL8029 (PCI)"
+		},
+		
+		{
+			"value":"e1000",
+			"description":"Intel 82540EM (PCI)"
+		}
+		
 	]}

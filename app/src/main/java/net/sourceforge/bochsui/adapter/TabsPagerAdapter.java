@@ -12,7 +12,7 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
     public TabsPagerAdapter(FragmentManager fm) {
         super(fm);
     }
- 
+
     @Override
     public Fragment getItem(int index) {
  
@@ -21,7 +21,7 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
             // Storage tab fragment activity
             return new StorageTabFragment();
 		case 1:
-			// Misc tab fragment activity
+			// Hardware tab fragment activity
 			return new HardwareTabFragment();
         case 2:
             // Misc tab fragment activity

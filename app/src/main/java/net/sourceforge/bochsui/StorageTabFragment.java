@@ -14,7 +14,7 @@ public class StorageTabFragment extends Fragment {
             Bundle savedInstanceState) {
  
         View rootView = inflater.inflate(R.layout.fragment_storage, container, false);
-         
+		
         return rootView;
     }
 }
