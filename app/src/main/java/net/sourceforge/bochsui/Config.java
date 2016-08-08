@@ -243,6 +243,7 @@ public class Config {
             }
 
             if (str.startsWith("ne2k:")) {
+				useNe2000 = true;
                 if (str.contains("mac=")) {
                     String str2 = str.substring(str.indexOf("mac="), str.length() - 1);
                     mac = str2.contains(",") ?
@@ -252,6 +253,20 @@ public class Config {
                     String str2 = str.substring(str.indexOf("ethmod="), str.length() - 1);
                     ethmod = str2.contains(",") ?
                             str2.substring(7, str2.indexOf(",")) : str2.substring(7, str2.length());
+                }
+            }
+			
+			if (str.startsWith("e1000:")) {
+				useE1000 = true;
+                if (str.contains("mac=")) {
+                    String str2 = str.substring(str.indexOf("mac="), str.length() - 1);
+                    mac = str2.contains(",") ?
+						str2.substring(4, str2.indexOf(",")) : str2.substring(4, str2.length());
+                }
+                if (str.contains("ethmod=")) {
+                    String str2 = str.substring(str.indexOf("ethmod="), str.length() - 1);
+                    ethmod = str2.contains(",") ?
+						str2.substring(7, str2.indexOf(",")) : str2.substring(7, str2.length());
                 }
             }
 			
@@ -300,7 +315,12 @@ public class Config {
             fw.write(", slot5=" + slot[4]);
         }
         fw.write("\n");
-        fw.write("ne2k: irq=10, mac=" + mac + ", ethmod=" + ethmod + "\n");
+		if (useRtl8029)
+			fw.write("ne2k: mac=" + mac + ", ethmod=" + ethmod + ", script=\"\"\n");
+		else if (useNe2000)
+			fw.write("ne2k: ioaddr=0x300, irq=10, mac=" + mac + ", ethmod=" + ethmod + ", script=\"\"\n");
+		if (useE1000)
+			fw.write("e1000: mac=" + mac + ", ethmod=" + ethmod + ", script=\"\"\n");
         if (floppyA) {
             fw.write("floppya: image=" + floppyA_image + ", status=inserted\n");
         }

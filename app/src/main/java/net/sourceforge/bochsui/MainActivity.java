@@ -748,6 +748,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         spSlot[4].setSelection((selectedSlot5 == -1) ? 0 : selectedSlot5);
 		checkVga();
 		checkSound();
+		checkEthernet();
 
         spCpuModel.setOnItemSelectedListener(new OnItemSelectedListener() {
 
@@ -847,6 +848,42 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
             @Override
             public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4) {
                 tvEthernetDescription.setText(ethernetCard.get(p3).getDescription());
+				switch(p3) {
+					case 0:
+						Config.useNe2000 = false;
+						Config.useRtl8029 = false;
+						Config.useE1000 = false;
+						setFreePciSlot("ne2k");
+						setFreePciSlot("e1000");
+						break;
+					case 1:
+						Config.useNe2000 = true;
+						Config.useRtl8029 = false;
+						Config.useE1000 = false;
+						setFreePciSlot("ne2k");
+						setFreePciSlot("e1000");
+						break;
+					case 2:
+						Config.useNe2000 = false;
+						Config.useRtl8029 = true;
+						Config.useE1000 = false;
+						setFreePciSlot("e1000");
+						if (!checkPciSlotFor("ne2k") && getfreePciSlot()!=-1) {
+							spSlot[getfreePciSlot()].setSelection(slotList.indexOf("ne2k"));
+							slotAdapter.notifyDataSetChanged();
+						}
+						break;
+					case 3:
+						Config.useNe2000 = false;
+						Config.useRtl8029 = false;
+						Config.useE1000 = true;
+						setFreePciSlot("ne2k");
+						if (!checkPciSlotFor("e1000") && getfreePciSlot()!=-1) {
+							spSlot[getfreePciSlot()].setSelection(slotList.indexOf("e1000"));
+							slotAdapter.notifyDataSetChanged();
+						}
+						break;
+				}
             }
 
             @Override
@@ -973,6 +1010,18 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			spSound.setSelection(1);
 		else
 			spSound.setSelection(0);
+	}
+	
+	private void checkEthernet()
+	{
+		if (Config.useE1000 && checkPciSlotFor("e1000"))
+			spEthernet.setSelection(3);
+		else if (Config.useNe2000 && checkPciSlotFor("ne2k"))
+			spEthernet.setSelection(2);
+		else if (Config.useNe2000)
+			spEthernet.setSelection(1);
+		else
+			spEthernet.setSelection(0);
 	}
 
 }
