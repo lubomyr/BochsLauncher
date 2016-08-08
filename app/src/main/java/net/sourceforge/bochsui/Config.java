@@ -7,6 +7,12 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Config {
+	public static boolean useSb16 = false;
+	public static boolean useEs1370 = false;
+	public static boolean useNe2000 = false;
+	public static boolean useRtl8029 = false;
+	public static boolean useE1000 = false;
+	public static boolean useVoodoo = false;
     public static boolean floppyA = false;
     public static boolean floppyB = false;
     public static String floppyA_image = "floppyA.img";
@@ -248,6 +254,18 @@ public class Config {
                             str2.substring(7, str2.indexOf(",")) : str2.substring(7, str2.length());
                 }
             }
+			
+			if (str.startsWith("sb16:")) {
+				useSb16 = true;
+			}
+			
+			if (str.startsWith("es1370:")) {
+				useEs1370 = true;
+			}
+			
+			if (str.startsWith("voodoo:")) {
+				useVoodoo = true;
+			}
 
             if (str.startsWith("megs:")) {
                 megs = Integer.parseInt(str.substring(6, str.length() - 1));
@@ -335,9 +353,12 @@ public class Config {
         fw.write("megs: " + megs + "\n");
         fw.write("sound: waveoutdrv=sdl\n");
         fw.write("speaker: enabled=1, mode=sound\n");
-        fw.write("sb16: wavemode=1, dmatimer=500000\n");
-        fw.write("es1370: enabled=1\n");
-        fw.write("voodoo: enabled=1, model=voodoo1\n");
+		if (useSb16)
+			fw.write("sb16: wavemode=1, dmatimer=500000\n");
+		if (useEs1370)
+			fw.write("es1370: enabled=1\n");
+		if (useVoodoo)
+			fw.write("voodoo: enabled=1, model=voodoo1\n");
         fw.write("mouse: enabled=1\n");
         fw.write("clock: time0=local\n");
         fw.write("debug: action=ignore\n");

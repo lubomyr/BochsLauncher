@@ -747,6 +747,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         spSlot[3].setSelection((selectedSlot4 == -1) ? 0 : selectedSlot4);
         spSlot[4].setSelection((selectedSlot5 == -1) ? 0 : selectedSlot5);
 		checkVga();
+		checkSound();
 
         spCpuModel.setOnItemSelectedListener(new OnItemSelectedListener() {
 
@@ -813,6 +814,26 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
             @Override
             public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4) {
                 tvSoundDescription.setText(soundCard.get(p3).getDescription());
+				switch(p3) {
+					case 0:
+						Config.useSb16 = false;
+						Config.useEs1370 = false;
+						setFreePciSlot("es1370");
+						break;
+					case 1:
+						Config.useSb16 = true;
+						Config.useEs1370 = false;
+						setFreePciSlot("es1370");
+						break;
+					case 2:
+						Config.useSb16 = false;
+						Config.useEs1370 = true;
+						if (!checkPciSlotFor("es1370") && getfreePciSlot()!=-1) {
+							spSlot[getfreePciSlot()].setSelection(slotList.indexOf("es1370"));
+							slotAdapter.notifyDataSetChanged();
+						}
+						break;
+				}
             }
 
             @Override
@@ -942,6 +963,16 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		} else if (Config.vgaExtension.equals("cirrus")) {
 			spVga.setSelection(checkPciSlotFor("cirrus") ? 3 : 2);
 		}
+	}
+	
+	private void checkSound()
+	{
+		if (Config.useEs1370 && checkPciSlotFor("es1370"))
+			spSound.setSelection(2);
+		else if (Config.useSb16)
+			spSound.setSelection(1);
+		else
+			spSound.setSelection(0);
 	}
 
 }
