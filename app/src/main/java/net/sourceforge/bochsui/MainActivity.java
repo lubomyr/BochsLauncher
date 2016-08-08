@@ -89,11 +89,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     private TextView tvSoundDescription;
     private Spinner spEthernet;
     private TextView tvEthernetDescription;
-    private Spinner spSlot1;
-    private Spinner spSlot2;
-    private Spinner spSlot3;
-    private Spinner spSlot4;
-    private Spinner spSlot5;
+	private Spinner[] spSlot = new Spinner[5];
+	
+	private ArrayAdapter slotAdapter;
 
     private ViewPager viewPager;
     private TabsPagerAdapter mAdapter;
@@ -713,13 +711,14 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         tvSoundDescription = (TextView) findViewById(R.id.hardwareTextViewSoundDesc);
         spEthernet = (Spinner) findViewById(R.id.hardwareSpinnerEthernet);
         tvEthernetDescription = (TextView) findViewById(R.id.hardwareTextViewEthernetDesc);
-        spSlot1 = (Spinner) findViewById(R.id.hardwareSpinnerSlot1);
-        spSlot2 = (Spinner) findViewById(R.id.hardwareSpinnerSlot2);
-        spSlot3 = (Spinner) findViewById(R.id.hardwareSpinnerSlot3);
-        spSlot4 = (Spinner) findViewById(R.id.hardwareSpinnerSlot4);
-        spSlot5 = (Spinner) findViewById(R.id.hardwareSpinnerSlot5);
+		
+        spSlot[0] = (Spinner) findViewById(R.id.hardwareSpinnerSlot1);
+        spSlot[1] = (Spinner) findViewById(R.id.hardwareSpinnerSlot2);
+        spSlot[2] = (Spinner) findViewById(R.id.hardwareSpinnerSlot3);
+        spSlot[3] = (Spinner) findViewById(R.id.hardwareSpinnerSlot4);
+        spSlot[4] = (Spinner) findViewById(R.id.hardwareSpinnerSlot5);
         SpinnerAdapter cpuModelAdapter = new ArrayAdapter<String>(this, R.layout.spinner_row, getCpuModelValues());
-        SpinnerAdapter slotAdapter = new ArrayAdapter<String>(this, R.layout.spinner_row, slotList);
+        slotAdapter = new ArrayAdapter<String>(this, R.layout.spinner_row, slotList);
         SpinnerAdapter vgaAdapter = new ArrayAdapter<String>(this, R.layout.spinner_row, getVgaCardValues());
         SpinnerAdapter soundAdapter = new ArrayAdapter<String>(this, R.layout.spinner_row, getSoundCardValues());
         SpinnerAdapter ethernetAdapter = new ArrayAdapter<String>(this, R.layout.spinner_row, getEthernetCardValues());
@@ -727,11 +726,11 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         spVga.setAdapter(vgaAdapter);
         spSound.setAdapter(soundAdapter);
         spEthernet.setAdapter(ethernetAdapter);
-        spSlot1.setAdapter(slotAdapter);
-        spSlot2.setAdapter(slotAdapter);
-        spSlot3.setAdapter(slotAdapter);
-        spSlot4.setAdapter(slotAdapter);
-        spSlot5.setAdapter(slotAdapter);
+        spSlot[0].setAdapter(slotAdapter);
+        spSlot[1].setAdapter(slotAdapter);
+        spSlot[2].setAdapter(slotAdapter);
+        spSlot[3].setAdapter(slotAdapter);
+        spSlot[4].setAdapter(slotAdapter);
         int selectedCpuModel = getCpuModelValues().indexOf(Config.cpuModel);
         spCpuModel.setSelection(selectedCpuModel);
         tvCpuDescription.setText(cpuModel.get(selectedCpuModel).getDescription());
@@ -742,11 +741,12 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         int selectedSlot3 = slotList.indexOf(Config.slot[2]);
         int selectedSlot4 = slotList.indexOf(Config.slot[3]);
         int selectedSlot5 = slotList.indexOf(Config.slot[4]);
-        spSlot1.setSelection((selectedSlot1 == -1) ? 0 : selectedSlot1);
-        spSlot2.setSelection((selectedSlot2 == -1) ? 0 : selectedSlot2);
-        spSlot3.setSelection((selectedSlot3 == -1) ? 0 : selectedSlot3);
-        spSlot4.setSelection((selectedSlot4 == -1) ? 0 : selectedSlot4);
-        spSlot5.setSelection((selectedSlot5 == -1) ? 0 : selectedSlot5);
+        spSlot[0].setSelection((selectedSlot1 == -1) ? 0 : selectedSlot1);
+        spSlot[1].setSelection((selectedSlot2 == -1) ? 0 : selectedSlot2);
+        spSlot[2].setSelection((selectedSlot3 == -1) ? 0 : selectedSlot3);
+        spSlot[3].setSelection((selectedSlot4 == -1) ? 0 : selectedSlot4);
+        spSlot[4].setSelection((selectedSlot5 == -1) ? 0 : selectedSlot5);
+		checkVga();
 
         spCpuModel.setOnItemSelectedListener(new OnItemSelectedListener() {
 
@@ -768,6 +768,36 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
             @Override
             public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4) {
                 tvVgaDescription.setText(vgaCard.get(p3).getDescription());
+				switch(p3) {
+					case 0:
+						Config.vgaExtension = "vbe";
+						Config.vgaRomImage = "VGABIOS-lgpl-latest";
+						setFreePciSlot("pcivga");
+						setFreePciSlot("cirrus");
+						break;
+					case 1:
+						Config.vgaExtension = "vbe";
+						Config.vgaRomImage = "VGABIOS-lgpl-latest";
+						if (!checkPciSlotFor("pcivga") && getfreePciSlot()!=-1) {
+							spSlot[getfreePciSlot()].setSelection(slotList.indexOf("pcivga"));
+							slotAdapter.notifyDataSetChanged();
+						}
+						break;
+					case 2:
+						Config.vgaExtension = "cirrus";
+						Config.vgaRomImage = "VGABIOS-lgpl-latest-cirrus";
+						setFreePciSlot("pcivga");
+						setFreePciSlot("cirrus");
+						break;
+					case 3:
+						Config.vgaExtension = "cirrus";
+						Config.vgaRomImage = "VGABIOS-lgpl-latest-cirrus";
+						if (!checkPciSlotFor("cirrus") && getfreePciSlot()!=-1) {
+							spSlot[getfreePciSlot()].setSelection(slotList.indexOf("cirrus"));
+							slotAdapter.notifyDataSetChanged();
+						}
+						break;
+				}
             }
 
             @Override
@@ -802,7 +832,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
             }
         });
 
-        spSlot1.setOnItemSelectedListener(new OnItemSelectedListener() {
+        spSlot[0].setOnItemSelectedListener(new OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4) {
@@ -815,7 +845,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
             }
         });
 
-        spSlot2.setOnItemSelectedListener(new OnItemSelectedListener() {
+        spSlot[1].setOnItemSelectedListener(new OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4) {
@@ -828,7 +858,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
             }
         });
 
-        spSlot3.setOnItemSelectedListener(new OnItemSelectedListener() {
+        spSlot[2].setOnItemSelectedListener(new OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4) {
@@ -841,7 +871,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
             }
         });
 
-        spSlot4.setOnItemSelectedListener(new OnItemSelectedListener() {
+        spSlot[3].setOnItemSelectedListener(new OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4) {
@@ -854,7 +884,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
             }
         });
 
-        spSlot5.setOnItemSelectedListener(new OnItemSelectedListener() {
+        spSlot[4].setOnItemSelectedListener(new OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4) {
@@ -875,5 +905,41 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     public void onClickI440fx(View view) {
         Config.chipset = "i440fx";
     }
+	
+	private int getfreePciSlot() {
+		for (int i = 0; i < Config.slot.length; i++) {
+			if (Config.slot[i].equals("")) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	private boolean checkPciSlotFor(String str) {
+		for (int i = 0; i < Config.slot.length; i++) {
+			if (Config.slot[i].equals(str)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private void setFreePciSlot(String str) {
+		for (int i = 0; i < Config.slot.length; i++) {
+			if (Config.slot[i].equals(str)) {
+				Config.slot[i] = "";
+				spSlot[i].setSelection(0);
+				slotAdapter.notifyDataSetChanged();
+			}
+		}
+	}
+	
+	private void checkVga() {
+		if (Config.vgaExtension.equals("vbe")) {
+			spVga.setSelection(checkPciSlotFor("pcivga") ? 1 : 0);
+		} else if (Config.vgaExtension.equals("cirrus")) {
+			spVga.setSelection(checkPciSlotFor("cirrus") ? 3 : 2);
+		}
+	}
 
 }
