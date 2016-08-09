@@ -271,7 +271,8 @@
 		android:layout_height="wrap_content"
 		android:layout_width="wrap_content"
 		android:orientation="horizontal"
-		android:layout_marginTop="5dp">
+		android:layout_marginTop="5dp"
+		android:gravity="center_vertical|center_horizontal">
 
 		<RadioGroup
 			android:layout_height="wrap_content"
@@ -302,12 +303,12 @@
 				android:layout_marginRight="5dp"/>
 
 		</RadioGroup>
-		
+
 		<LinearLayout
 			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:orientation="horizontal"
-			android:gravity="center_vertical"
+			android:layout_width="200dp"
+			android:orientation="vertical"
+			android:gravity="center_horizontal"
 			android:layout_marginLeft="5dp"
 			android:background="@drawable/my_border">
 
@@ -315,7 +316,19 @@
 				android:layout_height="wrap_content"
 				android:layout_width="wrap_content"
 				android:text="Memory:"/>
-			
+
+			<SeekBar
+				android:layout_height="wrap_content"
+				android:layout_width="match_parent"
+				android:max="1024"
+				android:id="@+id/hardwareSeekBarMemory"/>
+
+			<TextView
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="value"
+				android:id="@+id/hardwareTextViewMemory"/>
+
 		</LinearLayout>
 
 	</LinearLayout>

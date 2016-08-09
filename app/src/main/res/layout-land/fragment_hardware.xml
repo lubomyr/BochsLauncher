@@ -72,8 +72,8 @@
 		</RadioGroup>
 
 		<LinearLayout
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
+			android:layout_height="110dp"
+			android:layout_width="130dp"
 			android:id="@+id/vgaLayout"
 			android:layout_below="@id/cpuLayout"
 			android:orientation="vertical"
@@ -104,8 +104,8 @@
 		</LinearLayout>>
 	
 	<LinearLayout
-		android:layout_height="wrap_content"
-		android:layout_width="wrap_content"
+		android:layout_height="110dp"
+		android:layout_width="130dp"
 		android:orientation="vertical"
 		android:id="@+id/soundLayout"
 		android:layout_below="@id/cpuLayout"
@@ -137,8 +137,8 @@
 	</LinearLayout>
 
 	<LinearLayout
-		android:layout_height="wrap_content"
-		android:layout_width="wrap_content"
+		android:layout_height="110dp"
+		android:layout_width="130dp"
 		android:orientation="vertical"
 		android:id="@+id/ethernetLayout"
 		android:layout_toRightOf="@id/soundLayout"
@@ -170,6 +170,36 @@
 
 	</LinearLayout>
 
+	<LinearLayout
+		android:layout_height="wrap_content"
+		android:layout_width="250dp"
+		android:id="@+id/memoryLayout"
+		android:layout_below="@id/vgaLayout"
+		android:orientation="vertical"
+		android:gravity="center_horizontal"
+		android:layout_marginTop="5dp"
+		android:layout_marginLeft="5dp"
+		android:background="@drawable/my_border">
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="Memory:"/>
+
+		<SeekBar
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:max="1024"
+			android:id="@+id/hardwareSeekBarMemory"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="value"
+			android:id="@+id/hardwareTextViewMemory"/>
+
+	</LinearLayout>
+	
 	<LinearLayout
 		android:layout_height="wrap_content"
 		android:layout_width="wrap_content"

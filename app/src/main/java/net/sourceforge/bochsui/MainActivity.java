@@ -21,6 +21,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
@@ -43,6 +44,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import android.widget.SeekBar.*;
 
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
     private CheckBox cbFloppyA;
@@ -77,7 +79,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     private Button btVgaRomImage;
     private TextView tvRomImage;
     private TextView tvVgaRomImage;
-    private EditText editMegs;
 
     private Spinner spCpuModel;
     private TextView tvCpuDescription;
@@ -89,6 +90,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     private TextView tvSoundDescription;
     private Spinner spEthernet;
     private TextView tvEthernetDescription;
+	private SeekBar sbMemory;
+	private TextView tvMemory;
 	private Spinner[] spSlot = new Spinner[5];
 	
 	private ArrayAdapter slotAdapter;
@@ -476,33 +479,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         btVgaRomImage = (Button) findViewById(R.id.miscButtonVgaRomImage);
         tvRomImage = (TextView) findViewById(R.id.miscTextViewRomImage);
         tvVgaRomImage = (TextView) findViewById(R.id.miscTextViewVgaRomImage);
-        editMegs = (EditText) findViewById(R.id.miscEditText1);
         tvRomImage.setText(getFileName(Config.romImage));
         tvVgaRomImage.setText(getFileName(Config.vgaRomImage));
-        editMegs.setText(String.valueOf(Config.megs));
-
-        editMegs.addTextChangedListener(new TextWatcher() {
-
-            @Override
-            public void beforeTextChanged(CharSequence p1, int p2, int p3, int p4) {
-                // TODO: Implement this method
-            }
-
-            @Override
-            public void onTextChanged(CharSequence p1, int p2, int p3, int p4) {
-                // TODO: Implement this method
-                //Config.megs = Integer.parseInt(editMegs.getText().toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable p1) {
-                // TODO: Implement this method
-                if (!p1.toString().equals("")) {
-                    Config.megs = Integer.parseInt(editMegs.getText().toString());
-                }
-            }
-
-        });
     }
 
     private void dirSelection(final Requestor num) {
@@ -711,7 +689,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         tvSoundDescription = (TextView) findViewById(R.id.hardwareTextViewSoundDesc);
         spEthernet = (Spinner) findViewById(R.id.hardwareSpinnerEthernet);
         tvEthernetDescription = (TextView) findViewById(R.id.hardwareTextViewEthernetDesc);
-		
+		sbMemory = (SeekBar) findViewById(R.id.hardwareSeekBarMemory);
+		tvMemory = (TextView) findViewById(R.id.hardwareTextViewMemory);
         spSlot[0] = (Spinner) findViewById(R.id.hardwareSpinnerSlot1);
         spSlot[1] = (Spinner) findViewById(R.id.hardwareSpinnerSlot2);
         spSlot[2] = (Spinner) findViewById(R.id.hardwareSpinnerSlot3);
@@ -734,6 +713,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         tvCpuDescription.setText(cpuModel.get(selectedCpuModel).getDescription());
         rbI430fx.setChecked(Config.chipset.equals("i430fx"));
         rbI440fx.setChecked(Config.chipset.equals("i440fx"));
+		sbMemory.setProgress(Config.megs);
+		tvMemory.setText(Config.megs + " mb");
 		Integer[] selectedSlot = new Integer[5];
 		for (int i = 0; i < spSlot.length; i++) {
 			selectedSlot[i] = slotList.indexOf(Config.slot[i]);
@@ -959,6 +940,28 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                 // TODO: Implement this method
             }
         });
+		
+		sbMemory.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+
+				@Override
+				public void onProgressChanged(SeekBar p1, int p2, boolean p3)
+				{
+					tvMemory.setText(String.valueOf(sbMemory.getProgress()));
+					Config.megs = sbMemory.getProgress();
+				}
+
+				@Override
+				public void onStartTrackingTouch(SeekBar p1)
+				{
+					// TODO: Implement this method
+				}
+
+				@Override
+				public void onStopTrackingTouch(SeekBar p1)
+				{
+					// TODO: Implement this method
+				}
+			});
     }
 
     public void onClickI430fx(View view) {
