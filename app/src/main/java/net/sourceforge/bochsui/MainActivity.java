@@ -756,7 +756,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 						Config.vgaRomImage = "VGABIOS-lgpl-latest";
 						setFreePciSlot("cirrus");
 						if (!checkPciSlotFor("pcivga") && getfreePciSlot()!=-1) {
-							spSlot[getfreePciSlot()].setSelection(slotList.indexOf("pcivga"));
+							spSlot[0].setSelection(slotList.indexOf("pcivga"));
 							slotAdapter.notifyDataSetChanged();
 						}
 						break;
@@ -771,7 +771,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 						Config.vgaRomImage = "VGABIOS-lgpl-latest-cirrus";
 						setFreePciSlot("pcivga");
 						if (!checkPciSlotFor("cirrus") && getfreePciSlot()!=-1) {
-							spSlot[getfreePciSlot()].setSelection(slotList.indexOf("cirrus"));
+							spSlot[0].setSelection(slotList.indexOf("cirrus"));
 							slotAdapter.notifyDataSetChanged();
 						}
 						break;
