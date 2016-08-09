@@ -6,7 +6,7 @@
 
 	<LinearLayout
 		android:layout_height="wrap_content"
-		android:layout_width="wrap_content"
+		android:layout_width="315dp"
 		android:orientation="vertical"
 		android:gravity="center_vertical|center_horizontal"
 		android:background="@drawable/my_border"
@@ -172,7 +172,7 @@
 
 	<LinearLayout
 		android:layout_height="wrap_content"
-		android:layout_width="250dp"
+		android:layout_width="400dp"
 		android:id="@+id/memoryLayout"
 		android:layout_below="@id/vgaLayout"
 		android:orientation="vertical"

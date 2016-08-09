@@ -7,11 +7,14 @@
 	android:gravity="center_horizontal">
 
 	<LinearLayout
+		android:id="@+id/cpuLayout"
 		android:layout_height="wrap_content"
-		android:layout_width="wrap_content"
+		android:layout_width="match_parent"
 		android:orientation="vertical"
 		android:gravity="center_vertical|center_horizontal"
-		android:background="@drawable/my_border">
+		android:background="@drawable/my_border"
+		android:layout_marginLeft="5dp"
+		android:layout_marginRight="5dp">
 
 		<TextView
 			android:layout_height="wrap_content"
@@ -38,7 +41,7 @@
 
 	<LinearLayout
 		android:layout_height="wrap_content"
-		android:layout_width="wrap_content"
+		android:layout_width="match_parent"
 		android:orientation="horizontal"
 		android:layout_marginTop="5dp">
 
@@ -49,12 +52,14 @@
 			android:gravity="center">
 
 			<LinearLayout
+				android:id="@+id/vgaLayout"
 				android:layout_height="wrap_content"
-				android:layout_width="wrap_content"
+				android:layout_width="match_parent"
 				android:orientation="vertical"
 				android:gravity="center_horizontal"
 				android:background="@drawable/my_border"
-				android:layout_marginLeft="5dp">
+				android:layout_marginLeft="5dp"
+				android:layout_marginRight="5dp">
 
 				<TextView
 					android:layout_height="wrap_content"
@@ -80,12 +85,15 @@
 			</LinearLayout>
 
 			<LinearLayout
+				android:id="@+id/soundLayout"
 				android:layout_height="wrap_content"
-				android:layout_width="wrap_content"
+				android:layout_width="match_parent"
 				android:orientation="vertical"
 				android:gravity="center_horizontal"
 				android:background="@drawable/my_border"
-				android:layout_marginTop="5dp">
+				android:layout_marginTop="5dp"
+				android:layout_marginLeft="5dp"
+				android:layout_marginRight="5dp">
 
 				<TextView
 					android:layout_height="wrap_content"
@@ -111,12 +119,15 @@
 			</LinearLayout>
 
 			<LinearLayout
+				android:id="@+id/ethernetLayout"
 				android:layout_height="wrap_content"
-				android:layout_width="wrap_content"
+				android:layout_width="match_parent"
 				android:orientation="vertical"
 				android:gravity="center"
 				android:background="@drawable/my_border"
-				android:layout_marginTop="5dp">
+				android:layout_marginTop="5dp"
+				android:layout_marginLeft="5dp"
+				android:layout_marginRight="5dp">
 
 				<TextView
 					android:layout_height="wrap_content"
@@ -145,12 +156,14 @@
 		</LinearLayout>
 
 		<LinearLayout
+			android:id="@+id/pciLayout"
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:orientation="vertical"
 			android:gravity="center_vertical|center_horizontal"
 			android:background="@drawable/my_border"
-			android:layout_marginLeft="5dp">
+			android:layout_marginLeft="5dp"
+			android:layout_marginRight="5dp">
 
 			<TextView
 				android:layout_height="wrap_content"
@@ -269,7 +282,7 @@
 
 	<LinearLayout
 		android:layout_height="wrap_content"
-		android:layout_width="wrap_content"
+		android:layout_width="match_parent"
 		android:orientation="horizontal"
 		android:layout_marginTop="5dp"
 		android:gravity="center_vertical|center_horizontal">
@@ -279,7 +292,9 @@
 			android:layout_width="wrap_content"
 			android:orientation="vertical"
 			android:gravity="center_vertical|center_horizontal"
-			android:background="@drawable/my_border">
+			android:background="@drawable/my_border"
+			android:id="@+id/chipsetLayout"
+			android:layout_marginLeft="5dp">
 
 			<TextView
 				android:layout_height="wrap_content"
@@ -306,11 +321,12 @@
 
 		<LinearLayout
 			android:layout_height="wrap_content"
-			android:layout_width="200dp"
+			android:layout_width="240dp"
 			android:orientation="vertical"
 			android:gravity="center_horizontal"
 			android:layout_marginLeft="5dp"
-			android:background="@drawable/my_border">
+			android:background="@drawable/my_border"
+			android:id="@+id/memoryLayout">
 
 			<TextView
 				android:layout_height="wrap_content"

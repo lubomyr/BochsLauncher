@@ -946,7 +946,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 				@Override
 				public void onProgressChanged(SeekBar p1, int p2, boolean p3)
 				{
-					tvMemory.setText(String.valueOf(sbMemory.getProgress()));
+					tvMemory.setText(String.valueOf(sbMemory.getProgress()) + " mb");
 					Config.megs = sbMemory.getProgress();
 				}
 
