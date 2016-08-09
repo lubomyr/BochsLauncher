@@ -7,12 +7,12 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Config {
-	public static boolean useSb16 = false;
-	public static boolean useEs1370 = false;
-	public static boolean useNe2000 = false;
-	public static boolean useRtl8029 = false;
-	public static boolean useE1000 = false;
-	public static boolean useVoodoo = false;
+    public static boolean useSb16 = false;
+    public static boolean useEs1370 = false;
+    public static boolean useNe2000 = false;
+    public static boolean useRtl8029 = false;
+    public static boolean useE1000 = false;
+    public static boolean useVoodoo = false;
     public static boolean floppyA = false;
     public static boolean floppyB = false;
     public static String floppyA_image = "floppyA.img";
@@ -243,7 +243,7 @@ public class Config {
             }
 
             if (str.startsWith("ne2k:")) {
-				useNe2000 = true;
+                useNe2000 = true;
                 if (str.contains("mac=")) {
                     String str2 = str.substring(str.indexOf("mac="), str.length() - 1);
                     mac = str2.contains(",") ?
@@ -255,32 +255,32 @@ public class Config {
                             str2.substring(7, str2.indexOf(",")) : str2.substring(7, str2.length());
                 }
             }
-			
-			if (str.startsWith("e1000:")) {
-				useE1000 = true;
+
+            if (str.startsWith("e1000:")) {
+                useE1000 = true;
                 if (str.contains("mac=")) {
                     String str2 = str.substring(str.indexOf("mac="), str.length() - 1);
                     mac = str2.contains(",") ?
-						str2.substring(4, str2.indexOf(",")) : str2.substring(4, str2.length());
+                            str2.substring(4, str2.indexOf(",")) : str2.substring(4, str2.length());
                 }
                 if (str.contains("ethmod=")) {
                     String str2 = str.substring(str.indexOf("ethmod="), str.length() - 1);
                     ethmod = str2.contains(",") ?
-						str2.substring(7, str2.indexOf(",")) : str2.substring(7, str2.length());
+                            str2.substring(7, str2.indexOf(",")) : str2.substring(7, str2.length());
                 }
             }
-			
-			if (str.startsWith("sb16:")) {
-				useSb16 = true;
-			}
-			
-			if (str.startsWith("es1370:")) {
-				useEs1370 = true;
-			}
-			
-			if (str.startsWith("voodoo:")) {
-				useVoodoo = true;
-			}
+
+            if (str.startsWith("sb16:")) {
+                useSb16 = true;
+            }
+
+            if (str.startsWith("es1370:")) {
+                useEs1370 = true;
+            }
+
+            if (str.startsWith("voodoo:")) {
+                useVoodoo = true;
+            }
 
             if (str.startsWith("megs:")) {
                 megs = Integer.parseInt(str.substring(6, str.length() - 1));
@@ -315,12 +315,12 @@ public class Config {
             fw.write(", slot5=" + slot[4]);
         }
         fw.write("\n");
-		if (useRtl8029)
-			fw.write("ne2k: mac=" + mac + ", ethmod=" + ethmod + ", script=\"\"\n");
-		else if (useNe2000)
-			fw.write("ne2k: ioaddr=0x300, irq=10, mac=" + mac + ", ethmod=" + ethmod + ", script=\"\"\n");
-		if (useE1000)
-			fw.write("e1000: mac=" + mac + ", ethmod=" + ethmod + ", script=\"\"\n");
+        if (useRtl8029)
+            fw.write("ne2k: mac=" + mac + ", ethmod=" + ethmod + ", script=\"\"\n");
+        else if (useNe2000)
+            fw.write("ne2k: ioaddr=0x300, irq=10, mac=" + mac + ", ethmod=" + ethmod + ", script=\"\"\n");
+        if (useE1000)
+            fw.write("e1000: mac=" + mac + ", ethmod=" + ethmod + ", script=\"\"\n");
         if (floppyA) {
             fw.write("floppya: image=" + floppyA_image + ", status=inserted\n");
         }
@@ -373,12 +373,12 @@ public class Config {
         fw.write("megs: " + megs + "\n");
         fw.write("sound: waveoutdrv=sdl\n");
         fw.write("speaker: enabled=1, mode=sound\n");
-		if (useSb16)
-			fw.write("sb16: wavemode=1, dmatimer=500000\n");
-		if (useEs1370)
-			fw.write("es1370: enabled=1\n");
-		if (useVoodoo)
-			fw.write("voodoo: enabled=1, model=voodoo1\n");
+        if (useSb16)
+            fw.write("sb16: wavemode=1, dmatimer=500000\n");
+        if (useEs1370)
+            fw.write("es1370: enabled=1\n");
+        if (useVoodoo)
+            fw.write("voodoo: enabled=1, model=voodoo1\n");
         fw.write("mouse: enabled=1\n");
         fw.write("clock: time0=local\n");
         fw.write("debug: action=ignore\n");
