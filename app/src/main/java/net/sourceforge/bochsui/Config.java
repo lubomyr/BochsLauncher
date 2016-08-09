@@ -223,12 +223,12 @@ public class Config {
                             str2.substring(6, str2.indexOf(",")) : str2.substring(6, str2.length());
                 }
                 if (str.contains("slot4=")) {
-                    String str2 = str.substring(str.indexOf("slot3="), str.length() - 1);
+                    String str2 = str.substring(str.indexOf("slot4="), str.length() - 1);
                     slot[3] = str2.contains(",") ?
                             str2.substring(6, str2.indexOf(",")) : str2.substring(6, str2.length());
                 }
                 if (str.contains("slot5=")) {
-                    String str2 = str.substring(str.indexOf("slot3="), str.length() - 1);
+                    String str2 = str.substring(str.indexOf("slot5="), str.length() - 1);
                     slot[4] = str2.contains(",") ?
                             str2.substring(6, str2.indexOf(",")) : str2.substring(6, str2.length());
                 }
