@@ -726,26 +726,19 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         spVga.setAdapter(vgaAdapter);
         spSound.setAdapter(soundAdapter);
         spEthernet.setAdapter(ethernetAdapter);
-        spSlot[0].setAdapter(slotAdapter);
-        spSlot[1].setAdapter(slotAdapter);
-        spSlot[2].setAdapter(slotAdapter);
-        spSlot[3].setAdapter(slotAdapter);
-        spSlot[4].setAdapter(slotAdapter);
+		for (int i=0; i<spSlot.length; i++) {
+			spSlot[i].setAdapter(slotAdapter);
+		}
         int selectedCpuModel = getCpuModelValues().indexOf(Config.cpuModel);
         spCpuModel.setSelection(selectedCpuModel);
         tvCpuDescription.setText(cpuModel.get(selectedCpuModel).getDescription());
         rbI430fx.setChecked(Config.chipset.equals("i430fx"));
         rbI440fx.setChecked(Config.chipset.equals("i440fx"));
-        int selectedSlot1 = slotList.indexOf(Config.slot[0]);
-        int selectedSlot2 = slotList.indexOf(Config.slot[1]);
-        int selectedSlot3 = slotList.indexOf(Config.slot[2]);
-        int selectedSlot4 = slotList.indexOf(Config.slot[3]);
-        int selectedSlot5 = slotList.indexOf(Config.slot[4]);
-        spSlot[0].setSelection((selectedSlot1 == -1) ? 0 : selectedSlot1);
-        spSlot[1].setSelection((selectedSlot2 == -1) ? 0 : selectedSlot2);
-        spSlot[2].setSelection((selectedSlot3 == -1) ? 0 : selectedSlot3);
-        spSlot[3].setSelection((selectedSlot4 == -1) ? 0 : selectedSlot4);
-        spSlot[4].setSelection((selectedSlot5 == -1) ? 0 : selectedSlot5);
+		Integer[] selectedSlot = new Integer[5];
+		for (int i = 0; i < spSlot.length; i++) {
+			selectedSlot[i] = slotList.indexOf(Config.slot[i]);
+			spSlot[i].setSelection((selectedSlot[i] == -1) ? 0 : selectedSlot[i]);
+		}
 		checkVga();
 		checkSound();
 		checkEthernet();
@@ -896,7 +889,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
             @Override
             public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4) {
-                Config.slot[0] = (p3 == 0) ? "" : (String) slotList.get(p3);
+				String str = (String) slotList.get(p3);
+                Config.slot[0] = (p3 == 0) ? "" : str;
+				setOnInConfig(str);
             }
 
             @Override
@@ -909,7 +904,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
             @Override
             public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4) {
-                Config.slot[1] = (p3 == 0) ? "" : (String) slotList.get(p3);
+                String str = (String) slotList.get(p3);
+                Config.slot[1] = (p3 == 0) ? "" : str;
+				setOnInConfig(str);
             }
 
             @Override
@@ -922,7 +919,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
             @Override
             public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4) {
-                Config.slot[2] = (p3 == 0) ? "" : (String) slotList.get(p3);
+                String str = (String) slotList.get(p3);
+                Config.slot[2] = (p3 == 0) ? "" : str;
+				setOnInConfig(str);
             }
 
             @Override
@@ -935,7 +934,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
             @Override
             public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4) {
-                Config.slot[3] = (p3 == 0) ? "" : (String) slotList.get(p3);
+                String str = (String) slotList.get(p3);
+                Config.slot[3] = (p3 == 0) ? "" : str;
+				setOnInConfig(str);
             }
 
             @Override
@@ -948,7 +949,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
             @Override
             public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4) {
-                Config.slot[4] = (p3 == 0) ? "" : (String) slotList.get(p3);
+                String str = (String) slotList.get(p3);
+                Config.slot[4] = (p3 == 0) ? "" : str;
+				setOnInConfig(str);
             }
 
             @Override
@@ -1022,6 +1025,31 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			spEthernet.setSelection(1);
 		else
 			spEthernet.setSelection(0);
+	}
+	
+	private void setOnInConfig(String str) {
+		switch(str) {
+			case "voodoo":
+				Config.useVoodoo = true;
+				break;
+			case "es1370":
+				Config.useEs1370 = true;
+				break;
+			case "ne2k":
+				Config.useRtl8029 = true;
+				break;
+			case "e1000":
+				Config.useE1000 = true;
+				break;
+			case "pcivga":
+				Config.vgaExtension = "vbe";
+				Config.vgaRomImage = "VGABIOS-lgpl-latest";
+				break;
+			case "cirrus":
+				Config.vgaExtension = "cirrus";
+				Config.vgaRomImage = "VGABIOS-lgpl-latest-cirrus";
+				break;
+		}
 	}
 
 }
