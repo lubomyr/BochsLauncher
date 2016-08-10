@@ -884,7 +884,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
             public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4) {
                 String str = (String) slotList.get(p3);
                 Config.slot[1] = (p3 == 0) ? "" : str;
-                setOnInConfig(str);
+				setOnInConfig(str);
             }
 
             @Override
@@ -899,7 +899,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
             public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4) {
                 String str = (String) slotList.get(p3);
                 Config.slot[2] = (p3 == 0) ? "" : str;
-                setOnInConfig(str);
+				setOnInConfig(str);
             }
 
             @Override
@@ -914,7 +914,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
             public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4) {
                 String str = (String) slotList.get(p3);
                 Config.slot[3] = (p3 == 0) ? "" : str;
-                setOnInConfig(str);
+				setOnInConfig(str);
             }
 
             @Override
@@ -929,7 +929,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
             public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4) {
                 String str = (String) slotList.get(p3);
                 Config.slot[4] = (p3 == 0) ? "" : str;
-                setOnInConfig(str);
+				setOnInConfig(str);
             }
 
             @Override
@@ -1031,6 +1031,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                 Config.useEs1370 = true;
                 break;
             case "ne2k":
+				Config.useNe2000 = true;
                 Config.useRtl8029 = true;
                 break;
             case "e1000":
