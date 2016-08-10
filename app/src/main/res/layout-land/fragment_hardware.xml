@@ -1,329 +1,328 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/cpuLayout"
-        android:layout_width="315dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/my_border"
-        android:gravity="center_vertical|center_horizontal"
-        android:orientation="vertical">
+	<LinearLayout
+		android:id="@+id/cpuLayout"
+		android:layout_width="360dp"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="5dp"
+		android:layout_marginTop="5dp"
+		android:background="@drawable/my_border"
+		android:gravity="center_vertical|center_horizontal"
+		android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="CPU Model:"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="CPU Model:"
+			android:textAppearance="?android:attr/textAppearanceSmall"/>
 
-        <Spinner
-            android:id="@+id/hardwareSpinnerCpuModel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:padding="0dp" />
+		<Spinner
+			android:id="@+id/hardwareSpinnerCpuModel"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:gravity="center_horizontal"
+			android:padding="0dp"/>
 
-        <TextView
-            android:id="@+id/hardwareTextViewCpuDesc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:text="Description" />
+		<TextView
+			android:id="@+id/hardwareTextViewCpuDesc"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="5dp"
+			android:layout_marginRight="5dp"
+			android:text="Description"/>
 
-    </LinearLayout>
+	</LinearLayout>
 
-    <RadioGroup
-        android:id="@+id/chipsetLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_toRightOf="@id/cpuLayout"
-        android:background="@drawable/my_border"
-        android:gravity="center_vertical|center_horizontal"
-        android:orientation="vertical">
+	<RadioGroup
+		android:id="@+id/chipsetLayout"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="5dp"
+		android:layout_marginTop="5dp"
+		android:layout_toRightOf="@id/cpuLayout"
+		android:background="@drawable/my_border"
+		android:gravity="center_vertical|center_horizontal"
+		android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Chipset:" />
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Chipset:"/>
 
-        <RadioButton
-            android:id="@+id/hardwareRadioButtonI430fx"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="5dp"
-            android:onClick="onClickI430fx"
-            android:text="i430fx" />
+		<RadioButton
+			android:id="@+id/hardwareRadioButtonI430fx"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginRight="5dp"
+			android:onClick="onClickI430fx"
+			android:text="i430fx"/>
 
-        <RadioButton
-            android:id="@+id/hardwareRadioButtonI440fx"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="5dp"
-            android:onClick="onClickI440fx"
-            android:text="i440fx" />
+		<RadioButton
+			android:id="@+id/hardwareRadioButtonI440fx"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginRight="5dp"
+			android:onClick="onClickI440fx"
+			android:text="i440fx"/>
 
-    </RadioGroup>
+	</RadioGroup>
 
-    <LinearLayout
-        android:id="@+id/vgaLayout"
-        android:layout_width="130dp"
-        android:layout_height="110dp"
-        android:layout_below="@id/cpuLayout"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/my_border"
-        android:gravity="left"
-        android:orientation="vertical">
+	<LinearLayout
+		android:id="@+id/vgaLayout"
+		android:layout_width="146dp"
+		android:layout_height="110dp"
+		android:layout_below="@id/cpuLayout"
+		android:layout_marginLeft="5dp"
+		android:layout_marginTop="5dp"
+		android:background="@drawable/my_border"
+		android:gravity="center"
+		android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="VGA Card:" />
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="center_horizontal"
+			android:text="VGA Card:"/>
 
-        <Spinner
-            android:id="@+id/hardwareSpinnerVga"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="0dp" />
+		<Spinner
+			android:id="@+id/hardwareSpinnerVga"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:padding="0dp"/>
 
-        <TextView
-            android:id="@+id/hardwareTextViewVgaDesc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="description" />
+		<TextView
+			android:id="@+id/hardwareTextViewVgaDesc"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="center"
+			android:text="description"/>
 
-    </LinearLayout>
-    >
+	</LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/soundLayout"
-        android:layout_width="130dp"
-        android:layout_height="110dp"
-        android:layout_below="@id/cpuLayout"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_toRightOf="@id/vgaLayout"
-        android:background="@drawable/my_border"
-        android:gravity="left"
-        android:orientation="vertical">
+	<LinearLayout
+		android:id="@+id/soundLayout"
+		android:layout_width="146dp"
+		android:layout_height="110dp"
+		android:layout_below="@id/cpuLayout"
+		android:layout_marginLeft="5dp"
+		android:layout_marginTop="5dp"
+		android:layout_toRightOf="@id/vgaLayout"
+		android:background="@drawable/my_border"
+		android:gravity="center"
+		android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="Sound Card:" />
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="center_horizontal"
+			android:text="Sound Card:"/>
 
-        <Spinner
-            android:id="@+id/hardwareSpinnerSound"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="0dp" />
+		<Spinner
+			android:id="@+id/hardwareSpinnerSound"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:padding="0dp"/>
 
-        <TextView
-            android:id="@+id/hardwareTextViewSoundDesc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="description" />
+		<TextView
+			android:id="@+id/hardwareTextViewSoundDesc"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="center"
+			android:text="description"/>
 
-    </LinearLayout>
+	</LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/ethernetLayout"
-        android:layout_width="130dp"
-        android:layout_height="110dp"
-        android:layout_below="@id/cpuLayout"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_toRightOf="@id/soundLayout"
-        android:background="@drawable/my_border"
-        android:gravity="left"
-        android:orientation="vertical">
+	<LinearLayout
+		android:id="@+id/ethernetLayout"
+		android:layout_width="145dp"
+		android:layout_height="110dp"
+		android:layout_below="@id/cpuLayout"
+		android:layout_marginLeft="5dp"
+		android:layout_marginTop="5dp"
+		android:layout_toRightOf="@id/soundLayout"
+		android:background="@drawable/my_border"
+		android:gravity="center"
+		android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="Ethernet Card:" />
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="center_horizontal"
+			android:text="Ethernet Card:"/>
 
-        <Spinner
-            android:id="@+id/hardwareSpinnerEthernet"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="0dp" />
+		<Spinner
+			android:id="@+id/hardwareSpinnerEthernet"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:padding="0dp"/>
 
-        <TextView
-            android:id="@+id/hardwareTextViewEthernetDesc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="description"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+		<TextView
+			android:id="@+id/hardwareTextViewEthernetDesc"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="center_horizontal"
+			android:text="description"
+			android:textAppearance="?android:attr/textAppearanceSmall"/>
 
-    </LinearLayout>
+	</LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/memoryLayout"
-        android:layout_width="400dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/vgaLayout"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/my_border"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+	<LinearLayout
+		android:id="@+id/memoryLayout"
+		android:layout_width="446dp"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/vgaLayout"
+		android:layout_marginLeft="5dp"
+		android:layout_marginTop="5dp"
+		android:background="@drawable/my_border"
+		android:gravity="center_horizontal"
+		android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Memory:" />
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Memory:"/>
 
-        <SeekBar
-            android:id="@+id/hardwareSeekBarMemory"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:max="1024" />
+		<SeekBar
+			android:id="@+id/hardwareSeekBarMemory"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:max="1024"/>
 
-        <TextView
-            android:id="@+id/hardwareTextViewMemory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="value" />
+		<TextView
+			android:id="@+id/hardwareTextViewMemory"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="value"/>
 
-    </LinearLayout>
+	</LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/pciLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_toRightOf="@id/chipsetLayout"
-        android:background="@drawable/my_border"
-        android:gravity="center_vertical|center_horizontal"
-        android:orientation="vertical">
+	<LinearLayout
+		android:id="@+id/pciLayout"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="5dp"
+		android:layout_marginTop="5dp"
+		android:layout_toRightOf="@id/chipsetLayout"
+		android:background="@drawable/my_border"
+		android:gravity="center_vertical|center_horizontal"
+		android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="PCI:" />
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="center_horizontal"
+			android:text="PCI:"/>
 
+		<LinearLayout
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="5dp"
+			android:gravity="center_vertical"
+			android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Slot1:"
+				android:textAppearance="?android:attr/textAppearanceMedium"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Slot1:"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+			<Spinner
+				android:id="@+id/hardwareSpinnerSlot1"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:padding="0dp"/>
 
-            <Spinner
-                android:id="@+id/hardwareSpinnerSlot1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="0dp" />
+		</LinearLayout>
 
-        </LinearLayout>
+		<LinearLayout
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="5dp"
+			android:gravity="center_vertical"
+			android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Slot2:"
+				android:textAppearance="?android:attr/textAppearanceMedium"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Slot2:"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+			<Spinner
+				android:id="@+id/hardwareSpinnerSlot2"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:padding="0dp"/>
 
-            <Spinner
-                android:id="@+id/hardwareSpinnerSlot2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="0dp" />
+		</LinearLayout>
 
-        </LinearLayout>
+		<LinearLayout
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="5dp"
+			android:gravity="center_vertical"
+			android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Slot3:"
+				android:textAppearance="?android:attr/textAppearanceMedium"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Slot3:"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+			<Spinner
+				android:id="@+id/hardwareSpinnerSlot3"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:padding="0dp"/>
 
-            <Spinner
-                android:id="@+id/hardwareSpinnerSlot3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="0dp" />
+		</LinearLayout>
 
-        </LinearLayout>
+		<LinearLayout
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="5dp"
+			android:gravity="center_vertical"
+			android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Slot4:"
+				android:textAppearance="?android:attr/textAppearanceMedium"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Slot4:"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+			<Spinner
+				android:id="@+id/hardwareSpinnerSlot4"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:padding="0dp"/>
 
-            <Spinner
-                android:id="@+id/hardwareSpinnerSlot4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="0dp" />
+		</LinearLayout>
 
-        </LinearLayout>
+		<LinearLayout
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="5dp"
+			android:gravity="center_vertical"
+			android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Slot5:"
+				android:textAppearance="?android:attr/textAppearanceMedium"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Slot5:"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+			<Spinner
+				android:id="@+id/hardwareSpinnerSlot5"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:padding="0dp"/>
 
-            <Spinner
-                android:id="@+id/hardwareSpinnerSlot5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="0dp" />
+		</LinearLayout>
 
-        </LinearLayout>
-
-    </LinearLayout>
+	</LinearLayout>
 
 </RelativeLayout>
 

@@ -14,7 +14,6 @@
 		android:layout_marginTop="5dp">
 
 		<LinearLayout
-			android:id="@+id/layoutFloppyA"
 			android:layout_width="wrap_content"
 			android:layout_height="match_parent"
 			android:background="@drawable/my_border"
@@ -31,14 +30,14 @@
 					android:id="@+id/storageCheckBoxFloppyA"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="Floppy A"/>
+					android:text="FloppyA"/>
 
 				<Button
 					android:id="@+id/storageButtonFloppyA"
 					style="?android:attr/buttonStyleSmall"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:layout_marginLeft="10dp"
+					android:layout_marginLeft="5dp"
 					android:onClick="browseFloppyA"
 					android:text="browse"/>
 
@@ -54,7 +53,6 @@
 		</LinearLayout>
 
 		<LinearLayout
-			android:id="@+id/layoutFloppyB"
 			android:layout_width="wrap_content"
 			android:layout_height="match_parent"
 			android:background="@drawable/my_border"
@@ -71,14 +69,14 @@
 					android:id="@+id/storageCheckBoxFloppyB"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="Floppy B"/>
+					android:text="FloppyB"/>
 
 				<Button
 					android:id="@+id/storageButtonFloppyB"
 					style="?android:attr/buttonStyleSmall"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:layout_marginLeft="10dp"
+					android:layout_marginLeft="5dp"
 					android:onClick="browseFloppyB"
 					android:text="browse"/>
 
@@ -101,9 +99,7 @@
 		android:layout_marginTop="5dp"
 		android:background="@drawable/my_border"
 		android:gravity="center_vertical|center_horizontal"
-		android:orientation="vertical"
-		android:layout_marginLeft="5dp"
-		android:layout_marginRight="5dp">
+		android:orientation="vertical">
 
 		<LinearLayout
 			android:layout_width="match_parent"
@@ -113,7 +109,7 @@
 
 			<CheckBox
 				android:id="@+id/storageCheckBoxAta0m"
-				android:layout_width="120dp"
+				android:layout_width="135dp"
 				android:layout_height="wrap_content"
 				android:text="ata0-master"/>
 
@@ -121,6 +117,7 @@
 				android:id="@+id/storageSpinnerAta0m"
 				android:layout_width="wrap_content"
 				android:layout_height="match_parent"
+				android:padding="0dp"
 				android:layout_marginLeft="10dp"
 				android:layout_marginRight="10dp"/>
 
@@ -165,9 +162,7 @@
 		android:layout_marginTop="5dp"
 		android:background="@drawable/my_border"
 		android:gravity="right|center_vertical"
-		android:orientation="vertical"
-		android:layout_marginLeft="5dp"
-		android:layout_marginRight="5dp">
+		android:orientation="vertical">
 
 		<LinearLayout
 			android:layout_width="match_parent"
@@ -177,7 +172,7 @@
 
 			<CheckBox
 				android:id="@+id/storageCheckBoxAta0s"
-				android:layout_width="120dp"
+				android:layout_width="135dp"
 				android:layout_height="wrap_content"
 				android:text="ata0-slave"/>
 
@@ -185,6 +180,7 @@
 				android:id="@+id/storageSpinnerAta0s"
 				android:layout_width="wrap_content"
 				android:layout_height="match_parent"
+				android:padding="0dp"
 				android:layout_marginLeft="10dp"
 				android:layout_marginRight="10dp"/>
 
@@ -229,9 +225,7 @@
 		android:layout_marginTop="5dp"
 		android:background="@drawable/my_border"
 		android:gravity="center_vertical|center_horizontal"
-		android:orientation="vertical"
-		android:layout_marginLeft="5dp"
-		android:layout_marginRight="5dp">
+		android:orientation="vertical">
 
 		<LinearLayout
 			android:layout_width="match_parent"
@@ -241,7 +235,7 @@
 
 			<CheckBox
 				android:id="@+id/storageCheckBoxAta1m"
-				android:layout_width="120dp"
+				android:layout_width="135dp"
 				android:layout_height="wrap_content"
 				android:text="ata1-master"/>
 
@@ -249,6 +243,7 @@
 				android:id="@+id/storageSpinnerAta1m"
 				android:layout_width="wrap_content"
 				android:layout_height="match_parent"
+				android:padding="0dp"
 				android:layout_marginLeft="10dp"
 				android:layout_marginRight="10dp"/>
 
@@ -293,9 +288,7 @@
 		android:layout_marginTop="5dp"
 		android:background="@drawable/my_border"
 		android:gravity="center_vertical|center_horizontal"
-		android:orientation="vertical"
-		android:layout_marginLeft="5dp"
-		android:layout_marginRight="5dp">
+		android:orientation="vertical">
 
 		<LinearLayout
 			android:layout_width="match_parent"
@@ -305,7 +298,7 @@
 
 			<CheckBox
 				android:id="@+id/storageCheckBoxAta1s"
-				android:layout_width="120dp"
+				android:layout_width="135dp"
 				android:layout_height="wrap_content"
 				android:text="ata1-slave"/>
 
@@ -313,6 +306,7 @@
 				android:id="@+id/storageSpinnerAta1s"
 				android:layout_width="wrap_content"
 				android:layout_height="match_parent"
+				android:padding="0dp"
 				android:layout_marginLeft="10dp"
 				android:layout_marginRight="10dp"/>
 
@@ -358,8 +352,6 @@
 		android:background="@drawable/my_border"
 		android:gravity="center_vertical|center_horizontal"
 		android:orientation="horizontal"
-		android:layout_marginLeft="5dp"
-		android:layout_marginRight="5dp"
 		android:layout_marginBottom="5dp">
 
 		<TextView
@@ -372,7 +364,8 @@
 			android:id="@+id/storageSpinnerBoot"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_marginLeft="10dp"/>
+			android:layout_marginLeft="10dp"
+			android:padding="0dp"/>
 
 	</LinearLayout>
 

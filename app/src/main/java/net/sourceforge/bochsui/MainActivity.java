@@ -278,7 +278,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         spAta0sType.setEnabled(Config.ata0s);
         spAta1mType.setEnabled(Config.ata1m);
         spAta1sType.setEnabled(Config.ata1s);
-        SpinnerAdapter adapterType = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, typeList);
+        SpinnerAdapter adapterType = new ArrayAdapter<String>(this, R.layout.spinner_row, typeList);
         SpinnerAdapter adapterBoot = new ArrayAdapter<String>(this, R.layout.spinner_row, bootList);
         spAta0mType.setAdapter(adapterType);
         spAta0sType.setAdapter(adapterType);
