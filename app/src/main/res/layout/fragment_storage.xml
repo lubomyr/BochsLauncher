@@ -10,9 +10,11 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:gravity="center_horizontal"
-		android:orientation="horizontal">
+		android:orientation="horizontal"
+		android:layout_marginTop="5dp">
 
 		<LinearLayout
+			android:id="@+id/layoutFloppyA"
 			android:layout_width="wrap_content"
 			android:layout_height="match_parent"
 			android:background="@drawable/my_border"
@@ -52,6 +54,7 @@
 		</LinearLayout>
 
 		<LinearLayout
+			android:id="@+id/layoutFloppyB"
 			android:layout_width="wrap_content"
 			android:layout_height="match_parent"
 			android:background="@drawable/my_border"
