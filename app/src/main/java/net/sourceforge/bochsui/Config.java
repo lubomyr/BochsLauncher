@@ -47,8 +47,8 @@ public class Config {
     public static String chipset = "";
     public static String[] slot = {"", "", "", "", ""};
     public static String cpuModel = "bx_generic";
-    public static String mac = "";
-    public static String ethmod = "";
+    public static String mac = "b0:c4:20:00:00:00";
+    public static String ethmod = "slirp";
 	public static boolean fullscreen = false;
 	public static String clockSync = "none";
 
