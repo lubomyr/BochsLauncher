@@ -78,6 +78,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     private TextView tvVgaRomImage;
 	private CheckBox cbFullscreen;
 	private Spinner spClockSync;
+	private SeekBar sbVgaUpdateFreq;
+	private TextView tvVgaUpdateFreq;
 
     private Spinner spCpuModel;
     private TextView tvCpuDescription;
@@ -481,12 +483,16 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         tvVgaRomImage = (TextView) findViewById(R.id.miscTextViewVgaRomImage);
 		cbFullscreen = (CheckBox) findViewById(R.id.miscCheckBoxFullscreen);
 		spClockSync = (Spinner) findViewById(R.id.miscSpinnerClockSync);
+		sbVgaUpdateFreq = (SeekBar) findViewById(R.id.miscSeekBarVgaUpdateFreq);
+		tvVgaUpdateFreq = (TextView) findViewById(R.id.miscTextViewVgaUpdateFreq);
 		SpinnerAdapter syncAdapter = new ArrayAdapter<String>(this, R.layout.spinner_row, syncList);
 		spClockSync.setAdapter(syncAdapter);
         tvRomImage.setText(getFileName(Config.romImage));
         tvVgaRomImage.setText(getFileName(Config.vgaRomImage));
 		cbFullscreen.setChecked(Config.fullscreen);
 		spClockSync.setSelection(syncList.indexOf(Config.clockSync));
+		sbVgaUpdateFreq.setProgress(Config.vgaUpdateFreq);
+		tvVgaUpdateFreq.setText(String.valueOf(Config.vgaUpdateFreq));
 		
 		cbFullscreen.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
@@ -508,6 +514,25 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 				@Override
 				public void onNothingSelected(AdapterView<?> p1)
 				{
+					// TODO: Implement this method
+				}
+			});
+			
+		sbVgaUpdateFreq.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+
+				@Override
+				public void onProgressChanged(SeekBar p1, int p2, boolean p3) {
+					tvVgaUpdateFreq.setText(String.valueOf(sbVgaUpdateFreq.getProgress()));
+					Config.vgaUpdateFreq = sbVgaUpdateFreq.getProgress();
+				}
+
+				@Override
+				public void onStartTrackingTouch(SeekBar p1) {
+					// TODO: Implement this method
+				}
+
+				@Override
+				public void onStopTrackingTouch(SeekBar p1) {
 					// TODO: Implement this method
 				}
 			});
