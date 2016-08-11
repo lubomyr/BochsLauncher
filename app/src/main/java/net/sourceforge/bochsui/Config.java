@@ -44,7 +44,7 @@ public class Config {
     public static int megs = 32;
     public static String vgaExtension = "cirrus";
     public static int vgaUpdateFreq = 15;
-    public static String chipset = "";
+    public static String chipset = "i440fx";
     public static String[] slot = {"", "", "", "", ""};
     public static String cpuModel = "bx_generic";
     public static String mac = "b0:c4:20:00:00:00";
