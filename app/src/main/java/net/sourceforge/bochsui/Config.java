@@ -49,6 +49,7 @@ public class Config {
     public static String cpuModel = "bx_generic";
     public static String mac = "";
     public static String ethmod = "";
+	public static boolean fullscreen = false;
 
     final static String path = "/storage/sdcard0/Android/data/net.sourceforge.bochs/files/bochsrc.txt";
     static String configFile;
@@ -285,6 +286,13 @@ public class Config {
             if (str.startsWith("megs:")) {
                 megs = Integer.parseInt(str.substring(6, str.length() - 1));
             }
+			
+			if (str.startsWith("display_library:")) {
+                if (str.contains("options=")) {
+                    String str2 = str.substring(str.indexOf("options="), str.length() - 1);
+                     fullscreen = str2.contains("fullscreen");
+                }
+            }
             sb.append(str);
         }
         sc.close();
@@ -294,6 +302,8 @@ public class Config {
     public static void writeConfig() throws IOException {
         File file = new File(path);
         FileWriter fw = new FileWriter(file);
+		if (fullscreen)
+			fw.write("display_library: sdl, options=fullscreen\n");
         fw.write("romimage: file=" + romImage + "\n");
         fw.write("vgaromimage: file=" + vgaRomImage + "\n");
         fw.write("cpu: model=" + cpuModel + "\n");

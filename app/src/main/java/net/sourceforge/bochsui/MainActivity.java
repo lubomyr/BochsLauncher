@@ -76,6 +76,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     private Button btVgaRomImage;
     private TextView tvRomImage;
     private TextView tvVgaRomImage;
+	private CheckBox cbFullscreen;
 
     private Spinner spCpuModel;
     private TextView tvCpuDescription;
@@ -476,8 +477,19 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         btVgaRomImage = (Button) findViewById(R.id.miscButtonVgaRomImage);
         tvRomImage = (TextView) findViewById(R.id.miscTextViewRomImage);
         tvVgaRomImage = (TextView) findViewById(R.id.miscTextViewVgaRomImage);
+		cbFullscreen = (CheckBox) findViewById(R.id.miscCheckBoxFullscreen);
         tvRomImage.setText(getFileName(Config.romImage));
         tvVgaRomImage.setText(getFileName(Config.vgaRomImage));
+		cbFullscreen.setChecked(Config.fullscreen);
+		
+		cbFullscreen.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+				@Override
+				public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+					Config.fullscreen = cbFullscreen.isChecked();
+				}
+			}
+        );
     }
 
     private void dirSelection(final Requestor num) {

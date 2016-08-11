@@ -1,59 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:gravity="center_horizontal"
-    android:orientation="vertical">
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:gravity="center_horizontal"
+	android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="center_vertical|center_horizontal"
-        android:orientation="horizontal">
+	<LinearLayout
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="10dp"
+		android:gravity="center_vertical|center_horizontal"
+		android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/miscButtonRomImage"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="browseRomImage"
-            android:text="rom image" />
+		<Button
+			android:id="@+id/miscButtonRomImage"
+			style="?android:attr/buttonStyleSmall"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:onClick="browseRomImage"
+			android:text="rom image"/>
 
-        <TextView
-            android:id="@+id/miscTextViewRomImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="rom image"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+		<TextView
+			android:id="@+id/miscTextViewRomImage"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="10dp"
+			android:text="rom image"
+			android:textAppearance="?android:attr/textAppearanceMedium"/>
 
-    </LinearLayout>
+	</LinearLayout>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="center_vertical|center_horizontal"
-        android:orientation="horizontal">
+	<LinearLayout
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="10dp"
+		android:gravity="center_vertical|center_horizontal"
+		android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/miscButtonVgaRomImage"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="browseVgaRomImage"
-            android:text="vga rom image" />
+		<Button
+			android:id="@+id/miscButtonVgaRomImage"
+			style="?android:attr/buttonStyleSmall"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:onClick="browseVgaRomImage"
+			android:text="vga rom image"/>
 
-        <TextView
-            android:id="@+id/miscTextViewVgaRomImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="vga rom image"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+		<TextView
+			android:id="@+id/miscTextViewVgaRomImage"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="10dp"
+			android:text="vga rom image"
+			android:textAppearance="?android:attr/textAppearanceMedium"/>
 
-    </LinearLayout>
+	</LinearLayout>
+
+	<CheckBox
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:text="fullscreen"
+		android:id="@+id/miscCheckBoxFullscreen"/>
 
 </LinearLayout>
 
