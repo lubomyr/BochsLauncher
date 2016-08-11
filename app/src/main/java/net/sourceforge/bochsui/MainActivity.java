@@ -752,10 +752,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                         Config.vgaExtension = "vbe";
                         Config.vgaRomImage = "VGABIOS-lgpl-latest";
                         setFreePciSlot("cirrus");
-                        if (!checkPciSlotFor("pcivga") && getfreePciSlot() != -1) {
-                            spSlot[0].setSelection(slotList.indexOf("pcivga"));
-                            slotAdapter.notifyDataSetChanged();
-                        }
+                        spSlot[0].setSelection(slotList.indexOf("pcivga"));
+                        slotAdapter.notifyDataSetChanged();
                         break;
                     case 2:
                         Config.vgaExtension = "cirrus";
@@ -767,10 +765,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                         Config.vgaExtension = "cirrus";
                         Config.vgaRomImage = "VGABIOS-lgpl-latest-cirrus";
                         setFreePciSlot("pcivga");
-                        if (!checkPciSlotFor("cirrus") && getfreePciSlot() != -1) {
-                            spSlot[0].setSelection(slotList.indexOf("cirrus"));
-                            slotAdapter.notifyDataSetChanged();
-                        }
+                        spSlot[0].setSelection(slotList.indexOf("cirrus"));
+                        slotAdapter.notifyDataSetChanged();
                         break;
                 }
             }
@@ -800,10 +796,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                     case 2:
                         Config.useSb16 = false;
                         Config.useEs1370 = true;
-                        if (!checkPciSlotFor("es1370") && getfreePciSlot() != -1) {
-                            spSlot[getfreePciSlot()].setSelection(slotList.indexOf("es1370"));
-                            slotAdapter.notifyDataSetChanged();
-                        }
+                        spSlot[2].setSelection(slotList.indexOf("es1370"));
+                        slotAdapter.notifyDataSetChanged();
                         break;
                 }
             }
@@ -839,20 +833,16 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                         Config.useRtl8029 = true;
                         Config.useE1000 = false;
                         setFreePciSlot("e1000");
-                        if (!checkPciSlotFor("ne2k") && getfreePciSlot() != -1) {
-                            spSlot[getfreePciSlot()].setSelection(slotList.indexOf("ne2k"));
-                            slotAdapter.notifyDataSetChanged();
-                        }
+                        spSlot[1].setSelection(slotList.indexOf("ne2k"));
+                        slotAdapter.notifyDataSetChanged();
                         break;
                     case 3:
                         Config.useNe2000 = false;
                         Config.useRtl8029 = false;
                         Config.useE1000 = true;
                         setFreePciSlot("ne2k");
-                        if (!checkPciSlotFor("e1000") && getfreePciSlot() != -1) {
-                            spSlot[getfreePciSlot()].setSelection(slotList.indexOf("e1000"));
-                            slotAdapter.notifyDataSetChanged();
-                        }
+                        spSlot[1].setSelection(slotList.indexOf("e1000"));
+                        slotAdapter.notifyDataSetChanged();
                         break;
                 }
             }
