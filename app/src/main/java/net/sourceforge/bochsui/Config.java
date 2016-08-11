@@ -50,6 +50,7 @@ public class Config {
     public static String mac = "";
     public static String ethmod = "";
 	public static boolean fullscreen = false;
+	public static String clockSync = "none";
 
     final static String path = "/storage/sdcard0/Android/data/net.sourceforge.bochs/files/bochsrc.txt";
     static String configFile;
@@ -293,6 +294,14 @@ public class Config {
                      fullscreen = str2.contains("fullscreen");
                 }
             }
+			
+			if (str.startsWith("clock:")) {
+                if (str.contains("sync=")) {
+                    String str2 = str.substring(str.indexOf("sync="), str.length() - 1);
+                    clockSync = str2.contains(",") ?
+						str2.substring(5, str2.indexOf(",")) : str2.substring(5, str2.length());
+                }
+            }
             sb.append(str);
         }
         sc.close();
@@ -390,7 +399,7 @@ public class Config {
         if (useVoodoo)
             fw.write("voodoo: enabled=1, model=voodoo1\n");
         fw.write("mouse: enabled=1\n");
-        fw.write("clock: time0=local\n");
+        fw.write("clock: sync=" + clockSync + ", time0=local\n");
         fw.write("debug: action=ignore\n");
         fw.write("info: action=ignore\n");
         fw.write("error: action=ignore\n");

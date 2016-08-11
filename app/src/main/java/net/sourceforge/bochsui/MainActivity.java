@@ -77,6 +77,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     private TextView tvRomImage;
     private TextView tvVgaRomImage;
 	private CheckBox cbFullscreen;
+	private Spinner spClockSync;
 
     private Spinner spCpuModel;
     private TextView tvCpuDescription;
@@ -473,14 +474,19 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     }
 
     public void setupTabMisc() {
+		final List syncList = Arrays.asList("none", "slowdown", "realtime", "both");
         btRomImage = (Button) findViewById(R.id.miscButtonRomImage);
         btVgaRomImage = (Button) findViewById(R.id.miscButtonVgaRomImage);
         tvRomImage = (TextView) findViewById(R.id.miscTextViewRomImage);
         tvVgaRomImage = (TextView) findViewById(R.id.miscTextViewVgaRomImage);
 		cbFullscreen = (CheckBox) findViewById(R.id.miscCheckBoxFullscreen);
+		spClockSync = (Spinner) findViewById(R.id.miscSpinnerClockSync);
+		SpinnerAdapter syncAdapter = new ArrayAdapter<String>(this, R.layout.spinner_row, syncList);
+		spClockSync.setAdapter(syncAdapter);
         tvRomImage.setText(getFileName(Config.romImage));
         tvVgaRomImage.setText(getFileName(Config.vgaRomImage));
 		cbFullscreen.setChecked(Config.fullscreen);
+		spClockSync.setSelection(syncList.indexOf(Config.clockSync));
 		
 		cbFullscreen.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
@@ -490,6 +496,21 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 				}
 			}
         );
+		
+		spClockSync.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+				@Override
+				public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4)
+				{
+					Config.clockSync = (String) syncList.get(p3);
+				}
+
+				@Override
+				public void onNothingSelected(AdapterView<?> p1)
+				{
+					// TODO: Implement this method
+				}
+			});
     }
 
     private void dirSelection(final Requestor num) {
