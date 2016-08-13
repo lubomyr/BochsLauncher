@@ -157,7 +157,7 @@
 
 			<TextView
 				android:id="@+id/storageTextViewAta0m"
-				android:layout_width="230dp"
+				android:layout_width="240dp"
 				android:layout_height="wrap_content"
 				android:gravity="center"
 				android:text="ata0 master image"
@@ -207,7 +207,7 @@
 
 			<TextView
 				android:id="@+id/storageTextViewAta0s"
-				android:layout_width="230dp"
+				android:layout_width="240dp"
 				android:layout_height="wrap_content"
 				android:gravity="center"
 				android:text="ata0 slave image"
@@ -257,7 +257,7 @@
 
 			<TextView
 				android:id="@+id/storageTextViewAta1m"
-				android:layout_width="230dp"
+				android:layout_width="240dp"
 				android:layout_height="wrap_content"
 				android:gravity="center"
 				android:text="ata1 master image"
@@ -307,7 +307,7 @@
 
 			<TextView
 				android:id="@+id/storageTextViewAta1s"
-				android:layout_width="230dp"
+				android:layout_width="240dp"
 				android:layout_height="wrap_content"
 				android:gravity="center"
 				android:text="ata1 slave image"

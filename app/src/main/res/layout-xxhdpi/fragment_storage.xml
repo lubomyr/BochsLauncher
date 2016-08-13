@@ -67,7 +67,8 @@
 				android:layout_height="match_parent"
 				android:background="@drawable/my_border"
 				android:gravity="center_horizontal"
-				android:orientation="vertical">
+				android:orientation="vertical"
+				android:layout_marginLeft="5dp">
 
 				<LinearLayout
 					android:layout_width="wrap_content"
@@ -128,8 +129,8 @@
 					android:id="@+id/storageSpinnerAta0m"
 					android:layout_width="wrap_content"
 					android:layout_height="match_parent"
-					android:layout_marginLeft="20dp"
-					android:layout_marginRight="20dp"
+					android:layout_marginLeft="30dp"
+					android:layout_marginRight="30dp"
 					android:padding="0dp"/>
 
 				<CheckBox
@@ -191,8 +192,8 @@
 					android:id="@+id/storageSpinnerAta0s"
 					android:layout_width="wrap_content"
 					android:layout_height="match_parent"
-					android:layout_marginLeft="20dp"
-					android:layout_marginRight="20dp"
+					android:layout_marginLeft="30dp"
+					android:layout_marginRight="30dp"
 					android:padding="0dp"/>
 
 				<CheckBox
@@ -254,8 +255,8 @@
 					android:id="@+id/storageSpinnerAta1m"
 					android:layout_width="wrap_content"
 					android:layout_height="match_parent"
-					android:layout_marginLeft="20dp"
-					android:layout_marginRight="20dp"
+					android:layout_marginLeft="30dp"
+					android:layout_marginRight="30dp"
 					android:padding="0dp"/>
 
 				<CheckBox
@@ -317,8 +318,8 @@
 					android:id="@+id/storageSpinnerAta1s"
 					android:layout_width="wrap_content"
 					android:layout_height="match_parent"
-					android:layout_marginLeft="20dp"
-					android:layout_marginRight="20dp"
+					android:layout_marginLeft="30dp"
+					android:layout_marginRight="30dp"
 					android:padding="0dp"/>
 
 				<CheckBox
