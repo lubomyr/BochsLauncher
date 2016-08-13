@@ -49,8 +49,8 @@ public class Config {
     public static String cpuModel = "bx_generic";
     public static String mac = "b0:c4:20:00:00:00";
     public static String ethmod = "slirp";
-	public static boolean fullscreen = false;
-	public static String clockSync = "none";
+    public static boolean fullscreen = false;
+    public static String clockSync = "none";
 
     final static String path = "/storage/sdcard0/Android/data/net.sourceforge.bochs/files/bochsrc.txt";
     static String configFile;
@@ -287,19 +287,19 @@ public class Config {
             if (str.startsWith("megs:")) {
                 megs = Integer.parseInt(str.substring(6, str.length() - 1));
             }
-			
-			if (str.startsWith("display_library:")) {
+
+            if (str.startsWith("display_library:")) {
                 if (str.contains("options=")) {
                     String str2 = str.substring(str.indexOf("options="), str.length() - 1);
-                     fullscreen = str2.contains("fullscreen");
+                    fullscreen = str2.contains("fullscreen");
                 }
             }
-			
-			if (str.startsWith("clock:")) {
+
+            if (str.startsWith("clock:")) {
                 if (str.contains("sync=")) {
                     String str2 = str.substring(str.indexOf("sync="), str.length() - 1);
                     clockSync = str2.contains(",") ?
-						str2.substring(5, str2.indexOf(",")) : str2.substring(5, str2.length());
+                            str2.substring(5, str2.indexOf(",")) : str2.substring(5, str2.length());
                 }
             }
             sb.append(str);
@@ -311,8 +311,8 @@ public class Config {
     public static void writeConfig() throws IOException {
         File file = new File(path);
         FileWriter fw = new FileWriter(file);
-		if (fullscreen)
-			fw.write("display_library: sdl, options=fullscreen\n");
+        if (fullscreen)
+            fw.write("display_library: sdl, options=fullscreen\n");
         fw.write("romimage: file=" + romImage + "\n");
         fw.write("vgaromimage: file=" + vgaRomImage + "\n");
         fw.write("cpu: model=" + cpuModel + "\n");

@@ -76,10 +76,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     private Button btVgaRomImage;
     private TextView tvRomImage;
     private TextView tvVgaRomImage;
-	private CheckBox cbFullscreen;
-	private Spinner spClockSync;
-	private SeekBar sbVgaUpdateFreq;
-	private TextView tvVgaUpdateFreq;
+    private CheckBox cbFullscreen;
+    private Spinner spClockSync;
+    private SeekBar sbVgaUpdateFreq;
+    private TextView tvVgaUpdateFreq;
 
     private Spinner spCpuModel;
     private TextView tvCpuDescription;
@@ -95,7 +95,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     private TextView tvMemory;
     private Spinner[] spSlot = new Spinner[5];
 
-    private ArrayAdapter slotAdapter;
+    private ArrayAdapter<String> slotAdapter;
 
     private ViewPager viewPager;
     private TabsPagerAdapter mAdapter;
@@ -221,8 +221,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     }
 
     public void setupTabStorage() {
-        final List typeList = Arrays.asList("disk", "cdrom");
-        final List bootList = Arrays.asList("disk", "cdrom", "floppy");
+        final List<String> typeList = Arrays.asList("disk", "cdrom");
+        final List<String> bootList = Arrays.asList("disk", "cdrom", "floppy");
         cbFloppyA = (CheckBox) findViewById(R.id.storageCheckBoxFloppyA);
         tvFloppyA = (TextView) findViewById(R.id.storageTextViewFloppyA);
         btBrowseFloppyA = (Button) findViewById(R.id.storageButtonFloppyA);
@@ -369,7 +369,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
             @Override
             public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4) {
-                Config.ata0mType = (String) typeList.get(p3);
+                Config.ata0mType = typeList.get(p3);
             }
 
             @Override
@@ -382,7 +382,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
             @Override
             public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4) {
-                Config.ata0sType = (String) typeList.get(p3);
+                Config.ata0sType = typeList.get(p3);
             }
 
             @Override
@@ -395,7 +395,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
             @Override
             public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4) {
-                Config.ata1mType = (String) typeList.get(p3);
+                Config.ata1mType = typeList.get(p3);
             }
 
             @Override
@@ -408,7 +408,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
             @Override
             public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4) {
-                Config.ata1sType = (String) typeList.get(p3);
+                Config.ata1sType = typeList.get(p3);
             }
 
             @Override
@@ -421,7 +421,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
             @Override
             public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4) {
-                Config.boot = (String) bootList.get(p3);
+                Config.boot = bootList.get(p3);
             }
 
             @Override
@@ -432,110 +432,108 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     }
 
     public void browseFloppyA(View view) {
-        fileSelection(requestor.FLOPPY_A);
+        fileSelection(Requestor.FLOPPY_A);
     }
 
     public void browseFloppyB(View view) {
-        fileSelection(requestor.FLOPPY_B);
+        fileSelection(Requestor.FLOPPY_B);
     }
 
     public void browseAta0m(View view) {
         if (cbVvfatAta0m.isChecked())
-            dirSelection(requestor.ATA0_MASTER);
+            dirSelection(Requestor.ATA0_MASTER);
         else
-            fileSelection(requestor.ATA0_MASTER);
+            fileSelection(Requestor.ATA0_MASTER);
     }
 
     public void browseAta0s(View view) {
         if (cbVvfatAta0s.isChecked())
-            dirSelection(requestor.ATA0_SLAVE);
+            dirSelection(Requestor.ATA0_SLAVE);
         else
-            fileSelection(requestor.ATA0_SLAVE);
+            fileSelection(Requestor.ATA0_SLAVE);
     }
 
     public void browseAta1m(View view) {
         if (cbVvfatAta1m.isChecked())
-            dirSelection(requestor.ATA1_MASTER);
+            dirSelection(Requestor.ATA1_MASTER);
         else
-            fileSelection(requestor.ATA1_MASTER);
+            fileSelection(Requestor.ATA1_MASTER);
     }
 
     public void browseAta1s(View view) {
         if (cbVvfatAta1s.isChecked())
-            dirSelection(requestor.ATA1_SLAVE);
+            dirSelection(Requestor.ATA1_SLAVE);
         else
-            fileSelection(requestor.ATA1_SLAVE);
+            fileSelection(Requestor.ATA1_SLAVE);
     }
 
     public void browseRomImage(View view) {
-        fileSelection(requestor.ROM);
+        fileSelection(Requestor.ROM);
     }
 
     public void browseVgaRomImage(View view) {
-        fileSelection(requestor.VGAROM);
+        fileSelection(Requestor.VGAROM);
     }
 
     public void setupTabMisc() {
-		final List syncList = Arrays.asList("none", "slowdown", "realtime", "both");
+        final List<String> syncList = Arrays.asList("none", "slowdown", "realtime", "both");
         btRomImage = (Button) findViewById(R.id.miscButtonRomImage);
         btVgaRomImage = (Button) findViewById(R.id.miscButtonVgaRomImage);
         tvRomImage = (TextView) findViewById(R.id.miscTextViewRomImage);
         tvVgaRomImage = (TextView) findViewById(R.id.miscTextViewVgaRomImage);
-		cbFullscreen = (CheckBox) findViewById(R.id.miscCheckBoxFullscreen);
-		spClockSync = (Spinner) findViewById(R.id.miscSpinnerClockSync);
-		sbVgaUpdateFreq = (SeekBar) findViewById(R.id.miscSeekBarVgaUpdateFreq);
-		tvVgaUpdateFreq = (TextView) findViewById(R.id.miscTextViewVgaUpdateFreq);
-		SpinnerAdapter syncAdapter = new ArrayAdapter<String>(this, R.layout.spinner_row, syncList);
-		spClockSync.setAdapter(syncAdapter);
+        cbFullscreen = (CheckBox) findViewById(R.id.miscCheckBoxFullscreen);
+        spClockSync = (Spinner) findViewById(R.id.miscSpinnerClockSync);
+        sbVgaUpdateFreq = (SeekBar) findViewById(R.id.miscSeekBarVgaUpdateFreq);
+        tvVgaUpdateFreq = (TextView) findViewById(R.id.miscTextViewVgaUpdateFreq);
+        SpinnerAdapter syncAdapter = new ArrayAdapter<String>(this, R.layout.spinner_row, syncList);
+        spClockSync.setAdapter(syncAdapter);
         tvRomImage.setText(getFileName(Config.romImage));
         tvVgaRomImage.setText(getFileName(Config.vgaRomImage));
-		cbFullscreen.setChecked(Config.fullscreen);
-		spClockSync.setSelection(syncList.indexOf(Config.clockSync));
-		sbVgaUpdateFreq.setProgress(Config.vgaUpdateFreq);
-		tvVgaUpdateFreq.setText(String.valueOf(Config.vgaUpdateFreq));
-		
-		cbFullscreen.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        cbFullscreen.setChecked(Config.fullscreen);
+        spClockSync.setSelection(syncList.indexOf(Config.clockSync));
+        sbVgaUpdateFreq.setProgress(Config.vgaUpdateFreq);
+        tvVgaUpdateFreq.setText(String.valueOf(Config.vgaUpdateFreq));
 
-				@Override
-				public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-					Config.fullscreen = cbFullscreen.isChecked();
-				}
-			}
+        cbFullscreen.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+                                                    @Override
+                                                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                                        Config.fullscreen = cbFullscreen.isChecked();
+                                                    }
+                                                }
         );
-		
-		spClockSync.setOnItemSelectedListener(new OnItemSelectedListener() {
 
-				@Override
-				public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4)
-				{
-					Config.clockSync = (String) syncList.get(p3);
-				}
+        spClockSync.setOnItemSelectedListener(new OnItemSelectedListener() {
 
-				@Override
-				public void onNothingSelected(AdapterView<?> p1)
-				{
-					// TODO: Implement this method
-				}
-			});
-			
-		sbVgaUpdateFreq.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4) {
+                Config.clockSync = syncList.get(p3);
+            }
 
-				@Override
-				public void onProgressChanged(SeekBar p1, int p2, boolean p3) {
-					tvVgaUpdateFreq.setText(String.valueOf(sbVgaUpdateFreq.getProgress()));
-					Config.vgaUpdateFreq = sbVgaUpdateFreq.getProgress();
-				}
+            @Override
+            public void onNothingSelected(AdapterView<?> p1) {
+                // TODO: Implement this method
+            }
+        });
 
-				@Override
-				public void onStartTrackingTouch(SeekBar p1) {
-					// TODO: Implement this method
-				}
+        sbVgaUpdateFreq.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 
-				@Override
-				public void onStopTrackingTouch(SeekBar p1) {
-					// TODO: Implement this method
-				}
-			});
+            @Override
+            public void onProgressChanged(SeekBar p1, int p2, boolean p3) {
+                tvVgaUpdateFreq.setText(String.valueOf(sbVgaUpdateFreq.getProgress()));
+                Config.vgaUpdateFreq = sbVgaUpdateFreq.getProgress();
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar p1) {
+                // TODO: Implement this method
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar p1) {
+                // TODO: Implement this method
+            }
+        });
     }
 
     private void dirSelection(final Requestor num) {
@@ -729,7 +727,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     }
 
     private void setupTabHardware() {
-        final List slotList = Arrays.asList("none", "pcivga", "cirrus", "voodoo", "es1370", "ne2k", "e1000");
+        final List<String> slotList = Arrays.asList("none", "pcivga", "cirrus", "voodoo", "es1370", "ne2k", "e1000");
 
         if (cpuModel.size() == 0)
             readCpuList();
@@ -760,8 +758,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         spVga.setAdapter(vgaAdapter);
         spSound.setAdapter(soundAdapter);
         spEthernet.setAdapter(ethernetAdapter);
-        for (int i = 0; i < spSlot.length; i++) {
-            spSlot[i].setAdapter(slotAdapter);
+        for (Spinner aSpSlot : spSlot) {
+            aSpSlot.setAdapter(slotAdapter);
         }
         int selectedCpuModel = getCpuModelValues().indexOf(Config.cpuModel);
         spCpuModel.setSelection(selectedCpuModel);
@@ -915,7 +913,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
             @Override
             public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4) {
-                String str = (String) slotList.get(p3);
+                String str = slotList.get(p3);
                 Config.slot[0] = (p3 == 0) ? "" : str;
                 setOnInConfig(str);
             }
@@ -930,9 +928,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
             @Override
             public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4) {
-                String str = (String) slotList.get(p3);
+                String str = slotList.get(p3);
                 Config.slot[1] = (p3 == 0) ? "" : str;
-				setOnInConfig(str);
+                setOnInConfig(str);
             }
 
             @Override
@@ -945,9 +943,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
             @Override
             public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4) {
-                String str = (String) slotList.get(p3);
+                String str = slotList.get(p3);
                 Config.slot[2] = (p3 == 0) ? "" : str;
-				setOnInConfig(str);
+                setOnInConfig(str);
             }
 
             @Override
@@ -960,9 +958,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
             @Override
             public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4) {
-                String str = (String) slotList.get(p3);
+                String str = slotList.get(p3);
                 Config.slot[3] = (p3 == 0) ? "" : str;
-				setOnInConfig(str);
+                setOnInConfig(str);
             }
 
             @Override
@@ -975,9 +973,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
             @Override
             public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4) {
-                String str = (String) slotList.get(p3);
+                String str = slotList.get(p3);
                 Config.slot[4] = (p3 == 0) ? "" : str;
-				setOnInConfig(str);
+                setOnInConfig(str);
             }
 
             @Override
@@ -1079,7 +1077,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                 Config.useEs1370 = true;
                 break;
             case "ne2k":
-				Config.useNe2000 = true;
+                Config.useNe2000 = true;
                 Config.useRtl8029 = true;
                 break;
             case "e1000":
