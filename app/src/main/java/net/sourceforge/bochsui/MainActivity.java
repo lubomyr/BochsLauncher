@@ -3,6 +3,8 @@ package net.sourceforge.bochsui;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.FragmentTransaction;
+import android.content.ComponentName;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.FragmentActivity;
@@ -187,7 +189,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.start) {
-            save(null);
+            save();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -207,7 +209,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     public void onTabUnselected(Tab tab, FragmentTransaction ft) {
     }
 
-    public void save(View view) {
+    public void save() {
         try {
             Config.writeConfig();
         } catch (IOException e) {
@@ -216,10 +218,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         Toast.makeText(MainActivity.this, "config saved", Toast.LENGTH_SHORT).show();
 
         // run bochs app
-        /*ComponentName cn = new ComponentName("net.sourceforge.bochs", "net.sourceforge.bochs.MainActivity");
+        ComponentName cn = new ComponentName("net.sourceforge.bochs", "net.sourceforge.bochs.MainActivity");
          Intent intent = new Intent();
 		 intent.setComponent(cn);
-		 startActivity(intent);*/
+		 startActivity(intent);
     }
 
     public void setupTabStorage() {
