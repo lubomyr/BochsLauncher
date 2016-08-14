@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -44,6 +45,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
+	public static String path;
     private CheckBox cbFloppyA;
     private CheckBox cbFloppyB;
     private CheckBox cbAta0m;
@@ -113,12 +115,12 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
     private enum Requestor {ATA0_MASTER, ATA0_SLAVE, ATA1_MASTER, ATA1_SLAVE, FLOPPY_A, FLOPPY_B, ROM, VGAROM}
 
-    private Requestor requestor;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+		
+		path = Environment.getExternalStorageDirectory().getAbsolutePath()+"/Android/data/net.sourceforge.bochs/files/bochsrc.txt";
 
         if (!Config.configLoaded) {
             try {

@@ -52,7 +52,7 @@ public class Config {
     public static boolean fullscreen = false;
     public static String clockSync = "none";
 
-    final static String path = "/storage/sdcard0/Android/data/net.sourceforge.bochs/files/bochsrc.txt";
+    final static String path = MainActivity.path;;
     static String configFile;
     static boolean configLoaded = false;
 
