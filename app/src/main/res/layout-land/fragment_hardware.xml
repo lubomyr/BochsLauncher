@@ -87,6 +87,35 @@
                 </RadioGroup>
 
             </LinearLayout>
+			
+			<LinearLayout
+                android:id="@+id/memoryLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/my_border"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Memory:" />
+
+                <SeekBar
+                    android:id="@+id/hardwareSeekBarMemory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:max="1024" />
+
+                <TextView
+                    android:id="@+id/hardwareTextViewMemory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="value" />
+
+            </LinearLayout>
 
             <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
@@ -186,35 +215,6 @@
                         android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/memoryLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/my_border"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Memory:" />
-
-                <SeekBar
-                    android:id="@+id/hardwareSeekBarMemory"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:max="1024" />
-
-                <TextView
-                    android:id="@+id/hardwareTextViewMemory"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="value" />
 
             </LinearLayout>
 
