@@ -481,6 +481,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
     public void setupTabMisc() {
         final List<String> syncList = Arrays.asList("none", "slowdown", "realtime", "both");
+		final int minValueVgaUpdateFreq = 5;
         btRomImage = (Button) findViewById(R.id.miscButtonRomImage);
         btVgaRomImage = (Button) findViewById(R.id.miscButtonVgaRomImage);
         tvRomImage = (TextView) findViewById(R.id.miscTextViewRomImage);
@@ -495,7 +496,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         tvVgaRomImage.setText(getFileName(Config.vgaRomImage));
         cbFullscreen.setChecked(Config.fullscreen);
         spClockSync.setSelection(syncList.indexOf(Config.clockSync));
-        sbVgaUpdateFreq.setProgress(Config.vgaUpdateFreq);
+        sbVgaUpdateFreq.setProgress(Config.vgaUpdateFreq - minValueVgaUpdateFreq);
         tvVgaUpdateFreq.setText(String.valueOf(Config.vgaUpdateFreq));
 
         cbFullscreen.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -524,8 +525,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
             @Override
             public void onProgressChanged(SeekBar p1, int p2, boolean p3) {
-                tvVgaUpdateFreq.setText(String.valueOf(sbVgaUpdateFreq.getProgress()));
-                Config.vgaUpdateFreq = sbVgaUpdateFreq.getProgress();
+                tvVgaUpdateFreq.setText(String.valueOf(minValueVgaUpdateFreq + sbVgaUpdateFreq.getProgress()));
+                Config.vgaUpdateFreq = minValueVgaUpdateFreq + sbVgaUpdateFreq.getProgress();
             }
 
             @Override
@@ -732,6 +733,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
     private void setupTabHardware() {
         final List<String> slotList = Arrays.asList("none", "pcivga", "cirrus", "voodoo", "es1370", "ne2k", "e1000");
+		final int minValueMemory = 4;
 
         if (cpuModel.size() == 0)
             readCpuList();
@@ -770,7 +772,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         tvCpuDescription.setText(cpuModel.get(selectedCpuModel).getDescription());
         rbI430fx.setChecked(Config.chipset.equals("i430fx"));
         rbI440fx.setChecked(Config.chipset.equals("i440fx"));
-        sbMemory.setProgress(Config.megs);
+        sbMemory.setProgress(Config.megs - minValueMemory);
         tvMemory.setText(Config.megs + " mb");
         Integer[] selectedSlot = new Integer[5];
         for (int i = 0; i < spSlot.length; i++) {
@@ -992,8 +994,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
             @Override
             public void onProgressChanged(SeekBar p1, int p2, boolean p3) {
-                tvMemory.setText(String.valueOf(sbMemory.getProgress()) + " mb");
-                Config.megs = sbMemory.getProgress();
+                tvMemory.setText(String.valueOf(minValueMemory + sbMemory.getProgress()) + " mb");
+                Config.megs = minValueMemory + sbMemory.getProgress();
             }
 
             @Override
