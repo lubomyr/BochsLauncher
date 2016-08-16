@@ -15,8 +15,8 @@ public class Config {
     public static boolean useVoodoo = false;
     public static boolean floppyA = false;
     public static boolean floppyB = false;
-    public static String floppyA_image = "floppyA.img";
-    public static String floppyB_image = "floppyB.img";
+    public static String floppyA_image = "none";
+    public static String floppyB_image = "none";
     public static boolean ata0m = false;
     public static boolean ata0s = false;
     public static boolean ata1m = false;
@@ -25,10 +25,10 @@ public class Config {
     public static boolean ata2s = false;
     public static boolean ata3m = false;
     public static boolean ata3s = false;
-    public static String ata0m_image = "ata0-master.img";
-    public static String ata0s_image = "ata0-slave.img";
-    public static String ata1m_image = "ata1-master.img";
-    public static String ata1s_image = "ata1-slave.img";
+    public static String ata0m_image = "none";
+    public static String ata0s_image = "none";
+    public static String ata1m_image = "none";
+    public static String ata1s_image = "none";
     public static String ata0mType = "disk";
     public static String ata0sType = "disk";
     public static String ata1mType = "disk";
