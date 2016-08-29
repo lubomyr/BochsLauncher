@@ -1066,7 +1066,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     private void checkEthernet() {
         if (Config.useE1000 && checkPciSlotFor("e1000"))
             spEthernet.setSelection(3);
-        else if (Config.useNe2000 && checkPciSlotFor("ne2k"))
+        else if (checkPciSlotFor("ne2k"))
             spEthernet.setSelection(2);
         else if (Config.useNe2000)
             spEthernet.setSelection(1);
