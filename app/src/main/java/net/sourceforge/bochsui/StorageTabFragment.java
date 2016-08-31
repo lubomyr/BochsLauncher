@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import java.util.Arrays;
 import java.util.List;
+import android.content.res.*;
 
 public class StorageTabFragment extends Fragment {
     static TextView tvFloppyA;
@@ -58,14 +59,12 @@ public class StorageTabFragment extends Fragment {
         return rootView;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        final List<String> typeList = Arrays.asList("disk", "cdrom");
-        final List<String> bootList = Arrays.asList("disk", "cdrom", "floppy");
-        Spinner spBoot = (Spinner) rootView.findViewById(R.id.storageSpinnerBoot);
-        cbFloppyA = (CheckBox) rootView.findViewById(R.id.storageCheckBoxFloppyA);
+	@Override
+	public void onStart()
+	{
+		super.onStart();
+		
+		cbFloppyA = (CheckBox) rootView.findViewById(R.id.storageCheckBoxFloppyA);
         tvFloppyA = (TextView) rootView.findViewById(R.id.storageTextViewFloppyA);
         btBrowseFloppyA = (Button) rootView.findViewById(R.id.storageButtonFloppyA);
         cbFloppyB = (CheckBox) rootView.findViewById(R.id.storageCheckBoxFloppyB);
@@ -91,6 +90,28 @@ public class StorageTabFragment extends Fragment {
         spAta0sType = (Spinner) rootView.findViewById(R.id.storageSpinnerAta0s);
         spAta1mType = (Spinner) rootView.findViewById(R.id.storageSpinnerAta1m);
         spAta1sType = (Spinner) rootView.findViewById(R.id.storageSpinnerAta1s);
+		if (getResources().getDisplayMetrics().density <= 1.5) {
+			if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+				cbFloppyA.setText("FloppyA");
+				cbFloppyB.setText("FloppyB");
+				btBrowseFloppyA.setText("sel.");
+				btBrowseFloppyB.setText("sel.");
+			} else {
+				cbFloppyA.setText("Floppy A");
+				cbFloppyB.setText("Floppy B");
+				btBrowseFloppyA.setText("select");
+				btBrowseFloppyB.setText("select");
+			}
+		}
+	}
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        final List<String> typeList = Arrays.asList("disk", "cdrom");
+        final List<String> bootList = Arrays.asList("disk", "cdrom", "floppy");
+        Spinner spBoot = (Spinner) rootView.findViewById(R.id.storageSpinnerBoot);
         cbFloppyA.setChecked(Config.floppyA);
         tvFloppyA.setText(MainActivity.getFileName(Config.floppyA_image));
         tvFloppyA.setEnabled(Config.floppyA);
