@@ -133,7 +133,7 @@
 
             <CheckBox
                 android:id="@+id/storageCheckBoxAta0m"
-                android:layout_width="130dp"
+                android:layout_width="135dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
@@ -191,7 +191,7 @@
 
             <CheckBox
                 android:id="@+id/storageCheckBoxAta0s"
-                android:layout_width="130dp"
+                android:layout_width="135dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
@@ -249,7 +249,7 @@
 
             <CheckBox
                 android:id="@+id/storageCheckBoxAta1m"
-                android:layout_width="130dp"
+                android:layout_width="135dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
@@ -307,7 +307,7 @@
 
             <CheckBox
                 android:id="@+id/storageCheckBoxAta1s"
-                android:layout_width="130dp"
+                android:layout_width="135dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
