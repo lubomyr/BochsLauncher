@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -28,7 +29,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-import android.view.View.*;
 
 public class HardwareTabFragment extends Fragment {
     private TextView tvCpuDescription;
@@ -123,7 +123,6 @@ public class HardwareTabFragment extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> p1) {
-                // TODO: Implement this method
             }
         });
 
@@ -164,7 +163,6 @@ public class HardwareTabFragment extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> p1) {
-                // TODO: Implement this method
             }
         });
 
@@ -195,7 +193,6 @@ public class HardwareTabFragment extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> p1) {
-                // TODO: Implement this method
             }
         });
 
@@ -240,7 +237,6 @@ public class HardwareTabFragment extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> p1) {
-                // TODO: Implement this method
             }
         });
 
@@ -255,7 +251,6 @@ public class HardwareTabFragment extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> p1) {
-                // TODO: Implement this method
             }
         });
 
@@ -270,7 +265,6 @@ public class HardwareTabFragment extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> p1) {
-                // TODO: Implement this method
             }
         });
 
@@ -285,7 +279,6 @@ public class HardwareTabFragment extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> p1) {
-                // TODO: Implement this method
             }
         });
 
@@ -300,7 +293,6 @@ public class HardwareTabFragment extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> p1) {
-                // TODO: Implement this method
             }
         });
 
@@ -315,7 +307,6 @@ public class HardwareTabFragment extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> p1) {
-                // TODO: Implement this method
             }
         });
 
@@ -329,26 +320,23 @@ public class HardwareTabFragment extends Fragment {
 
             @Override
             public void onStartTrackingTouch(SeekBar p1) {
-                // TODO: Implement this method
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar p1) {
-                // TODO: Implement this method
             }
         });
-		
-		OnClickListener hwOnClick = new OnClickListener(){
 
-			@Override
-			public void onClick(View p1)
-			{
-				Config.chipset = (p1.getId() == R.id.hardwareRadioButtonI430fx) ? "i430fx" : "i440fx";
-			}
-		};
-		
-		rbI430fx.setOnClickListener(hwOnClick);
-		rbI440fx.setOnClickListener(hwOnClick);
+        OnClickListener hwOnClick = new OnClickListener() {
+
+            @Override
+            public void onClick(View p1) {
+                Config.chipset = (p1.getId() == R.id.hardwareRadioButtonI430fx) ? "i430fx" : "i440fx";
+            }
+        };
+
+        rbI430fx.setOnClickListener(hwOnClick);
+        rbI440fx.setOnClickListener(hwOnClick);
     }
 
     private void readCpuList() {

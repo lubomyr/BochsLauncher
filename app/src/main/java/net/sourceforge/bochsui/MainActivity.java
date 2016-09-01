@@ -9,16 +9,13 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import net.sourceforge.bochsui.adapter.TabsPagerAdapter;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -43,7 +40,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         if (!Config.configLoaded) {
             try {
                 Config.readConfig();
-
             } catch (FileNotFoundException e) {
                 Toast.makeText(MainActivity.this, "config not found", Toast.LENGTH_SHORT).show();
             }
