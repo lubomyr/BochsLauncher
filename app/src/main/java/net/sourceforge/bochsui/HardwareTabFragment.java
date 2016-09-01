@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import android.view.View.*;
 
 public class HardwareTabFragment extends Fragment {
     private TextView tvCpuDescription;
@@ -336,6 +337,18 @@ public class HardwareTabFragment extends Fragment {
                 // TODO: Implement this method
             }
         });
+		
+		OnClickListener hwOnClick = new OnClickListener(){
+
+			@Override
+			public void onClick(View p1)
+			{
+				Config.chipset = (p1.getId() == R.id.hardwareRadioButtonI430fx) ? "i430fx" : "i440fx";
+			}
+		};
+		
+		rbI430fx.setOnClickListener(hwOnClick);
+		rbI440fx.setOnClickListener(hwOnClick);
     }
 
     private void readCpuList() {

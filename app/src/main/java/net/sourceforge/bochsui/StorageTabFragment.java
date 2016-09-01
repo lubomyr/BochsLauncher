@@ -18,18 +18,21 @@ import android.widget.TextView;
 
 import java.util.Arrays;
 import java.util.List;
+import android.view.View.*;
+import java.io.*;
+import android.util.*;
 
 public class StorageTabFragment extends Fragment {
-    static TextView tvFloppyA;
-    static TextView tvFloppyB;
-    static TextView tvAta0m;
-    static TextView tvAta0s;
-    static TextView tvAta1m;
-    static TextView tvAta1s;
-    static CheckBox cbVvfatAta0m;
-    static CheckBox cbVvfatAta0s;
-    static CheckBox cbVvfatAta1m;
-    static CheckBox cbVvfatAta1s;
+    private TextView tvFloppyA;
+    private TextView tvFloppyB;
+    private TextView tvAta0m;
+    private TextView tvAta0s;
+    private TextView tvAta1m;
+    private TextView tvAta1s;
+    private CheckBox cbVvfatAta0m;
+    private CheckBox cbVvfatAta0s;
+    private CheckBox cbVvfatAta1m;
+    private CheckBox cbVvfatAta1s;
     private CheckBox cbFloppyA;
     private CheckBox cbFloppyB;
     private CheckBox cbAta0m;
@@ -47,9 +50,13 @@ public class StorageTabFragment extends Fragment {
     private Spinner spAta1mType;
     private Spinner spAta1sType;
 
-    //private MainActivity main = MainActivity.main;
     private View rootView;
+	
+	private String m_chosenDir = "";
+    private boolean m_newFolderEnabled = true;
 
+    private enum Requestor {ATA0_MASTER, ATA0_SLAVE, ATA1_MASTER, ATA1_SLAVE, FLOPPY_A, FLOPPY_B}
+	
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -291,6 +298,148 @@ public class StorageTabFragment extends Fragment {
             }
         });
 
+		OnClickListener storageOnClick = new OnClickListener() {
+
+			@Override
+			public void onClick(View p1)
+			{
+				switch(p1.getId()) {
+					case R.id.storageButtonFloppyA:
+						fileSelection(Requestor.FLOPPY_A);
+						break;
+					case R.id.storageButtonFloppyB:
+						fileSelection(Requestor.FLOPPY_B);
+						break;
+					case R.id.storageButtonAta0m:
+						if (cbVvfatAta0m.isChecked())
+							dirSelection(Requestor.ATA0_MASTER);
+						else
+							fileSelection(Requestor.ATA0_MASTER);
+						break;
+					case R.id.storageButtonAta0s:
+						if (cbVvfatAta0s.isChecked())
+							dirSelection(Requestor.ATA0_SLAVE);
+						else
+							fileSelection(Requestor.ATA0_SLAVE);
+						break;
+					case R.id.storageButtonAta1m:
+						if (cbVvfatAta1m.isChecked())
+							dirSelection(Requestor.ATA1_MASTER);
+						else
+							fileSelection(Requestor.ATA1_MASTER);
+						break;
+					case R.id.storageButtonAta1s:
+						if (cbVvfatAta1s.isChecked())
+							dirSelection(Requestor.ATA1_SLAVE);
+						else
+							fileSelection(Requestor.ATA1_SLAVE);
+						break;
+				}
+			}
+		};
+		
+		btBrowseFloppyA.setOnClickListener(storageOnClick);
+		btBrowseFloppyB.setOnClickListener(storageOnClick);
+		btBrowseAta0m.setOnClickListener(storageOnClick);
+		btBrowseAta0s.setOnClickListener(storageOnClick);
+		btBrowseAta1m.setOnClickListener(storageOnClick);
+		btBrowseAta1s.setOnClickListener(storageOnClick);
     }
 
+	private void dirSelection(final Requestor num) {
+        // Create DirectoryChooserDialog and register a callback
+        DirectoryChooserDialog directoryChooserDialog =
+			new DirectoryChooserDialog(MainActivity.main,
+			new DirectoryChooserDialog.ChosenDirectoryListener() {
+				@Override
+				public void onChosenDir(String chosenDir) {
+					m_chosenDir = chosenDir;
+					switch (num) {
+						case ATA0_MASTER:
+							tvAta0m.setText(chosenDir);
+							Config.ata0m_image = chosenDir;
+							Config.ata0mMode = "vvfat";
+							break;
+						case ATA0_SLAVE:
+							tvAta0s.setText(chosenDir);
+							Config.ata0s_image = chosenDir;
+							Config.ata0sMode = "vvfat";
+							break;
+						case ATA1_MASTER:
+							tvAta1m.setText(chosenDir);
+							Config.ata1m_image = chosenDir;
+							Config.ata1mMode = "vvfat";
+							break;
+						case ATA1_SLAVE:
+							tvAta1s.setText(chosenDir);
+							Config.ata1s_image = chosenDir;
+							Config.ata1sMode = "vvfat";
+							break;
+					}
+				}
+			});
+        // Toggle new folder button enabling
+        directoryChooserDialog.setNewFolderEnabled(m_newFolderEnabled);
+        // Load directory chooser dialog for initial 'm_chosenDir' directory.
+        // The registered callback will be called upon final directory selection.
+        directoryChooserDialog.chooseDirectory(m_chosenDir);
+        m_newFolderEnabled = !m_newFolderEnabled;
+    }
+
+    private void fileSelection(final Requestor num) {
+        FileChooser filechooser = new FileChooser(MainActivity.main);
+        filechooser.setFileListener(new FileChooser.FileSelectedListener() {
+				@Override
+				public void fileSelected(final File file) {
+					String filename = file.getAbsolutePath();
+					Log.d("File", filename);
+					switch (num) {
+						case ATA0_MASTER:
+							tvAta0m.setText(file.getName());
+							Config.ata0m_image = filename;
+							Config.ata0mMode = getMode(file.getName());
+							break;
+						case ATA0_SLAVE:
+							tvAta0s.setText(file.getName());
+							Config.ata0s_image = filename;
+							Config.ata0sMode = getMode(file.getName());
+							break;
+						case ATA1_MASTER:
+							tvAta1m.setText(file.getName());
+							Config.ata1m_image = filename;
+							Config.ata1mMode = getMode(file.getName());
+							break;
+						case ATA1_SLAVE:
+							tvAta1s.setText(file.getName());
+							Config.ata1s_image = filename;
+							Config.ata1sMode = getMode(file.getName());
+							break;
+						case FLOPPY_A:
+							tvFloppyA.setText(file.getName());
+							Config.floppyA_image = filename;
+							break;
+						case FLOPPY_B:
+							tvFloppyB.setText(file.getName());
+							Config.floppyB_image = filename;
+							break;
+					}
+
+				}
+			});
+        // Set up and filter my extension I am looking for
+        //filechooser.setExtension("img");
+        filechooser.showDialog();
+    }
+
+    private String getMode(String str) {
+        String result = "";
+        if (str.endsWith(".vmdk"))
+            result = "vmware4";
+        else if (str.endsWith(".vhd"))
+            result = "vpc";
+        else if (str.endsWith(".vdi"))
+            result = "vbox";
+        return result;
+    }
+	
 }

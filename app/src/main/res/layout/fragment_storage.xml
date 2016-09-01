@@ -45,7 +45,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
-                        android:onClick="browseFloppyA"
                         android:text="select" />
 
                 </LinearLayout>
@@ -87,7 +86,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
-                        android:onClick="browseFloppyB"
                         android:text="select" />
 
                 </LinearLayout>
@@ -151,7 +149,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:onClick="browseAta0m"
                     android:text="select" />
 
                 <TextView
@@ -217,7 +214,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:onClick="browseAta0s"
                     android:text="select" />
 
                 <TextView
@@ -283,7 +279,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:onClick="browseAta1m"
                     android:text="select" />
 
                 <TextView
@@ -349,7 +344,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:onClick="browseAta1s"
                     android:text="select" />
 
                 <TextView

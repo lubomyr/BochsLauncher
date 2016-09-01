@@ -26,7 +26,6 @@
 				style="?android:attr/buttonStyleSmall"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:onClick="browseRomImage"
 				android:text="rom image"/>
 
 			<TextView
@@ -54,7 +53,6 @@
 				style="?android:attr/buttonStyleSmall"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:onClick="browseVgaRomImage"
 				android:text="vga rom image"/>
 
 			<TextView

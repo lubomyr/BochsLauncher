@@ -19,15 +19,19 @@ import android.widget.TextView;
 
 import java.util.Arrays;
 import java.util.List;
+import android.view.View.*;
+import java.io.*;
+import android.util.*;
 
 public class MiscTabFragment extends Fragment {
-    static TextView tvRomImage;
-    static TextView tvVgaRomImage;
+    private TextView tvRomImage;
+    private TextView tvVgaRomImage;
     private CheckBox cbFullscreen;
     private SeekBar sbVgaUpdateFreq;
     private TextView tvVgaUpdateFreq;
     private View rootView;
-
+	private enum Requestor {ROM, VGAROM}
+	
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -100,6 +104,50 @@ public class MiscTabFragment extends Fragment {
                 // TODO: Implement this method
             }
         });
+		
+		OnClickListener miscOnClick = new OnClickListener() {
+
+			@Override
+			public void onClick(View p1)
+			{
+				switch(p1.getId()) {
+					case R.id.miscButtonRomImage:
+						fileSelection(Requestor.ROM);
+						break;
+					case R.id.miscButtonVgaRomImage:
+						fileSelection(Requestor.VGAROM);
+						break;
+				}
+			}
+		};
+
+		btRomImage.setOnClickListener(miscOnClick);
+		btVgaRomImage.setOnClickListener(miscOnClick);
+    }
+	
+	private void fileSelection(final Requestor num) {
+        FileChooser filechooser = new FileChooser(MainActivity.main);
+        filechooser.setFileListener(new FileChooser.FileSelectedListener() {
+				@Override
+				public void fileSelected(final File file) {
+					String filename = file.getAbsolutePath();
+					Log.d("File", filename);
+					switch (num) {
+						case ROM:
+							tvRomImage.setText(file.getName());
+							Config.romImage = filename;
+							break;
+						case VGAROM:
+							tvVgaRomImage.setText(file.getName());
+							Config.vgaRomImage = filename;
+							break;
+					}
+
+				}
+			});
+        // Set up and filter my extension I am looking for
+        //filechooser.setExtension("img");
+        filechooser.showDialog();
     }
 
 }
