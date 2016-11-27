@@ -6,57 +6,57 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class Config {
-    public static boolean useSb16 = false;
-    public static boolean useEs1370 = false;
-    public static boolean useNe2000 = false;
-    public static boolean useRtl8029 = false;
-    public static boolean useE1000 = false;
-    public static boolean useVoodoo = false;
-    public static boolean floppyA = false;
-    public static boolean floppyB = false;
-    public static String floppyA_image = "none";
-    public static String floppyB_image = "none";
-    public static boolean ata0m = false;
-    public static boolean ata0s = false;
-    public static boolean ata1m = false;
-    public static boolean ata1s = false;
+class Config {
+    static boolean useSb16 = false;
+    static boolean useEs1370 = false;
+    static boolean useNe2000 = false;
+    static boolean useRtl8029 = false;
+    static boolean useE1000 = false;
+    static boolean useVoodoo = false;
+    static boolean floppyA = false;
+    static boolean floppyB = false;
+    static String floppyA_image = "none";
+    static String floppyB_image = "none";
+    static boolean ata0m = false;
+    static boolean ata0s = false;
+    static boolean ata1m = false;
+    static boolean ata1s = false;
     public static boolean ata2m = false;
     public static boolean ata2s = false;
     public static boolean ata3m = false;
     public static boolean ata3s = false;
-    public static String ata0m_image = "none";
-    public static String ata0s_image = "none";
-    public static String ata1m_image = "none";
-    public static String ata1s_image = "none";
-    public static String ata0mType = "disk";
-    public static String ata0sType = "disk";
-    public static String ata1mType = "disk";
-    public static String ata1sType = "disk";
-    public static String ata0mMode = "";
-    public static String ata0sMode = "";
-    public static String ata1mMode = "";
-    public static String ata1sMode = "";
-    public static String boot = "disk";
+    static String ata0m_image = "none";
+    static String ata0s_image = "none";
+    static String ata1m_image = "none";
+    static String ata1s_image = "none";
+    static String ata0mType = "disk";
+    static String ata0sType = "disk";
+    static String ata1mType = "disk";
+    static String ata1sType = "disk";
+    static String ata0mMode = "";
+    static String ata0sMode = "";
+    static String ata1mMode = "";
+    static String ata1sMode = "";
+    static String boot = "disk";
 
-    public static String romImage = "BIOS-bochs-latest";
-    public static String vgaRomImage = "VGABIOS-lgpl-latest-cirrus";
-    public static int megs = 32;
-    public static String vgaExtension = "cirrus";
-    public static int vgaUpdateFreq = 15;
-    public static String chipset = "i440fx";
-    public static String[] slot = {"", "", "", "", ""};
-    public static String cpuModel = "bx_generic";
-    public static String mac = "b0:c4:20:00:00:00";
-    public static String ethmod = "slirp";
-    public static boolean fullscreen = false;
-    public static String clockSync = "none";
+    static String romImage = "BIOS-bochs-latest";
+    static String vgaRomImage = "VGABIOS-lgpl-latest-cirrus";
+    static int megs = 32;
+    static String vgaExtension = "cirrus";
+    static int vgaUpdateFreq = 15;
+    static String chipset = "i440fx";
+    static String[] slot = {"", "", "", "", ""};
+    static String cpuModel = "bx_generic";
+    static String mac = "b0:c4:20:00:00:00";
+    static String ethmod = "slirp";
+    static boolean fullscreen = false;
+    static String clockSync = "none";
 
-    final static String path = MainActivity.path;;
+    final static String path = MainActivity.configPath;
     static String configFile;
     static boolean configLoaded = false;
 
-    public static void readConfig() throws FileNotFoundException {
+    static void readConfig() throws FileNotFoundException {
         File file = new File(path);
         Scanner sc = new Scanner(file).useDelimiter("[\n]");
         StringBuilder sb = new StringBuilder();
@@ -308,7 +308,7 @@ public class Config {
         configFile = sb.toString();
     }
 
-    public static void writeConfig() throws IOException {
+    static void writeConfig() throws IOException {
         File file = new File(path);
         FileWriter fw = new FileWriter(file);
         if (fullscreen)
