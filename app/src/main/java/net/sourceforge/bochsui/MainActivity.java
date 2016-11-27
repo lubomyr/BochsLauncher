@@ -16,13 +16,15 @@ import android.widget.Toast;
 
 import net.sourceforge.bochsui.adapter.TabsPagerAdapter;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
-    public static String path;
+    public static String configPath;
     public static MainActivity main;
 
+    private String appPath;
     private ViewPager viewPager;
     private ActionBar actionBar;
 
@@ -35,18 +37,11 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         setContentView(R.layout.main);
 
         main = this;
-        path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Android/data/net.sourceforge.bochs/files/bochsrc.txt";
+        appPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Android/data/net.sourceforge.bochsui/files/";
+        configPath = appPath + "bochsrc.txt";
 
-        if (!Config.configLoaded) {
-            try {
-                Config.readConfig();
-            } catch (FileNotFoundException e) {
-                Toast.makeText(MainActivity.this, "config not found", Toast.LENGTH_SHORT).show();
-            }
-            Toast.makeText(MainActivity.this, "config loaded", Toast.LENGTH_SHORT).show();
-            Config.configLoaded = true;
-        }
-
+        createDirIfNotExists();
+        checkConfig();
 
         // Initilization
         viewPager = (ViewPager) findViewById(R.id.pager);
@@ -86,12 +81,14 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
     }
 
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
         return true;
     }
 
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.start) {
@@ -115,7 +112,16 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     public void onTabUnselected(Tab tab, FragmentTransaction ft) {
     }
 
-    public void save() {
+    static String getFileName(String path) {
+        String result;
+        if (path.contains("/"))
+            result = path.substring(path.lastIndexOf("/") + 1, path.length());
+        else
+            result = path;
+        return result;
+    }
+
+    private void save() {
         try {
             Config.writeConfig();
         } catch (IOException e) {
@@ -124,19 +130,35 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         Toast.makeText(MainActivity.this, "config saved", Toast.LENGTH_SHORT).show();
 
         // run bochs app
-        ComponentName cn = new ComponentName("net.sourceforge.bochs", "net.sourceforge.bochs.MainActivity");
-        Intent intent = new Intent();
-        intent.setComponent(cn);
+        //ComponentName cn = new ComponentName("net.sourceforge.bochs", "net.sourceforge.bochs.MainActivity");
+        Intent intent = new Intent(this, SDLActivity.class);
+        //intent.setComponent(cn);
         startActivity(intent);
     }
 
-    static String getFileName(String path) {
-        String result;
-        if (path.contains("/"))
-            result = path.substring(path.lastIndexOf("/") + 1, path.length());
-        else
-            result = path;
-        return result;
+    private void checkConfig() {
+        if (!Config.configLoaded) {
+            try {
+                Config.readConfig();
+            } catch (FileNotFoundException e) {
+                Toast.makeText(MainActivity.this, "config not found", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            Toast.makeText(MainActivity.this, "config loaded", Toast.LENGTH_SHORT).show();
+            Config.configLoaded = true;
+        }
+    }
+
+    private boolean createDirIfNotExists() {
+        boolean ret = true;
+
+        File file = new File(appPath);
+        if (!file.exists()) {
+            if (!file.mkdirs()) {
+                ret = false;
+            }
+        }
+        return ret;
     }
 
 }
