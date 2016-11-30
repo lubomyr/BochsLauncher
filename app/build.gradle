@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 21
-    buildToolsVersion "21.1.2"
+    compileSdkVersion 25
+    buildToolsVersion "25.0.1"
 
     defaultConfig {
-        applicationId "net.sourceforge.bochsui"
+        applicationId "net.sourceforge.bochs"
         minSdkVersion 14
-        targetSdkVersion 21
+        targetSdkVersion 25
         versionCode 26810
         versionName "2.6.8.10"
     }
@@ -21,7 +21,7 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-	compile 'com.android.support:support-v4:21.+'
+	compile 'com.android.support:support-v4:25.+'
 
     compile project(':bochsApp')
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	  package="net.sourceforge.bochs"
+	  package="net.sourceforge.bochs.core"
 	  android:versionCode="26810"
 	  android:versionName="2.6.8.10"
 	  android:installLocation="auto"

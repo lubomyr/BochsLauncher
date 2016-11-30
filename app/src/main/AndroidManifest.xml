@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="net.sourceforge.bochsui"
+    package="net.sourceforge.bochs"
     android:installLocation="auto"
     >
     <application android:label="@string/app_name"
