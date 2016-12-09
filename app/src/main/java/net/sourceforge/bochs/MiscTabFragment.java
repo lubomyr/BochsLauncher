@@ -29,7 +29,6 @@ public class MiscTabFragment extends Fragment {
     private CheckBox cbFullscreen;
     private SeekBar sbVgaUpdateFreq;
     private TextView tvVgaUpdateFreq;
-    private View rootView;
 
     private enum Requestor {ROM, VGAROM}
 
@@ -37,15 +36,13 @@ public class MiscTabFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        rootView = inflater.inflate(R.layout.fragment_misc, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_misc, container, false);
+        setupView(rootView);
 
         return rootView;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-
+    private void setupView(View rootView) {
         final List<String> syncList = Arrays.asList("none", "slowdown", "realtime", "both");
         final int minValueVgaUpdateFreq = 5;
         Spinner spClockSync = (Spinner) rootView.findViewById(R.id.miscSpinnerClockSync);

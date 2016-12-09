@@ -46,21 +46,18 @@ public class HardwareTabFragment extends Fragment {
     private List<VgaCard> vgaCard = new ArrayList<VgaCard>();
     private List<SoundCard> soundCard = new ArrayList<SoundCard>();
     private List<EthernetCard> ethernetCard = new ArrayList<EthernetCard>();
-    private View rootView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        rootView = inflater.inflate(R.layout.fragment_hardware, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_hardware, container, false);
+        setupView(rootView);
 
         return rootView;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-
+    private void setupView(View rootView) {
         final List<String> slotList = Arrays.asList("none", "pcivga", "cirrus", "voodoo", "es1370", "ne2k", "e1000");
         final int minValueMemory = 4;
 
@@ -240,75 +237,22 @@ public class HardwareTabFragment extends Fragment {
             }
         });
 
-        spSlot[0].setOnItemSelectedListener(new OnItemSelectedListener() {
+        for (int i=0; i<=4; i++) {
+            final int finalI = i;
+            spSlot[i].setOnItemSelectedListener(new OnItemSelectedListener() {
 
-            @Override
-            public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4) {
-                String str = slotList.get(p3);
-                Config.slot[0] = (p3 == 0) ? "" : str;
-                setOnInConfig(str);
-            }
+                @Override
+                public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4) {
+                    String str = slotList.get(p3);
+                    Config.slot[finalI] = (p3 == 0) ? "" : str;
+                    setOnInConfig(str);
+                }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> p1) {
-            }
-        });
-
-        spSlot[1].setOnItemSelectedListener(new OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4) {
-                String str = slotList.get(p3);
-                Config.slot[1] = (p3 == 0) ? "" : str;
-                setOnInConfig(str);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> p1) {
-            }
-        });
-
-        spSlot[2].setOnItemSelectedListener(new OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4) {
-                String str = slotList.get(p3);
-                Config.slot[2] = (p3 == 0) ? "" : str;
-                setOnInConfig(str);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> p1) {
-            }
-        });
-
-        spSlot[3].setOnItemSelectedListener(new OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4) {
-                String str = slotList.get(p3);
-                Config.slot[3] = (p3 == 0) ? "" : str;
-                setOnInConfig(str);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> p1) {
-            }
-        });
-
-        spSlot[4].setOnItemSelectedListener(new OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4) {
-                String str = slotList.get(p3);
-                Config.slot[4] = (p3 == 0) ? "" : str;
-                setOnInConfig(str);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> p1) {
-            }
-        });
+                @Override
+                public void onNothingSelected(AdapterView<?> p1) {
+                }
+            });
+        }
 
         sbMemory.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 

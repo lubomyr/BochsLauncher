@@ -50,8 +50,6 @@ public class StorageTabFragment extends Fragment {
     private Spinner spAta1mType;
     private Spinner spAta1sType;
 
-    private View rootView;
-
     private String m_chosenDir = "";
     private boolean m_newFolderEnabled = true;
 
@@ -61,15 +59,15 @@ public class StorageTabFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        rootView = inflater.inflate(R.layout.fragment_storage, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_storage, container, false);
+        setupView(rootView);
 
         return rootView;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-
+    private void setupView(View rootView) {
+        final List<String> typeList = Arrays.asList("disk", "cdrom");
+        final List<String> bootList = Arrays.asList("disk", "cdrom", "floppy");
         cbFloppyA = (CheckBox) rootView.findViewById(R.id.storageCheckBoxFloppyA);
         tvFloppyA = (TextView) rootView.findViewById(R.id.storageTextViewFloppyA);
         btBrowseFloppyA = (Button) rootView.findViewById(R.id.storageButtonFloppyA);
@@ -109,14 +107,6 @@ public class StorageTabFragment extends Fragment {
                 btBrowseFloppyB.setText("select");
             }
         }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        final List<String> typeList = Arrays.asList("disk", "cdrom");
-        final List<String> bootList = Arrays.asList("disk", "cdrom", "floppy");
         Spinner spBoot = (Spinner) rootView.findViewById(R.id.storageSpinnerBoot);
         cbFloppyA.setChecked(Config.floppyA);
         tvFloppyA.setText(MainActivity.getFileName(Config.floppyA_image));
