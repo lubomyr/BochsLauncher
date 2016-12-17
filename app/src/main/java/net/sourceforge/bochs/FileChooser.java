@@ -24,11 +24,11 @@ public class FileChooser {
     private File currentPath;
 
     // filter on file extension
-    private String extension = null;
+    private String extension[] = null;
 
-    public void setExtension(String extension) {
+    public void setExtension(String... extension) {
         this.extension = (extension == null) ? null :
-                extension.toLowerCase();
+                extension;
     }
 
     // file selection event handling
@@ -93,7 +93,12 @@ public class FileChooser {
                         } else if (extension == null) {
                             return true;
                         } else {
-                            return file.getName().toLowerCase().endsWith(extension);
+                            boolean result = false;
+                            for (int i = 0; i < extension.length; i++) {
+                                if (file.getName().toLowerCase().endsWith(extension[i].toLowerCase()))
+                                    result = true;
+                            }
+                            return result;
                         }
                     } else {
                         return false;
@@ -121,7 +126,7 @@ public class FileChooser {
 
             // refresh the user interface
             dialog.setTitle(currentPath.getPath());
-            list.setAdapter(new ArrayAdapter(activity,
+            ArrayAdapter adapter = new ArrayAdapter(activity,
                     android.R.layout.simple_list_item_1, fileList) {
                 @Override
                 public View getView(int pos, View view, ViewGroup parent) {
@@ -129,7 +134,8 @@ public class FileChooser {
                     ((TextView) view).setSingleLine(true);
                     return view;
                 }
-            });
+            };
+            list.setAdapter(adapter);
         }
     }
 

@@ -416,7 +416,7 @@ public class StorageTabFragment extends Fragment {
             }
         });
         // Set up and filter my extension I am looking for
-        //filechooser.setExtension("img");
+        filechooser.setExtension(".img",".vmdk",".vhd",".vdi",".iso");
         filechooser.showDialog();
     }
 
