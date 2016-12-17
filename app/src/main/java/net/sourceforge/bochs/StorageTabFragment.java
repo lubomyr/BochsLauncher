@@ -1,5 +1,6 @@
 package net.sourceforge.bochs;
 
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -29,7 +30,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class StorageTabFragment extends Fragment {
+    private SharedPreferences sPref;
     private TextView tvFloppyA;
     private TextView tvFloppyB;
     private TextView tvAta0m;
@@ -59,6 +63,7 @@ public class StorageTabFragment extends Fragment {
 
     private String m_chosenDir = "";
     private boolean m_newFolderEnabled = true;
+    final String SAVED_PATH = "saved_path";
 
     private enum Requestor {ATA0_MASTER, ATA0_SLAVE, ATA1_MASTER, ATA1_SLAVE, FLOPPY_A, FLOPPY_B}
 
@@ -444,21 +449,15 @@ public class StorageTabFragment extends Fragment {
             dirPath = filePath.substring(0, filePath.lastIndexOf('/'));
         else
             dirPath = filePath;
-        try {
-            OutputStream os = new FileOutputStream(MainActivity.appPath + "lastPath.cfg");
-            PrintStream myOutputFile = new PrintStream(os);
-            myOutputFile.println(dirPath);
-        } catch (Exception ignored) {}
+        sPref = getActivity().getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor ed = sPref.edit();
+        ed.putString(SAVED_PATH, dirPath);
+        ed.apply();
     }
 
     private String getLastPath() {
-        String result = null;
-        try {
-            InputStream is = new FileInputStream(MainActivity.appPath + "lastPath.cfg");
-            Scanner scanner = new Scanner(is);
-            result = scanner.next();
-        } catch (Exception ignored) {}
-        return result;
+        sPref = getActivity().getPreferences(MODE_PRIVATE);
+        return sPref.getString(SAVED_PATH, null);
     }
 
 }
