@@ -19,8 +19,15 @@ import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 public class StorageTabFragment extends Fragment {
     private TextView tvFloppyA;
@@ -376,12 +383,12 @@ public class StorageTabFragment extends Fragment {
     }
 
     private void fileSelection(final Requestor num) {
-        FileChooser filechooser = new FileChooser(MainActivity.main);
+        FileChooser filechooser = new FileChooser(MainActivity.main, getLastPath());
         filechooser.setFileListener(new FileChooser.FileSelectedListener() {
             @Override
             public void fileSelected(final File file) {
                 String filename = file.getAbsolutePath();
-                Log.d("File", filename);
+                saveLastPath(file.getPath());
                 switch (num) {
                     case ATA0_MASTER:
                         tvAta0m.setText(file.getName());
@@ -428,6 +435,29 @@ public class StorageTabFragment extends Fragment {
             result = "vpc";
         else if (str.endsWith(".vdi"))
             result = "vbox";
+        return result;
+    }
+
+    private void saveLastPath(String filePath) {
+        String dirPath;
+        if (filePath.contains("/"))
+            dirPath = filePath.substring(0, filePath.lastIndexOf('/'));
+        else
+            dirPath = filePath;
+        try {
+            OutputStream os = new FileOutputStream(MainActivity.appPath + "lastPath.cfg");
+            PrintStream myOutputFile = new PrintStream(os);
+            myOutputFile.println(dirPath);
+        } catch (Exception ignored) {}
+    }
+
+    private String getLastPath() {
+        String result = null;
+        try {
+            InputStream is = new FileInputStream(MainActivity.appPath + "lastPath.cfg");
+            Scanner scanner = new Scanner(is);
+            result = scanner.next();
+        } catch (Exception ignored) {}
         return result;
     }
 

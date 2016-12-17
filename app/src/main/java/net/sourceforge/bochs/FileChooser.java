@@ -3,6 +3,7 @@ package net.sourceforge.bochs;
 import android.app.Activity;
 import android.app.Dialog;
 import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager.LayoutParams;
@@ -43,8 +44,11 @@ public class FileChooser {
 
     private FileSelectedListener fileListener;
 
-    public FileChooser(Activity activity) {
+    public FileChooser(Activity activity, String path) {
         this.activity = activity;
+        File selectedPath = null;
+        if (path != null)
+            selectedPath = new File(path);
         dialog = new Dialog(activity);
         list = new ListView(activity);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -64,7 +68,9 @@ public class FileChooser {
         });
         dialog.setContentView(list);
         dialog.getWindow().setLayout(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
-        refresh(Environment.getExternalStorageDirectory());
+        if (selectedPath == null)
+            selectedPath = Environment.getExternalStorageDirectory();
+        refresh(selectedPath);
     }
 
     public void showDialog() {

@@ -22,8 +22,8 @@ import java.io.IOException;
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
     public static String configPath;
     public static MainActivity main;
+    public static String appPath;
 
-    private String appPath;
     private ViewPager viewPager;
     private ActionBar actionBar;
 

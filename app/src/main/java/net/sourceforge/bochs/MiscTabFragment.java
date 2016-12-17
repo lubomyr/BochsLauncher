@@ -120,7 +120,7 @@ public class MiscTabFragment extends Fragment {
     }
 
     private void fileSelection(final Requestor num) {
-        FileChooser filechooser = new FileChooser(MainActivity.main);
+        FileChooser filechooser = new FileChooser(MainActivity.main, MainActivity.appPath);
         filechooser.setFileListener(new FileChooser.FileSelectedListener() {
             @Override
             public void fileSelected(final File file) {
