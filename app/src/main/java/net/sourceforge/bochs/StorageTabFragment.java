@@ -63,34 +63,34 @@ public class StorageTabFragment extends Fragment implements OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.storageButtonFloppyA:
-                fileSelection(Requestor.FLOPPY_A);
+                fileSelection(Requestor.FLOPPY_A, "floppy");
                 break;
             case R.id.storageButtonFloppyB:
-                fileSelection(Requestor.FLOPPY_B);
+                fileSelection(Requestor.FLOPPY_B, "floppy");
                 break;
             case R.id.storageButtonAta0m:
                 if (cbVvfatAta[ATA_0_MASTER].isChecked())
                     dirSelection(Requestor.ATA0_MASTER);
                 else
-                    fileSelection(Requestor.ATA0_MASTER);
+                    fileSelection(Requestor.ATA0_MASTER, Config.ataType[ATA_0_MASTER]);
                 break;
             case R.id.storageButtonAta0s:
                 if (cbVvfatAta[ATA_0_SLAVE].isChecked())
                     dirSelection(Requestor.ATA0_SLAVE);
                 else
-                    fileSelection(Requestor.ATA0_SLAVE);
+                    fileSelection(Requestor.ATA0_SLAVE, Config.ataType[ATA_0_SLAVE]);
                 break;
             case R.id.storageButtonAta1m:
                 if (cbVvfatAta[ATA_1_MASTER].isChecked())
                     dirSelection(Requestor.ATA1_MASTER);
                 else
-                    fileSelection(Requestor.ATA1_MASTER);
+                    fileSelection(Requestor.ATA1_MASTER, Config.ataType[ATA_1_MASTER]);
                 break;
             case R.id.storageButtonAta1s:
                 if (cbVvfatAta[ATA_1_SLAVE].isChecked())
                     dirSelection(Requestor.ATA1_SLAVE);
                 else
-                    fileSelection(Requestor.ATA1_SLAVE);
+                    fileSelection(Requestor.ATA1_SLAVE, Config.ataType[ATA_1_SLAVE]);
                 break;
         }
     }
@@ -265,7 +265,7 @@ public class StorageTabFragment extends Fragment implements OnClickListener {
         m_newFolderEnabled = !m_newFolderEnabled;
     }
 
-    private void fileSelection(final Requestor num) {
+    private void fileSelection(final Requestor num, String type) {
         FileChooser filechooser = new FileChooser(MainActivity.main, getLastPath());
         filechooser.setFileListener(new FileChooser.FileSelectedListener() {
             @Override
@@ -305,8 +305,20 @@ public class StorageTabFragment extends Fragment implements OnClickListener {
 
             }
         });
-        // Set up and filter my extension I am looking for
-        filechooser.setExtension(".img",".vmdk",".vhd",".vdi",".iso");
+
+        // Set up extension
+        switch(type) {
+            case "disk":
+                filechooser.setExtension(".img",".vmdk",".vhd",".vdi");
+                break;
+            case "cdrom":
+                filechooser.setExtension(".iso");
+                break;
+            case "floppy":
+                filechooser.setExtension(".img");
+                break;
+        }
+
         filechooser.showDialog();
     }
 
