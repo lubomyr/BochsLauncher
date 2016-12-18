@@ -28,8 +28,7 @@ public class FileChooser {
     private String extension[] = null;
 
     public void setExtension(String... extension) {
-        this.extension = (extension == null) ? null :
-                extension;
+        this.extension = (extension == null) ? null : extension;
     }
 
     // file selection event handling
@@ -44,11 +43,12 @@ public class FileChooser {
 
     private FileSelectedListener fileListener;
 
-    public FileChooser(Activity activity, String path) {
+    public FileChooser(Activity activity, String path, String... extension) {
         this.activity = activity;
         File selectedPath = null;
         if (path != null)
             selectedPath = new File(path);
+        this.extension = (extension == null) ? null : extension;
         dialog = new Dialog(activity);
         list = new ListView(activity);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {

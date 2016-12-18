@@ -273,7 +273,20 @@ public class StorageTabFragment extends Fragment implements OnClickListener {
     }
 
     private void fileSelection(final Requestor num, String type) {
-        FileChooser filechooser = new FileChooser(MainActivity.main, getLastPath());
+        // Set up extension
+        String extension[] = null;
+        switch(type) {
+            case "disk":
+                extension = new String[]{".img", ".vmdk", ".vhd", ".vdi"};
+                break;
+            case "cdrom":
+                extension = new String[]{".iso"};
+                break;
+            case "floppy":
+                extension = new String[]{".img"};
+                break;
+        }
+        FileChooser filechooser = new FileChooser(MainActivity.main, getLastPath(), extension);
         filechooser.setFileListener(new FileChooser.FileSelectedListener() {
             @Override
             public void fileSelected(final File file) {
@@ -312,19 +325,6 @@ public class StorageTabFragment extends Fragment implements OnClickListener {
 
             }
         });
-
-        // Set up extension
-        switch(type) {
-            case "disk":
-                filechooser.setExtension(".img",".vmdk",".vhd",".vdi");
-                break;
-            case "cdrom":
-                filechooser.setExtension(".iso");
-                break;
-            case "floppy":
-                filechooser.setExtension(".img");
-                break;
-        }
 
         filechooser.showDialog();
     }
