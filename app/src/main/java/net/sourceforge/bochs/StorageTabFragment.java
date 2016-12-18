@@ -202,7 +202,9 @@ public class StorageTabFragment extends Fragment implements OnClickListener {
                                                         btBrowseAta[j].setEnabled(Config.ata[j]);
                                                         tvAta[j].setEnabled(Config.ata[j]);
                                                         spAtaType[j].setEnabled(Config.ata[j]);
-                                                        cbVvfatAta[j].setEnabled(Config.ata[j]);
+                                                        if (!Config.ataType[j].equals("cdrom"))
+                                                            cbVvfatAta[j].setEnabled(Config.ata[j]);
+
                                                     }
                                                 }
             );
@@ -212,6 +214,11 @@ public class StorageTabFragment extends Fragment implements OnClickListener {
                 @Override
                 public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4) {
                     Config.ataType[j] = typeList.get(p3);
+                    if (Config.ataType[j].equals("cdrom")) {
+                        cbVvfatAta[j].setChecked(false);
+                        cbVvfatAta[j].setEnabled(false);
+                    } else
+                        cbVvfatAta[j].setEnabled(true);
                 }
 
                 @Override
