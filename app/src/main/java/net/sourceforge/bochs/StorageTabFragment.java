@@ -214,11 +214,12 @@ public class StorageTabFragment extends Fragment implements OnClickListener {
                 @Override
                 public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4) {
                     Config.ataType[j] = typeList.get(p3);
-                    if (Config.ataType[j].equals("cdrom")) {
+                    if (!Config.ataType[j].equals("cdrom") && cbAta[j].isChecked()) {
+                        cbVvfatAta[j].setEnabled(true);
+                    } else {
                         cbVvfatAta[j].setChecked(false);
                         cbVvfatAta[j].setEnabled(false);
-                    } else
-                        cbVvfatAta[j].setEnabled(true);
+                    }
                 }
 
                 @Override
