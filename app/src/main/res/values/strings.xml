@@ -3,5 +3,10 @@
 
     <string name="app_name">Bochs</string>
     <string name="hello_world">Hello world!</string>
-
+    <string name="floppy_a_short">FloppyA</string>
+    <string name="floppy_b_short">FloppyB</string>
+    <string name="floppy_a">Floppy A</string>
+    <string name="floppy_b">Floppy B</string>
+    <string name="select">select</string>
+    <string name="select_short">sel.</string>
 </resources>

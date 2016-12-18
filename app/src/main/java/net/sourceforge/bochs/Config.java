@@ -7,36 +7,20 @@ import java.io.IOException;
 import java.util.Scanner;
 
 class Config {
+    static final int floppyNum = 2;
+    static final int ataNum = 4;
     static boolean useSb16 = false;
     static boolean useEs1370 = false;
     static boolean useNe2000 = false;
     static boolean useRtl8029 = false;
     static boolean useE1000 = false;
     static boolean useVoodoo = false;
-    static boolean floppyA = false;
-    static boolean floppyB = false;
-    static String floppyA_image = "none";
-    static String floppyB_image = "none";
-    static boolean ata0m = false;
-    static boolean ata0s = false;
-    static boolean ata1m = false;
-    static boolean ata1s = false;
-    public static boolean ata2m = false;
-    public static boolean ata2s = false;
-    public static boolean ata3m = false;
-    public static boolean ata3s = false;
-    static String ata0m_image = "none";
-    static String ata0s_image = "none";
-    static String ata1m_image = "none";
-    static String ata1s_image = "none";
-    static String ata0mType = "disk";
-    static String ata0sType = "disk";
-    static String ata1mType = "disk";
-    static String ata1sType = "disk";
-    static String ata0mMode = "";
-    static String ata0sMode = "";
-    static String ata1mMode = "";
-    static String ata1sMode = "";
+    static Boolean floppy[] = new Boolean[floppyNum];
+    static String floppyImage[] = new String[floppyNum];
+    static Boolean ata[] = new Boolean[ataNum];
+    static String ataImage[] = new String[ataNum];
+    static String ataType[] = new String[ataNum];
+    static String ataMode[] = new String[ataNum];
     static String boot = "disk";
 
     static String romImage = "BIOS-bochs-latest";
@@ -47,127 +31,63 @@ class Config {
     static String chipset = "i440fx";
     static String[] slot = {"", "", "", "", ""};
     static String cpuModel = "bx_generic";
-    static String mac = "b0:c4:20:00:00:00";
-    static String ethmod = "slirp";
+    static private String mac = "b0:c4:20:00:00:00";
+    static private String ethmod = "slirp";
     static boolean fullscreen = false;
     static String clockSync = "none";
 
-    final static String path = MainActivity.configPath;
-    static String configFile;
+    final static private String path = MainActivity.configPath;
+    static private String configFile;
     static boolean configLoaded = false;
+    static final int FLOPPY_A = 0;
+    static final int FLOPPY_B = 1;
+    static final int ATA_0_MASTER = 0;
+    static final int ATA_0_SLAVE = 1;
+    static final int ATA_1_MASTER = 2;
+    static final int ATA_1_SLAVE = 3;
+
+    static void setDefaulValues() {
+        for (int i=0; i < floppyNum; i++) {
+            floppy[i] = false;
+            floppyImage[i] = "none";
+        }
+        for (int i=0; i < ataNum; i++) {
+            ata[i] = false;
+            ataImage[i] = "none";
+            ataType[i] = "disk";
+            ataMode[i] = "";
+        }
+    }
 
     static void readConfig() throws FileNotFoundException {
         File file = new File(path);
         Scanner sc = new Scanner(file).useDelimiter("[\n]");
         StringBuilder sb = new StringBuilder();
+        setDefaulValues();
         while (sc.hasNext()) {
             String str = sc.next() + "\n";
             if (str.startsWith("floppya:")) {
-                floppyA = true;
-                if (str.contains("1_44=")) {
-                    String str2 = str.substring(str.indexOf("1_44="), str.length() - 1);
-                    floppyA_image = str2.contains(",") ?
-                            str2.substring(5, str2.indexOf(",")) : str2.substring(5, str2.length());
-                }
-                if (str.contains("image=")) {
-                    String str2 = str.substring(str.indexOf("image="), str.length() - 1);
-                    floppyA_image = str2.contains(",") ?
-                            str2.substring(6, str2.indexOf(",")) : str2.substring(6, str2.length());
-                }
+                parseFloppyConfig(FLOPPY_A, str);
             }
 
             if (str.startsWith("floppyb:")) {
-                floppyB = true;
-                if (str.contains("1_44=")) {
-                    String str2 = str.substring(str.indexOf("1_44="), str.length() - 1);
-                    floppyB_image = str2.contains(",") ?
-                            str2.substring(5, str2.indexOf(",")) : str2.substring(5, str2.length());
-                }
-                if (str.contains("image=")) {
-                    String str2 = str.substring(str.indexOf("image="), str.length() - 1);
-                    floppyB_image = str2.contains(",") ?
-                            str2.substring(6, str2.indexOf(",")) : str2.substring(6, str2.length());
-                }
+                parseFloppyConfig(FLOPPY_B, str);
             }
 
             if (str.startsWith("ata0-master:")) {
-                ata0m = true;
-                if (str.contains("type=")) {
-                    String str2 = str.substring(str.indexOf("type="), str.length() - 1);
-                    ata0mType = str2.contains(",") ?
-                            str2.substring(5, str2.indexOf(",")) : str2.substring(5, str2.length());
-                }
-                if (str.contains("mode=")) {
-                    String str2 = str.substring(str.indexOf("mode="), str.length() - 1);
-                    ata0mMode = str2.contains(",") ?
-                            str2.substring(5, str2.indexOf(",")) : str2.substring(5, str2.length());
-                }
-                if (str.contains("path=")) {
-                    String str2 = str.substring(str.indexOf("path="), str.length() - 1);
-                    ata0m_image = str2.contains(",") ?
-                            str2.substring(5, str2.indexOf(",")) : str2.substring(5, str2.length());
-                    ata0m_image = ata0m_image.replace("\"", "");
-                }
+                parseAtaConfig(ATA_0_MASTER, str);
             }
 
             if (str.startsWith("ata0-slave:")) {
-                ata0s = true;
-                if (str.contains("type=")) {
-                    String str2 = str.substring(str.indexOf("type="), str.length() - 1);
-                    ata0sType = str2.contains(",") ?
-                            str2.substring(5, str2.indexOf(",")) : str2.substring(5, str2.length());
-                }
-                if (str.contains("mode=")) {
-                    String str2 = str.substring(str.indexOf("mode="), str.length() - 1);
-                    ata0sMode = str2.contains(",") ?
-                            str2.substring(5, str2.indexOf(",")) : str2.substring(5, str2.length());
-                }
-                if (str.contains("path=")) {
-                    String str2 = str.substring(str.indexOf("path="), str.length() - 1);
-                    ata0s_image = str2.contains(",") ?
-                            str2.substring(5, str2.indexOf(",")) : str2.substring(5, str2.length());
-                    ata0s_image = ata0s_image.replace("\"", "");
-                }
+                parseAtaConfig(ATA_0_SLAVE, str);
             }
 
             if (str.startsWith("ata1-master:")) {
-                ata1m = true;
-                if (str.contains("type=")) {
-                    String str2 = str.substring(str.indexOf("type="), str.length() - 1);
-                    ata1mType = str2.contains(",") ?
-                            str2.substring(5, str2.indexOf(",")) : str2.substring(5, str2.length());
-                }
-                if (str.contains("mode=")) {
-                    String str2 = str.substring(str.indexOf("mode="), str.length() - 1);
-                    ata1mMode = str2.contains(",") ?
-                            str2.substring(5, str2.indexOf(",")) : str2.substring(5, str2.length());
-                }
-                if (str.contains("path=")) {
-                    String str2 = str.substring(str.indexOf("path="), str.length() - 1);
-                    ata1m_image = str2.contains(",") ?
-                            str2.substring(5, str2.indexOf(",")) : str2.substring(5, str2.length());
-                    ata1m_image = ata1m_image.replace("\"", "");
-                }
+                parseAtaConfig(ATA_1_MASTER, str);
             }
 
             if (str.startsWith("ata1-slave:")) {
-                ata1s = true;
-                if (str.contains("type=")) {
-                    String str2 = str.substring(str.indexOf("type="), str.length() - 1);
-                    ata1sType = str2.contains(",") ?
-                            str2.substring(5, str2.indexOf(",")) : str2.substring(5, str2.length());
-                }
-                if (str.contains("mode=")) {
-                    String str2 = str.substring(str.indexOf("mode="), str.length() - 1);
-                    ata1sMode = str2.contains(",") ?
-                            str2.substring(5, str2.indexOf(",")) : str2.substring(5, str2.length());
-                }
-                if (str.contains("path=")) {
-                    String str2 = str.substring(str.indexOf("path="), str.length() - 1);
-                    ata1s_image = str2.contains(",") ?
-                            str2.substring(5, str2.indexOf(",")) : str2.substring(5, str2.length());
-                    ata1s_image = ata1s_image.replace("\"", "");
-                }
+                parseAtaConfig(ATA_1_SLAVE, str);
             }
 
             if (str.startsWith("boot:")) {
@@ -308,6 +228,40 @@ class Config {
         configFile = sb.toString();
     }
 
+    static private void parseFloppyConfig(int n, String str) {
+        floppy[n] = true;
+        if (str.contains("1_44=")) {
+            String str2 = str.substring(str.indexOf("1_44="), str.length() - 1);
+            floppyImage[n] = str2.contains(",") ?
+                    str2.substring(5, str2.indexOf(",")) : str2.substring(5, str2.length());
+        }
+        if (str.contains("image=")) {
+            String str2 = str.substring(str.indexOf("image="), str.length() - 1);
+            floppyImage[n] = str2.contains(",") ?
+                    str2.substring(6, str2.indexOf(",")) : str2.substring(6, str2.length());
+        }
+    }
+
+    static private void parseAtaConfig(int n, String str) {
+        ata[n] = true;
+        if (str.contains("type=")) {
+            String str2 = str.substring(str.indexOf("type="), str.length() - 1);
+            ataType[n] = str2.contains(",") ?
+                    str2.substring(5, str2.indexOf(",")) : str2.substring(5, str2.length());
+        }
+        if (str.contains("mode=")) {
+            String str2 = str.substring(str.indexOf("mode="), str.length() - 1);
+            ataMode[n] = str2.contains(",") ?
+                    str2.substring(5, str2.indexOf(",")) : str2.substring(5, str2.length());
+        }
+        if (str.contains("path=")) {
+            String str2 = str.substring(str.indexOf("path="), str.length() - 1);
+            ataImage[n] = str2.contains(",") ?
+                    str2.substring(5, str2.indexOf(",")) : str2.substring(5, str2.length());
+            ataImage[n] = ataImage[n].replace("\"", "");
+        }
+    }
+
     static void writeConfig() throws IOException {
         File file = new File(path);
         FileWriter fw = new FileWriter(file);
@@ -318,20 +272,11 @@ class Config {
         fw.write("cpu: model=" + cpuModel + "\n");
         fw.write("vga: extension=" + vgaExtension + ", update_freq=" + vgaUpdateFreq + "\n");
         fw.write("pci: enabled=1, chipset=" + chipset);
-        if (!slot[0].equals("")) {
-            fw.write(", slot1=" + slot[0]);
-        }
-        if (!slot[1].equals("")) {
-            fw.write(", slot2=" + slot[1]);
-        }
-        if (!slot[2].equals("")) {
-            fw.write(", slot3=" + slot[2]);
-        }
-        if (!slot[3].equals("")) {
-            fw.write(", slot4=" + slot[3]);
-        }
-        if (!slot[4].equals("")) {
-            fw.write(", slot5=" + slot[4]);
+        for (int i = 0; i < slot.length; i++) {
+            String label[] = {"slot1", "slot2", "slot3", "slot4", "slot5"};
+            if (!slot[i].equals("")) {
+                fw.write(", " + label[i] + "=" + slot[i]);
+            }
         }
         fw.write("\n");
         if (useRtl8029)
@@ -340,54 +285,30 @@ class Config {
             fw.write("ne2k: ioaddr=0x300, irq=10, mac=" + mac + ", ethmod=" + ethmod + ", script=\"\"\n");
         if (useE1000)
             fw.write("e1000: mac=" + mac + ", ethmod=" + ethmod + ", script=\"\"\n");
-        if (floppyA) {
-            fw.write("floppya: image=" + floppyA_image + ", status=inserted\n");
+
+        for (int i = 0; i < floppyNum; i++) {
+            String label[] = {"floppya", "floppyb"};
+            if (floppy[i]) {
+                fw.write(label[i]+": image=" + floppyImage[i] + ", status=inserted\n");
+            }
         }
-        if (floppyB) {
-            fw.write("floppyb: image=" + floppyB_image + ", status=inserted\n");
-        }
+
         fw.write("ata0: enabled=1, ioaddr1=0x1f0, ioaddr2=0x3f0, irq=14\n");
         fw.write("ata1: enabled=1, ioaddr1=0x170, ioaddr2=0x370, irq=15\n");
-        if (ata0m) {
-            fw.write("ata0-master: type=" + ata0mType);
-            if (ata0mType.equals("cdrom")) {
-                fw.write(", status=inserted");
+        for (int i = 0; i < ataNum; i++) {
+            String label[] = {"ata0-master", "ata0-slave", "ata1-master", "ata1-slave"};
+            if (ata[i]) {
+                fw.write(label[i] + ": type=" + ataType[i]);
+                if (ataType[i].equals("cdrom")) {
+                    fw.write(", status=inserted");
+                }
+                if (!ataMode[i].equals("")) {
+                    fw.write(", mode=" + ataMode[i]);
+                }
+                fw.write(", path=\"" + ataImage[i] + "\"\n");
             }
-            if (!ata0mMode.equals("")) {
-                fw.write(", mode=" + ata0mMode);
-            }
-            fw.write(", path=\"" + ata0m_image + "\"\n");
         }
-        if (ata0s) {
-            fw.write("ata0-slave: type=" + ata0sType);
-            if (ata0sType.equals("cdrom")) {
-                fw.write(", status=inserted");
-            }
-            if (!ata0sMode.equals("")) {
-                fw.write(", mode=" + ata0sMode);
-            }
-            fw.write(", path=\"" + ata0s_image + "\"\n");
-        }
-        if (ata1m) {
-            fw.write("ata1-master: type=" + ata1mType);
-            if (ata1mType.equals("cdrom")) {
-                fw.write(", status=inserted");
-            }
-            if (!ata1mMode.equals("")) {
-                fw.write(", mode=" + ata1mMode);
-            }
-            fw.write(", path=\"" + ata1m_image + "\"\n");
-        }
-        if (ata1s) {
-            fw.write("ata1-slave: type=" + ata1sType);
-            if (ata1sType.equals("cdrom")) {
-                fw.write(", status=inserted");
-            }
-            if (!ata1sMode.equals("")) {
-                fw.write(", mode=" + ata1sMode);
-            }
-            fw.write(", path=\"" + ata1s_image + "\"\n");
-        }
+
         fw.write("boot: " + boot + "\n");
         fw.write("megs: " + megs + "\n");
         fw.write("sound: waveoutdrv=sdl\n");

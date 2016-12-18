@@ -24,34 +24,24 @@ import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class StorageTabFragment extends Fragment {
+public class StorageTabFragment extends Fragment implements OnClickListener {
     private SharedPreferences sPref;
-    private TextView tvFloppyA;
-    private TextView tvFloppyB;
-    private TextView tvAta0m;
-    private TextView tvAta0s;
-    private TextView tvAta1m;
-    private TextView tvAta1s;
-    private CheckBox cbVvfatAta0m;
-    private CheckBox cbVvfatAta0s;
-    private CheckBox cbVvfatAta1m;
-    private CheckBox cbVvfatAta1s;
-    private CheckBox cbFloppyA;
-    private CheckBox cbFloppyB;
-    private CheckBox cbAta0m;
-    private CheckBox cbAta0s;
-    private CheckBox cbAta1m;
-    private CheckBox cbAta1s;
-    private Button btBrowseFloppyA;
-    private Button btBrowseFloppyB;
-    private Button btBrowseAta0m;
-    private Button btBrowseAta0s;
-    private Button btBrowseAta1m;
-    private Button btBrowseAta1s;
-    private Spinner spAta0mType;
-    private Spinner spAta0sType;
-    private Spinner spAta1mType;
-    private Spinner spAta1sType;
+    private final int floppyNum = Config.floppyNum;
+    private final int ataNum = Config.ataNum;
+    private final int FLOPPY_A = Config.FLOPPY_A;
+    private final int FLOPPY_B = Config.FLOPPY_B;
+    private final int ATA_0_MASTER = Config.ATA_0_MASTER;
+    private final int ATA_0_SLAVE = Config.ATA_0_SLAVE;
+    private final int ATA_1_MASTER = Config.ATA_1_MASTER;
+    private final int ATA_1_SLAVE = Config.ATA_1_SLAVE;
+    private TextView tvFloppy[] = new TextView[floppyNum];
+    private CheckBox cbFloppy[] = new CheckBox[floppyNum];
+    private Button btBrowseFloppy[] = new Button[floppyNum];
+    private TextView tvAta[] = new TextView[ataNum];
+    private CheckBox cbVvfatAta[] = new CheckBox[ataNum];
+    private CheckBox cbAta[] = new CheckBox[ataNum];
+    private Button btBrowseAta[] = new Button[ataNum];
+    private Spinner spAtaType[] = new Spinner[ataNum];
 
     private String m_chosenDir = "";
     private boolean m_newFolderEnabled = true;
@@ -69,216 +59,91 @@ public class StorageTabFragment extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.storageButtonFloppyA:
+                fileSelection(Requestor.FLOPPY_A);
+                break;
+            case R.id.storageButtonFloppyB:
+                fileSelection(Requestor.FLOPPY_B);
+                break;
+            case R.id.storageButtonAta0m:
+                if (cbVvfatAta[ATA_0_MASTER].isChecked())
+                    dirSelection(Requestor.ATA0_MASTER);
+                else
+                    fileSelection(Requestor.ATA0_MASTER);
+                break;
+            case R.id.storageButtonAta0s:
+                if (cbVvfatAta[ATA_0_SLAVE].isChecked())
+                    dirSelection(Requestor.ATA0_SLAVE);
+                else
+                    fileSelection(Requestor.ATA0_SLAVE);
+                break;
+            case R.id.storageButtonAta1m:
+                if (cbVvfatAta[ATA_1_MASTER].isChecked())
+                    dirSelection(Requestor.ATA1_MASTER);
+                else
+                    fileSelection(Requestor.ATA1_MASTER);
+                break;
+            case R.id.storageButtonAta1s:
+                if (cbVvfatAta[ATA_1_SLAVE].isChecked())
+                    dirSelection(Requestor.ATA1_SLAVE);
+                else
+                    fileSelection(Requestor.ATA1_SLAVE);
+                break;
+        }
+    }
+
     private void setupView(View rootView) {
         final List<String> typeList = Arrays.asList("disk", "cdrom");
         final List<String> bootList = Arrays.asList("disk", "cdrom", "floppy");
-        cbFloppyA = (CheckBox) rootView.findViewById(R.id.storageCheckBoxFloppyA);
-        tvFloppyA = (TextView) rootView.findViewById(R.id.storageTextViewFloppyA);
-        btBrowseFloppyA = (Button) rootView.findViewById(R.id.storageButtonFloppyA);
-        cbFloppyB = (CheckBox) rootView.findViewById(R.id.storageCheckBoxFloppyB);
-        tvFloppyB = (TextView) rootView.findViewById(R.id.storageTextViewFloppyB);
-        btBrowseFloppyB = (Button) rootView.findViewById(R.id.storageButtonFloppyB);
-        cbAta0m = (CheckBox) rootView.findViewById(R.id.storageCheckBoxAta0m);
-        tvAta0m = (TextView) rootView.findViewById(R.id.storageTextViewAta0m);
-        cbVvfatAta0m = (CheckBox) rootView.findViewById(R.id.storageCheckBoxAta0mVvfat);
-        btBrowseAta0m = (Button) rootView.findViewById(R.id.storageButtonAta0m);
-        cbAta0s = (CheckBox) rootView.findViewById(R.id.storageCheckBoxAta0s);
-        tvAta0s = (TextView) rootView.findViewById(R.id.storageTextViewAta0s);
-        cbVvfatAta0s = (CheckBox) rootView.findViewById(R.id.storageCheckBoxAta0sVvfat);
-        btBrowseAta0s = (Button) rootView.findViewById(R.id.storageButtonAta0s);
-        cbAta1m = (CheckBox) rootView.findViewById(R.id.storageCheckBoxAta1m);
-        tvAta1m = (TextView) rootView.findViewById(R.id.storageTextViewAta1m);
-        cbVvfatAta1m = (CheckBox) rootView.findViewById(R.id.storageCheckBoxAta1mVvfat);
-        btBrowseAta1m = (Button) rootView.findViewById(R.id.storageButtonAta1m);
-        cbAta1s = (CheckBox) rootView.findViewById(R.id.storageCheckBoxAta1s);
-        tvAta1s = (TextView) rootView.findViewById(R.id.storageTextViewAta1s);
-        cbVvfatAta1s = (CheckBox) rootView.findViewById(R.id.storageCheckBoxAta1sVvfat);
-        btBrowseAta1s = (Button) rootView.findViewById(R.id.storageButtonAta1s);
-        spAta0mType = (Spinner) rootView.findViewById(R.id.storageSpinnerAta0m);
-        spAta0sType = (Spinner) rootView.findViewById(R.id.storageSpinnerAta0s);
-        spAta1mType = (Spinner) rootView.findViewById(R.id.storageSpinnerAta1m);
-        spAta1sType = (Spinner) rootView.findViewById(R.id.storageSpinnerAta1s);
+        cbFloppy[FLOPPY_A] = (CheckBox) rootView.findViewById(R.id.storageCheckBoxFloppyA);
+        tvFloppy[FLOPPY_A] = (TextView) rootView.findViewById(R.id.storageTextViewFloppyA);
+        btBrowseFloppy[FLOPPY_A] = (Button) rootView.findViewById(R.id.storageButtonFloppyA);
+        cbFloppy[FLOPPY_B] = (CheckBox) rootView.findViewById(R.id.storageCheckBoxFloppyB);
+        tvFloppy[FLOPPY_B] = (TextView) rootView.findViewById(R.id.storageTextViewFloppyB);
+        btBrowseFloppy[FLOPPY_B] = (Button) rootView.findViewById(R.id.storageButtonFloppyB);
+        cbAta[ATA_0_MASTER] = (CheckBox) rootView.findViewById(R.id.storageCheckBoxAta0m);
+        tvAta[ATA_0_MASTER] = (TextView) rootView.findViewById(R.id.storageTextViewAta0m);
+        cbVvfatAta[ATA_0_MASTER] = (CheckBox) rootView.findViewById(R.id.storageCheckBoxAta0mVvfat);
+        btBrowseAta[ATA_0_MASTER] = (Button) rootView.findViewById(R.id.storageButtonAta0m);
+        spAtaType[ATA_0_MASTER] = (Spinner) rootView.findViewById(R.id.storageSpinnerAta0m);
+        cbAta[ATA_0_SLAVE] = (CheckBox) rootView.findViewById(R.id.storageCheckBoxAta0s);
+        tvAta[ATA_0_SLAVE] = (TextView) rootView.findViewById(R.id.storageTextViewAta0s);
+        cbVvfatAta[ATA_0_SLAVE] = (CheckBox) rootView.findViewById(R.id.storageCheckBoxAta0sVvfat);
+        btBrowseAta[ATA_0_SLAVE] = (Button) rootView.findViewById(R.id.storageButtonAta0s);
+        spAtaType[ATA_0_SLAVE] = (Spinner) rootView.findViewById(R.id.storageSpinnerAta0s);
+        cbAta[ATA_1_MASTER] = (CheckBox) rootView.findViewById(R.id.storageCheckBoxAta1m);
+        tvAta[ATA_1_MASTER] = (TextView) rootView.findViewById(R.id.storageTextViewAta1m);
+        cbVvfatAta[ATA_1_MASTER] = (CheckBox) rootView.findViewById(R.id.storageCheckBoxAta1mVvfat);
+        btBrowseAta[ATA_1_MASTER] = (Button) rootView.findViewById(R.id.storageButtonAta1m);
+        spAtaType[ATA_1_MASTER] = (Spinner) rootView.findViewById(R.id.storageSpinnerAta1m);
+        cbAta[ATA_1_SLAVE] = (CheckBox) rootView.findViewById(R.id.storageCheckBoxAta1s);
+        tvAta[ATA_1_SLAVE] = (TextView) rootView.findViewById(R.id.storageTextViewAta1s);
+        cbVvfatAta[ATA_1_SLAVE] = (CheckBox) rootView.findViewById(R.id.storageCheckBoxAta1sVvfat);
+        btBrowseAta[ATA_1_SLAVE] = (Button) rootView.findViewById(R.id.storageButtonAta1s);
+        spAtaType[ATA_1_SLAVE] = (Spinner) rootView.findViewById(R.id.storageSpinnerAta1s);
+
         if (getResources().getDisplayMetrics().density <= 1.5) {
             if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-                cbFloppyA.setText("FloppyA");
-                cbFloppyB.setText("FloppyB");
-                btBrowseFloppyA.setText("sel.");
-                btBrowseFloppyB.setText("sel.");
+                cbFloppy[FLOPPY_A].setText(getString(R.string.floppy_a_short));
+                cbFloppy[FLOPPY_B].setText(getString(R.string.floppy_b_short));
+                btBrowseFloppy[FLOPPY_A].setText(getString(R.string.select_short));
+                btBrowseFloppy[FLOPPY_B].setText(getString(R.string.select_short));
             } else {
-                cbFloppyA.setText("Floppy A");
-                cbFloppyB.setText("Floppy B");
-                btBrowseFloppyA.setText("select");
-                btBrowseFloppyB.setText("select");
+                cbFloppy[FLOPPY_A].setText(getString(R.string.floppy_a));
+                cbFloppy[FLOPPY_B].setText(getString(R.string.floppy_b));
+                btBrowseFloppy[FLOPPY_A].setText(getString(R.string.select));
+                btBrowseFloppy[FLOPPY_B].setText(getString(R.string.select));
             }
         }
+
+        // setup boot selection logic
         Spinner spBoot = (Spinner) rootView.findViewById(R.id.storageSpinnerBoot);
-        cbFloppyA.setChecked(Config.floppyA);
-        tvFloppyA.setText(MainActivity.getFileName(Config.floppyA_image));
-        tvFloppyA.setEnabled(Config.floppyA);
-        btBrowseFloppyA.setEnabled(Config.floppyA);
-        cbFloppyB.setChecked(Config.floppyB);
-        tvFloppyB.setText(MainActivity.getFileName(Config.floppyB_image));
-        tvFloppyB.setEnabled(Config.floppyB);
-        btBrowseFloppyB.setEnabled(Config.floppyB);
-        cbAta0m.setChecked(Config.ata0m);
-        tvAta0m.setText(MainActivity.getFileName(Config.ata0m_image));
-        tvAta0m.setEnabled(Config.ata0m);
-        cbVvfatAta0m.setEnabled(Config.ata0m);
-        btBrowseAta0m.setEnabled(Config.ata0m);
-        cbAta0s.setChecked(Config.ata0s);
-        tvAta0s.setText(MainActivity.getFileName(Config.ata0s_image));
-        tvAta0s.setEnabled(Config.ata0s);
-        cbVvfatAta0s.setEnabled(Config.ata0s);
-        btBrowseAta0s.setEnabled(Config.ata0s);
-        cbAta1m.setChecked(Config.ata1m);
-        tvAta1m.setText(MainActivity.getFileName(Config.ata1m_image));
-        tvAta1m.setEnabled(Config.ata1m);
-        cbVvfatAta1m.setEnabled(Config.ata1m);
-        btBrowseAta1m.setEnabled(Config.ata1m);
-        cbAta1s.setChecked(Config.ata1s);
-        tvAta1s.setText(MainActivity.getFileName(Config.ata1s_image));
-        tvAta1s.setEnabled(Config.ata1s);
-        cbVvfatAta1s.setEnabled(Config.ata1s);
-        btBrowseAta1s.setEnabled(Config.ata1s);
-        spAta0mType.setEnabled(Config.ata0m);
-        spAta0sType.setEnabled(Config.ata0s);
-        spAta1mType.setEnabled(Config.ata1m);
-        spAta1sType.setEnabled(Config.ata1s);
-        SpinnerAdapter adapterType = new ArrayAdapter<String>(MainActivity.main, R.layout.spinner_row, typeList);
         SpinnerAdapter adapterBoot = new ArrayAdapter<String>(MainActivity.main, R.layout.spinner_row, bootList);
-        spAta0mType.setAdapter(adapterType);
-        spAta0sType.setAdapter(adapterType);
-        spAta1mType.setAdapter(adapterType);
-        spAta1sType.setAdapter(adapterType);
         spBoot.setAdapter(adapterBoot);
-        spAta0mType.setSelection(typeList.indexOf(Config.ata0mType));
-        spAta0sType.setSelection(typeList.indexOf(Config.ata0sType));
-        spAta1mType.setSelection(typeList.indexOf(Config.ata1mType));
-        spAta1sType.setSelection(typeList.indexOf(Config.ata1sType));
         spBoot.setSelection(bootList.indexOf(Config.boot));
-
-
-        cbFloppyA.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-                                                 @Override
-                                                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                                     Config.floppyA = cbFloppyA.isChecked();
-                                                     btBrowseFloppyA.setEnabled(Config.floppyA);
-                                                     tvFloppyA.setEnabled(Config.floppyA);
-                                                 }
-                                             }
-        );
-        cbFloppyB.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-                                                 @Override
-                                                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                                     Config.floppyB = cbFloppyB.isChecked();
-                                                     btBrowseFloppyB.setEnabled(Config.floppyB);
-                                                     tvFloppyB.setEnabled(Config.floppyB);
-                                                 }
-                                             }
-        );
-        cbAta0m.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-                                               @Override
-                                               public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                                   Config.ata0m = cbAta0m.isChecked();
-                                                   btBrowseAta0m.setEnabled(Config.ata0m);
-                                                   tvAta0m.setEnabled(Config.ata0m);
-                                                   spAta0mType.setEnabled(Config.ata0m);
-                                                   cbVvfatAta0m.setEnabled(Config.ata0m);
-                                               }
-                                           }
-        );
-        cbAta0s.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-                                               @Override
-                                               public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                                   Config.ata0s = cbAta0s.isChecked();
-                                                   btBrowseAta0s.setEnabled(Config.ata0s);
-                                                   tvAta0s.setEnabled(Config.ata0s);
-                                                   spAta0sType.setEnabled(Config.ata0s);
-                                                   cbVvfatAta0s.setEnabled(Config.ata0s);
-                                               }
-                                           }
-        );
-        cbAta1m.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-                                               @Override
-                                               public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                                   Config.ata1m = cbAta1m.isChecked();
-                                                   btBrowseAta1m.setEnabled(Config.ata1m);
-                                                   tvAta1m.setEnabled(Config.ata1m);
-                                                   spAta1mType.setEnabled(Config.ata1m);
-                                                   cbVvfatAta1m.setEnabled(Config.ata1m);
-                                               }
-                                           }
-        );
-        cbAta1s.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-                                               @Override
-                                               public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                                   Config.ata1s = cbAta1s.isChecked();
-                                                   btBrowseAta1s.setEnabled(Config.ata1s);
-                                                   tvAta1s.setEnabled(Config.ata1s);
-                                                   spAta1sType.setEnabled(Config.ata1s);
-                                                   cbVvfatAta1s.setEnabled(Config.ata1s);
-                                               }
-                                           }
-        );
-
-        spAta0mType.setOnItemSelectedListener(new OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4) {
-                Config.ata0mType = typeList.get(p3);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> p1) {
-
-            }
-        });
-
-        spAta0sType.setOnItemSelectedListener(new OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4) {
-                Config.ata0sType = typeList.get(p3);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> p1) {
-
-            }
-        });
-
-        spAta1mType.setOnItemSelectedListener(new OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4) {
-                Config.ata1mType = typeList.get(p3);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> p1) {
-
-            }
-        });
-
-        spAta1sType.setOnItemSelectedListener(new OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4) {
-                Config.ata1sType = typeList.get(p3);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> p1) {
-
-            }
-        });
-
         spBoot.setOnItemSelectedListener(new OnItemSelectedListener() {
 
             @Override
@@ -292,51 +157,72 @@ public class StorageTabFragment extends Fragment {
             }
         });
 
-        OnClickListener storageOnClick = new OnClickListener() {
+        // setup floppy logic
+        for (int i = 0; i < floppyNum; i++) {
+            cbFloppy[i].setChecked(Config.floppy[i]);
+            tvFloppy[i].setText(MainActivity.getFileName(Config.floppyImage[i]));
+            tvFloppy[i].setEnabled(Config.floppy[i]);
+            btBrowseFloppy[i].setEnabled(Config.floppy[i]);
 
-            @Override
-            public void onClick(View p1) {
-                switch (p1.getId()) {
-                    case R.id.storageButtonFloppyA:
-                        fileSelection(Requestor.FLOPPY_A);
-                        break;
-                    case R.id.storageButtonFloppyB:
-                        fileSelection(Requestor.FLOPPY_B);
-                        break;
-                    case R.id.storageButtonAta0m:
-                        if (cbVvfatAta0m.isChecked())
-                            dirSelection(Requestor.ATA0_MASTER);
-                        else
-                            fileSelection(Requestor.ATA0_MASTER);
-                        break;
-                    case R.id.storageButtonAta0s:
-                        if (cbVvfatAta0s.isChecked())
-                            dirSelection(Requestor.ATA0_SLAVE);
-                        else
-                            fileSelection(Requestor.ATA0_SLAVE);
-                        break;
-                    case R.id.storageButtonAta1m:
-                        if (cbVvfatAta1m.isChecked())
-                            dirSelection(Requestor.ATA1_MASTER);
-                        else
-                            fileSelection(Requestor.ATA1_MASTER);
-                        break;
-                    case R.id.storageButtonAta1s:
-                        if (cbVvfatAta1s.isChecked())
-                            dirSelection(Requestor.ATA1_SLAVE);
-                        else
-                            fileSelection(Requestor.ATA1_SLAVE);
-                        break;
+            final int j = i;
+
+            cbFloppy[i].setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+                                                       @Override
+                                                       public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                                           Config.floppy[j] = cbFloppy[j].isChecked();
+                                                           btBrowseFloppy[j].setEnabled(Config.floppy[j]);
+                                                           tvFloppy[j].setEnabled(Config.floppy[j]);
+                                                       }
+                                                   }
+            );
+
+            btBrowseFloppy[i].setOnClickListener(this);
+        }
+
+        //setup ata logic
+        SpinnerAdapter adapterType = new ArrayAdapter<String>(MainActivity.main, R.layout.spinner_row, typeList);
+        for (int i = 0; i < ataNum; i++) {
+            cbAta[i].setChecked(Config.ata[i]);
+            tvAta[i].setText(MainActivity.getFileName(Config.ataImage[i]));
+            tvAta[i].setEnabled(Config.ata[i]);
+            cbVvfatAta[i].setEnabled(Config.ata[i]);
+            btBrowseAta[i].setEnabled(Config.ata[i]);
+            spAtaType[i].setEnabled(Config.ata[i]);
+            spAtaType[i].setAdapter(adapterType);
+            spAtaType[i].setSelection(typeList.indexOf(Config.ataType[i]));
+
+            final int j = i;
+
+            cbAta[i].setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+                                                    @Override
+                                                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                                        Config.ata[j] = cbAta[j].isChecked();
+                                                        btBrowseAta[j].setEnabled(Config.ata[j]);
+                                                        tvAta[j].setEnabled(Config.ata[j]);
+                                                        spAtaType[j].setEnabled(Config.ata[j]);
+                                                        cbVvfatAta[j].setEnabled(Config.ata[j]);
+                                                    }
+                                                }
+            );
+
+            spAtaType[i].setOnItemSelectedListener(new OnItemSelectedListener() {
+
+                @Override
+                public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4) {
+                    Config.ataType[j] = typeList.get(p3);
                 }
-            }
-        };
 
-        btBrowseFloppyA.setOnClickListener(storageOnClick);
-        btBrowseFloppyB.setOnClickListener(storageOnClick);
-        btBrowseAta0m.setOnClickListener(storageOnClick);
-        btBrowseAta0s.setOnClickListener(storageOnClick);
-        btBrowseAta1m.setOnClickListener(storageOnClick);
-        btBrowseAta1s.setOnClickListener(storageOnClick);
+                @Override
+                public void onNothingSelected(AdapterView<?> p1) {
+
+                }
+            });
+
+            btBrowseAta[i].setOnClickListener(this);
+        }
+
     }
 
     private void dirSelection(final Requestor num) {
@@ -349,24 +235,24 @@ public class StorageTabFragment extends Fragment {
                                 m_chosenDir = chosenDir;
                                 switch (num) {
                                     case ATA0_MASTER:
-                                        tvAta0m.setText(chosenDir);
-                                        Config.ata0m_image = chosenDir;
-                                        Config.ata0mMode = "vvfat";
+                                        tvAta[ATA_0_MASTER].setText(chosenDir);
+                                        Config.ataImage[ATA_0_MASTER] = chosenDir;
+                                        Config.ataMode[ATA_0_MASTER] = "vvfat";
                                         break;
                                     case ATA0_SLAVE:
-                                        tvAta0s.setText(chosenDir);
-                                        Config.ata0s_image = chosenDir;
-                                        Config.ata0sMode = "vvfat";
+                                        tvAta[ATA_0_SLAVE].setText(chosenDir);
+                                        Config.ataImage[ATA_0_SLAVE] = chosenDir;
+                                        Config.ataMode[ATA_0_SLAVE] = "vvfat";
                                         break;
                                     case ATA1_MASTER:
-                                        tvAta1m.setText(chosenDir);
-                                        Config.ata1m_image = chosenDir;
-                                        Config.ata1mMode = "vvfat";
+                                        tvAta[ATA_1_MASTER].setText(chosenDir);
+                                        Config.ataImage[ATA_1_MASTER] = chosenDir;
+                                        Config.ataMode[ATA_1_MASTER] = "vvfat";
                                         break;
                                     case ATA1_SLAVE:
-                                        tvAta1s.setText(chosenDir);
-                                        Config.ata1s_image = chosenDir;
-                                        Config.ata1sMode = "vvfat";
+                                        tvAta[ATA_1_SLAVE].setText(chosenDir);
+                                        Config.ataImage[ATA_1_SLAVE] = chosenDir;
+                                        Config.ataMode[ATA_1_SLAVE] = "vvfat";
                                         break;
                                 }
                             }
@@ -388,32 +274,32 @@ public class StorageTabFragment extends Fragment {
                 saveLastPath(file.getPath());
                 switch (num) {
                     case ATA0_MASTER:
-                        tvAta0m.setText(file.getName());
-                        Config.ata0m_image = filename;
-                        Config.ata0mMode = getMode(file.getName());
+                        tvAta[ATA_0_MASTER].setText(file.getName());
+                        Config.ataImage[ATA_0_MASTER] = filename;
+                        Config.ataMode[ATA_0_MASTER] = getMode(file.getName());
                         break;
                     case ATA0_SLAVE:
-                        tvAta0s.setText(file.getName());
-                        Config.ata0s_image = filename;
-                        Config.ata0sMode = getMode(file.getName());
+                        tvAta[ATA_0_SLAVE].setText(file.getName());
+                        Config.ataImage[ATA_0_SLAVE] = filename;
+                        Config.ataMode[ATA_0_SLAVE] = getMode(file.getName());
                         break;
                     case ATA1_MASTER:
-                        tvAta1m.setText(file.getName());
-                        Config.ata1m_image = filename;
-                        Config.ata1mMode = getMode(file.getName());
+                        tvAta[ATA_1_MASTER].setText(file.getName());
+                        Config.ataImage[ATA_1_MASTER] = filename;
+                        Config.ataMode[ATA_1_MASTER] = getMode(file.getName());
                         break;
                     case ATA1_SLAVE:
-                        tvAta1s.setText(file.getName());
-                        Config.ata1s_image = filename;
-                        Config.ata1sMode = getMode(file.getName());
+                        tvAta[ATA_1_SLAVE].setText(file.getName());
+                        Config.ataImage[ATA_1_SLAVE] = filename;
+                        Config.ataMode[ATA_1_SLAVE] = getMode(file.getName());
                         break;
                     case FLOPPY_A:
-                        tvFloppyA.setText(file.getName());
-                        Config.floppyA_image = filename;
+                        tvFloppy[FLOPPY_A].setText(file.getName());
+                        Config.floppyImage[FLOPPY_A] = filename;
                         break;
                     case FLOPPY_B:
-                        tvFloppyB.setText(file.getName());
-                        Config.floppyB_image = filename;
+                        tvFloppy[FLOPPY_B].setText(file.getName());
+                        Config.floppyImage[FLOPPY_B] = filename;
                         break;
                 }
 
