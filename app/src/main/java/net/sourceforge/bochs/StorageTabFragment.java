@@ -301,7 +301,7 @@ public class StorageTabFragment extends Fragment implements OnClickListener {
                 extension = new String[]{".iso"};
                 break;
             case "floppy":
-                extension = new String[]{".img"};
+                extension = new String[]{".img", ".ima"};
                 break;
         }
         FileChooser filechooser = new FileChooser(MainActivity.main, getLastPath(), extension);
