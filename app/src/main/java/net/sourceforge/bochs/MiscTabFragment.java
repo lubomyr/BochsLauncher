@@ -29,6 +29,7 @@ public class MiscTabFragment extends Fragment {
     private CheckBox cbFullscreen;
     private SeekBar sbVgaUpdateFreq;
     private TextView tvVgaUpdateFreq;
+    private CheckBox cbSpeaker;
 
     private enum Requestor {ROM, VGAROM}
 
@@ -53,11 +54,13 @@ public class MiscTabFragment extends Fragment {
         cbFullscreen = (CheckBox) rootView.findViewById(R.id.miscCheckBoxFullscreen);
         sbVgaUpdateFreq = (SeekBar) rootView.findViewById(R.id.miscSeekBarVgaUpdateFreq);
         tvVgaUpdateFreq = (TextView) rootView.findViewById(R.id.miscTextViewVgaUpdateFreq);
+        cbSpeaker = (CheckBox) rootView.findViewById(R.id.miscCheckBoxSpeaker);
         SpinnerAdapter syncAdapter = new ArrayAdapter<String>(MainActivity.main, R.layout.spinner_row, syncList);
         spClockSync.setAdapter(syncAdapter);
         tvRomImage.setText(MainActivity.getFileName(Config.romImage));
         tvVgaRomImage.setText(MainActivity.getFileName(Config.vgaRomImage));
         cbFullscreen.setChecked(Config.fullscreen);
+        cbSpeaker.setChecked(Config.useSpeaker);
         spClockSync.setSelection(syncList.indexOf(Config.clockSync));
         sbVgaUpdateFreq.setProgress(Config.vgaUpdateFreq - minValueVgaUpdateFreq);
         tvVgaUpdateFreq.setText(String.valueOf(Config.vgaUpdateFreq));
@@ -67,6 +70,15 @@ public class MiscTabFragment extends Fragment {
                                                     @Override
                                                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                                                         Config.fullscreen = cbFullscreen.isChecked();
+                                                    }
+                                                }
+        );
+
+        cbSpeaker.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+                                                    @Override
+                                                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                                        Config.useSpeaker = cbSpeaker.isChecked();
                                                     }
                                                 }
         );

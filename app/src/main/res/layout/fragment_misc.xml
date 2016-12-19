@@ -135,6 +135,13 @@
             android:layout_marginTop="5dp"
             android:text="Full screen" />
 
+        <CheckBox
+            android:id="@+id/miscCheckBoxSpeaker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Speaker" />
+
     </LinearLayout>
 
 </ScrollView>
