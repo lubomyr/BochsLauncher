@@ -38,7 +38,6 @@ public class HardwareTabFragment extends Fragment {
     private TextView tvSoundDescription;
     private Spinner spEthernet;
     private TextView tvEthernetDescription;
-    private SeekBar sbMemory;
     private TextView tvMemory;
     private Spinner[] spSlot = new Spinner[5];
     private ArrayAdapter<String> slotAdapter;
@@ -59,7 +58,8 @@ public class HardwareTabFragment extends Fragment {
 
     private void setupView(View rootView) {
         final List<String> slotList = Arrays.asList("none", "pcivga", "cirrus", "voodoo", "es1370", "ne2k", "e1000");
-        final int minValueMemory = 4;
+        final int memoryStep = 8;
+        final int minValueMemory = 8;
 
         if (cpuModel.size() == 0)
             readCpuList();
@@ -74,7 +74,7 @@ public class HardwareTabFragment extends Fragment {
         tvSoundDescription = (TextView) rootView.findViewById(R.id.hardwareTextViewSoundDesc);
         spEthernet = (Spinner) rootView.findViewById(R.id.hardwareSpinnerEthernet);
         tvEthernetDescription = (TextView) rootView.findViewById(R.id.hardwareTextViewEthernetDesc);
-        sbMemory = (SeekBar) rootView.findViewById(R.id.hardwareSeekBarMemory);
+        SeekBar sbMemory = (SeekBar) rootView.findViewById(R.id.hardwareSeekBarMemory);
         tvMemory = (TextView) rootView.findViewById(R.id.hardwareTextViewMemory);
         spSlot[0] = (Spinner) rootView.findViewById(R.id.hardwareSpinnerSlot1);
         spSlot[1] = (Spinner) rootView.findViewById(R.id.hardwareSpinnerSlot2);
@@ -98,8 +98,8 @@ public class HardwareTabFragment extends Fragment {
         tvCpuDescription.setText(cpuModel.get(selectedCpuModel).getDescription());
         rbI430fx.setChecked(Config.chipset.equals("i430fx"));
         rbI440fx.setChecked(Config.chipset.equals("i440fx"));
-        sbMemory.setProgress(Config.megs - minValueMemory);
-        tvMemory.setText(Config.megs + " mb");
+        sbMemory.setProgress((Config.megs / memoryStep) - minValueMemory);
+        tvMemory.setText(String.format("%s mb", Config.megs));
         Integer[] selectedSlot = new Integer[5];
         for (int i = 0; i < spSlot.length; i++) {
             selectedSlot[i] = slotList.indexOf(Config.slot[i]);
@@ -257,9 +257,10 @@ public class HardwareTabFragment extends Fragment {
         sbMemory.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 
             @Override
-            public void onProgressChanged(SeekBar p1, int p2, boolean p3) {
-                tvMemory.setText(String.valueOf(minValueMemory + sbMemory.getProgress()) + " mb");
-                Config.megs = minValueMemory + sbMemory.getProgress();
+            public void onProgressChanged(SeekBar p1, int progress, boolean p3) {
+                progress = progress * memoryStep;
+                tvMemory.setText(String.format("%s mb", (minValueMemory + progress)));
+                Config.megs = minValueMemory + progress;
             }
 
             @Override
@@ -287,7 +288,7 @@ public class HardwareTabFragment extends Fragment {
         Scanner sc = new Scanner(getResources().openRawResource(R.raw.data_json)).useDelimiter("[\n]");
         StringBuilder sb = new StringBuilder();
         while (sc.hasNext()) {
-            sb.append(sc.next() + "\n");
+            sb.append(sc.next()).append("\n");
         }
         sc.close();
 
