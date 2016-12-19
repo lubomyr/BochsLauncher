@@ -21,8 +21,8 @@ import java.io.IOException;
 
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
 
-    public static String configPath;
-    public static String appPath;
+    static String appPath;
+    private String configPath;
     private ViewPager viewPager;
     private ActionBar actionBar;
 
@@ -121,7 +121,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
     private void save() {
         try {
-            Config.writeConfig();
+            Config.writeConfig(configPath);
         } catch (IOException e) {
             Toast.makeText(MainActivity.this, "Error, config not saved", Toast.LENGTH_SHORT).show();
         }
@@ -137,7 +137,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     private void checkConfig() {
         if (!Config.configLoaded) {
             try {
-                Config.readConfig();
+                Config.readConfig(configPath);
             } catch (FileNotFoundException e) {
                 Toast.makeText(MainActivity.this, "config not found", Toast.LENGTH_SHORT).show();
                 return;

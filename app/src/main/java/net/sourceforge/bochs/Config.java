@@ -38,7 +38,6 @@ class Config {
     static boolean useSpeaker = true;
     static String clockSync = NONE;
 
-    final static private String path = MainActivity.configPath;
     static boolean configLoaded = false;
     static final int FLOPPY_A = 0;
     static final int FLOPPY_B = 1;
@@ -60,7 +59,7 @@ class Config {
         }
     }
 
-    static void readConfig() throws FileNotFoundException {
+    static void readConfig(String path) throws FileNotFoundException {
         File file = new File(path);
         Scanner sc = new Scanner(file).useDelimiter("[\n]");
         StringBuilder sb = new StringBuilder();
@@ -266,7 +265,7 @@ class Config {
         }
     }
 
-    static void writeConfig() throws IOException {
+    static void writeConfig(String path) throws IOException {
         File file = new File(path);
         FileWriter fw = new FileWriter(file);
         if (fullscreen)
