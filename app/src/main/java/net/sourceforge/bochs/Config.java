@@ -35,6 +35,7 @@ class Config {
     static private String mac = "b0:c4:20:00:00:00";
     static private String ethmod = "slirp";
     static boolean fullscreen = false;
+    static boolean useSpeaker = true;
     static String clockSync = NONE;
 
     final static private String path = MainActivity.configPath;
@@ -204,6 +205,10 @@ class Config {
                 useVoodoo = true;
             }
 
+            if (str.startsWith("speaker:")) {
+                useSpeaker = true;
+            }
+
             if (str.startsWith("megs:")) {
                 megs = Integer.parseInt(str.substring(6, str.length() - 1));
             }
@@ -311,7 +316,8 @@ class Config {
         fw.write("boot: " + boot + "\n");
         fw.write("megs: " + megs + "\n");
         fw.write("sound: waveoutdrv=sdl\n");
-        fw.write("speaker: enabled=1, mode=sound\n");
+        if (useSpeaker)
+            fw.write("speaker: enabled=1, mode=sound\n");
         if (useSb16)
             fw.write("sb16: wavemode=1, dmatimer=500000\n");
         if (useEs1370)
