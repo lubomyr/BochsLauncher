@@ -302,7 +302,7 @@ class Config {
                 if (ataType[i].equals("cdrom")) {
                     fw.write(", status=inserted");
                 }
-                if (!ataMode[i].equals("")) {
+                if (!ataMode[i].equals("") && !ataType[i].equals("cdrom")) {
                     fw.write(", mode=" + ataMode[i]);
                 }
                 fw.write(", path=\"" + ataImage[i] + "\"\n");
