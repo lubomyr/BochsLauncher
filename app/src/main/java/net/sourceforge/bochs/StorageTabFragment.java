@@ -143,7 +143,7 @@ public class StorageTabFragment extends Fragment implements OnClickListener {
 
         // setup boot selection logic
         Spinner spBoot = (Spinner) rootView.findViewById(R.id.storageSpinnerBoot);
-        SpinnerAdapter adapterBoot = new ArrayAdapter<String>(MainActivity.main, R.layout.spinner_row, bootList);
+        SpinnerAdapter adapterBoot = new ArrayAdapter<String>(getActivity(), R.layout.spinner_row, bootList);
         spBoot.setAdapter(adapterBoot);
         spBoot.setSelection(bootList.indexOf(Config.boot));
         spBoot.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -183,7 +183,7 @@ public class StorageTabFragment extends Fragment implements OnClickListener {
         }
 
         //setup ata logic
-        SpinnerAdapter adapterType = new ArrayAdapter<String>(MainActivity.main, R.layout.spinner_row, typeList);
+        SpinnerAdapter adapterType = new ArrayAdapter<String>(getActivity(), R.layout.spinner_row, typeList);
         for (int i = 0; i < ataNum; i++) {
             cbAta[i].setChecked(Config.ata[i]);
             tvAta[i].setText(MainActivity.getFileName(Config.ataImage[i]));
@@ -253,7 +253,7 @@ public class StorageTabFragment extends Fragment implements OnClickListener {
         final String vvfat = "vvfat";
         // Create DirectoryChooserDialog and register a callback
         DirectoryChooserDialog directoryChooserDialog =
-                new DirectoryChooserDialog(MainActivity.main,
+                new DirectoryChooserDialog(getActivity(),
                         new DirectoryChooserDialog.ChosenDirectoryListener() {
                             @Override
                             public void onChosenDir(String chosenDir) {
@@ -304,7 +304,7 @@ public class StorageTabFragment extends Fragment implements OnClickListener {
                 extension = new String[]{".img", ".ima"};
                 break;
         }
-        FileChooser filechooser = new FileChooser(MainActivity.main, getLastPath(), extension);
+        FileChooser filechooser = new FileChooser(getActivity(), getLastPath(), extension);
         filechooser.setFileListener(new FileChooser.FileSelectedListener() {
             @Override
             public void fileSelected(final File file) {

@@ -81,11 +81,11 @@ public class HardwareTabFragment extends Fragment {
         spSlot[2] = (Spinner) rootView.findViewById(R.id.hardwareSpinnerSlot3);
         spSlot[3] = (Spinner) rootView.findViewById(R.id.hardwareSpinnerSlot4);
         spSlot[4] = (Spinner) rootView.findViewById(R.id.hardwareSpinnerSlot5);
-        SpinnerAdapter cpuModelAdapter = new ArrayAdapter<String>(MainActivity.main, R.layout.spinner_row, getCpuModelValues());
-        slotAdapter = new ArrayAdapter<String>(MainActivity.main, R.layout.spinner_row, slotList);
-        SpinnerAdapter vgaAdapter = new ArrayAdapter<String>(MainActivity.main, R.layout.spinner_row, getVgaCardValues());
-        SpinnerAdapter soundAdapter = new ArrayAdapter<String>(MainActivity.main, R.layout.spinner_row, getSoundCardValues());
-        SpinnerAdapter ethernetAdapter = new ArrayAdapter<String>(MainActivity.main, R.layout.spinner_row, getEthernetCardValues());
+        SpinnerAdapter cpuModelAdapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_row, getCpuModelValues());
+        slotAdapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_row, slotList);
+        SpinnerAdapter vgaAdapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_row, getVgaCardValues());
+        SpinnerAdapter soundAdapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_row, getSoundCardValues());
+        SpinnerAdapter ethernetAdapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_row, getEthernetCardValues());
         spCpuModel.setAdapter(cpuModelAdapter);
         spVga.setAdapter(vgaAdapter);
         spSound.setAdapter(soundAdapter);

@@ -55,7 +55,7 @@ public class MiscTabFragment extends Fragment {
         sbVgaUpdateFreq = (SeekBar) rootView.findViewById(R.id.miscSeekBarVgaUpdateFreq);
         tvVgaUpdateFreq = (TextView) rootView.findViewById(R.id.miscTextViewVgaUpdateFreq);
         cbSpeaker = (CheckBox) rootView.findViewById(R.id.miscCheckBoxSpeaker);
-        SpinnerAdapter syncAdapter = new ArrayAdapter<String>(MainActivity.main, R.layout.spinner_row, syncList);
+        SpinnerAdapter syncAdapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_row, syncList);
         spClockSync.setAdapter(syncAdapter);
         tvRomImage.setText(MainActivity.getFileName(Config.romImage));
         tvVgaRomImage.setText(MainActivity.getFileName(Config.vgaRomImage));
@@ -132,7 +132,7 @@ public class MiscTabFragment extends Fragment {
     }
 
     private void fileSelection(final Requestor num) {
-        FileChooser filechooser = new FileChooser(MainActivity.main, MainActivity.appPath);
+        FileChooser filechooser = new FileChooser(getActivity(), MainActivity.appPath);
         filechooser.setFileListener(new FileChooser.FileSelectedListener() {
             @Override
             public void fileSelected(final File file) {

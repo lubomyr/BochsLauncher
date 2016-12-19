@@ -20,10 +20,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
-    public static String configPath;
-    public static MainActivity main;
-    public static String appPath;
 
+    public static String configPath;
+    public static String appPath;
     private ViewPager viewPager;
     private ActionBar actionBar;
 
@@ -35,7 +34,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        main = this;
         appPath = Environment.getExternalStorageDirectory().getAbsolutePath() +
                 "/Android/data/" + getPackageName() + "/files/";
         configPath = appPath + "bochsrc.txt";
