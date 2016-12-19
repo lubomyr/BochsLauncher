@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 class Config {
+    static final String NONE = "none";
     static final int floppyNum = 2;
     static final int ataNum = 4;
     static boolean useSb16 = false;
@@ -34,10 +35,9 @@ class Config {
     static private String mac = "b0:c4:20:00:00:00";
     static private String ethmod = "slirp";
     static boolean fullscreen = false;
-    static String clockSync = "none";
+    static String clockSync = NONE;
 
     final static private String path = MainActivity.configPath;
-    static private String configFile;
     static boolean configLoaded = false;
     static final int FLOPPY_A = 0;
     static final int FLOPPY_B = 1;
@@ -46,14 +46,14 @@ class Config {
     static final int ATA_1_MASTER = 2;
     static final int ATA_1_SLAVE = 3;
 
-    static void setDefaulValues() {
+    static private void setDefaulValues() {
         for (int i=0; i < floppyNum; i++) {
             floppy[i] = false;
-            floppyImage[i] = "none";
+            floppyImage[i] = NONE;
         }
         for (int i=0; i < ataNum; i++) {
             ata[i] = false;
-            ataImage[i] = "none";
+            ataImage[i] = NONE;
             ataType[i] = "disk";
             ataMode[i] = "";
         }
@@ -225,7 +225,6 @@ class Config {
             sb.append(str);
         }
         sc.close();
-        configFile = sb.toString();
     }
 
     static private void parseFloppyConfig(int n, String str) {

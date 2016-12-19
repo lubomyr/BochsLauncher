@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -34,6 +35,7 @@ public class StorageTabFragment extends Fragment implements OnClickListener {
     private final int ATA_0_SLAVE = Config.ATA_0_SLAVE;
     private final int ATA_1_MASTER = Config.ATA_1_MASTER;
     private final int ATA_1_SLAVE = Config.ATA_1_SLAVE;
+    private final String NONE = Config.NONE;
     private TextView tvFloppy[] = new TextView[floppyNum];
     private CheckBox cbFloppy[] = new CheckBox[floppyNum];
     private Button btBrowseFloppy[] = new Button[floppyNum];
@@ -213,6 +215,10 @@ public class StorageTabFragment extends Fragment implements OnClickListener {
 
                 @Override
                 public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4) {
+                    if (!Config.ataType[j].equals(typeList.get(p3))) {
+                        Config.ataImage[j] = NONE;
+                        tvAta[j].setText(NONE);
+                    }
                     Config.ataType[j] = typeList.get(p3);
                     if (!Config.ataType[j].equals("cdrom") && cbAta[j].isChecked()) {
                         cbVvfatAta[j].setEnabled(true);
@@ -228,12 +234,23 @@ public class StorageTabFragment extends Fragment implements OnClickListener {
                 }
             });
 
+            cbVvfatAta[i].setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    Config.ataImage[j] = NONE;
+                    tvAta[j].setText(NONE);
+                }
+            });
+
+
             btBrowseAta[i].setOnClickListener(this);
         }
 
     }
 
     private void dirSelection(final Requestor num) {
+        final String vvfat = "vvfat";
         // Create DirectoryChooserDialog and register a callback
         DirectoryChooserDialog directoryChooserDialog =
                 new DirectoryChooserDialog(MainActivity.main,
@@ -245,22 +262,22 @@ public class StorageTabFragment extends Fragment implements OnClickListener {
                                     case ATA0_MASTER:
                                         tvAta[ATA_0_MASTER].setText(chosenDir);
                                         Config.ataImage[ATA_0_MASTER] = chosenDir;
-                                        Config.ataMode[ATA_0_MASTER] = "vvfat";
+                                        Config.ataMode[ATA_0_MASTER] = vvfat;
                                         break;
                                     case ATA0_SLAVE:
                                         tvAta[ATA_0_SLAVE].setText(chosenDir);
                                         Config.ataImage[ATA_0_SLAVE] = chosenDir;
-                                        Config.ataMode[ATA_0_SLAVE] = "vvfat";
+                                        Config.ataMode[ATA_0_SLAVE] = vvfat;
                                         break;
                                     case ATA1_MASTER:
                                         tvAta[ATA_1_MASTER].setText(chosenDir);
                                         Config.ataImage[ATA_1_MASTER] = chosenDir;
-                                        Config.ataMode[ATA_1_MASTER] = "vvfat";
+                                        Config.ataMode[ATA_1_MASTER] = vvfat;
                                         break;
                                     case ATA1_SLAVE:
                                         tvAta[ATA_1_SLAVE].setText(chosenDir);
                                         Config.ataImage[ATA_1_SLAVE] = chosenDir;
-                                        Config.ataMode[ATA_1_SLAVE] = "vvfat";
+                                        Config.ataMode[ATA_1_SLAVE] = vvfat;
                                         break;
                                 }
                             }
@@ -276,7 +293,7 @@ public class StorageTabFragment extends Fragment implements OnClickListener {
     private void fileSelection(final Requestor num, String type) {
         // Set up extension
         String extension[] = null;
-        switch(type) {
+        switch (type) {
             case "disk":
                 extension = new String[]{".img", ".vmdk", ".vhd", ".vdi"};
                 break;
