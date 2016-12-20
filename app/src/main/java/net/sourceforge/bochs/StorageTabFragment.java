@@ -127,20 +127,6 @@ public class StorageTabFragment extends Fragment implements OnClickListener {
         btBrowseAta[ATA_1_SLAVE] = (Button) rootView.findViewById(R.id.storageButtonAta1s);
         spAtaType[ATA_1_SLAVE] = (Spinner) rootView.findViewById(R.id.storageSpinnerAta1s);
 
-        if (getResources().getDisplayMetrics().density <= 1.5) {
-            if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-                cbFloppy[FLOPPY_A].setText(getString(R.string.floppy_a_short));
-                cbFloppy[FLOPPY_B].setText(getString(R.string.floppy_b_short));
-                btBrowseFloppy[FLOPPY_A].setText(getString(R.string.select_short));
-                btBrowseFloppy[FLOPPY_B].setText(getString(R.string.select_short));
-            } else {
-                cbFloppy[FLOPPY_A].setText(getString(R.string.floppy_a));
-                cbFloppy[FLOPPY_B].setText(getString(R.string.floppy_b));
-                btBrowseFloppy[FLOPPY_A].setText(getString(R.string.select));
-                btBrowseFloppy[FLOPPY_B].setText(getString(R.string.select));
-            }
-        }
-
         // setup boot selection logic
         Spinner spBoot = (Spinner) rootView.findViewById(R.id.storageSpinnerBoot);
         SpinnerAdapter adapterBoot = new ArrayAdapter<String>(getActivity(), R.layout.spinner_row, bootList);
