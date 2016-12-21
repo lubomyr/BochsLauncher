@@ -1,9 +1,13 @@
 package net.sourceforge.bochs;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -20,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     static String appPath;
     private String configPath;
+    private final int REQUEST_EXTERNAL_STORAGE = 1;
 
     // Tab titles
     private String[] tabs = {"Storage", "Hardware", "Misc"};
@@ -49,8 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
         setupViewPager(viewPager);
 
-        createDirIfNotExists();
-        checkConfig();
+        verifyStoragePermissions();
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -114,6 +118,39 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return ret;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_EXTERNAL_STORAGE:
+                if (grantResults.length != 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // Permission Granted
+                    createDirIfNotExists();
+                    checkConfig();
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+
+
+    public void verifyStoragePermissions() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+
+            String[] PERMISSIONS_STORAGE = new String[]{ Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE };
+
+            ActivityCompat.requestPermissions(
+                    this,
+                    PERMISSIONS_STORAGE,
+                    REQUEST_EXTERNAL_STORAGE
+            );
+            return;
+        }
+        createDirIfNotExists();
+        checkConfig();
     }
 
 }
