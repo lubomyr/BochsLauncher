@@ -174,6 +174,7 @@ public class StorageTabFragment extends Fragment implements OnClickListener {
             cbAta[i].setChecked(Config.ata[i]);
             tvAta[i].setText(MainActivity.getFileName(Config.ataImage[i]));
             tvAta[i].setEnabled(Config.ata[i]);
+            cbVvfatAta[i].setChecked(Config.ataMode[i].equals("vvfat"));
             cbVvfatAta[i].setEnabled(Config.ata[i]);
             btBrowseAta[i].setEnabled(Config.ata[i]);
             spAtaType[i].setEnabled(Config.ata[i]);
@@ -224,6 +225,7 @@ public class StorageTabFragment extends Fragment implements OnClickListener {
 
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    Config.ataMode[j] = isChecked ? "vvfat" : "";
                     Config.ataImage[j] = NONE;
                     tvAta[j].setText(NONE);
                 }
