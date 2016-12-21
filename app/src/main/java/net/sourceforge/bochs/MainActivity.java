@@ -1,30 +1,25 @@
 package net.sourceforge.bochs;
 
-import android.app.ActionBar;
-import android.app.ActionBar.Tab;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v4.app.FragmentActivity;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
-import net.sourceforge.bochs.adapter.TabsPagerAdapter;
+import net.sourceforge.bochs.adapter.ViewPagerAdapter;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
+public class MainActivity extends AppCompatActivity {
 
     static String appPath;
     private String configPath;
-    private ViewPager viewPager;
-    private ActionBar actionBar;
 
     // Tab titles
     private String[] tabs = {"Storage", "Hardware", "Misc"};
@@ -38,76 +33,38 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                 "/Android/data/" + getPackageName() + "/files/";
         configPath = appPath + "bochsrc.txt";
 
-        createDirIfNotExists();
-        checkConfig();
+        //initToolbar();
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
 
-        // Initilization
-        viewPager = (ViewPager) findViewById(R.id.pager);
-        actionBar = getActionBar();
-        TabsPagerAdapter mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
 
-        viewPager.setAdapter(mAdapter);
-        actionBar.setHomeButtonEnabled(false);
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
-        // Adding Tabs
-        for (String tab_name : tabs) {
-            actionBar.addTab(actionBar.newTab().setText(tab_name)
-                    .setTabListener(this));
-        }
-
-        /**
-         * on swiping the viewpager make respective tab selected
-         * */
-        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-
+        ImageView startBtn = (ImageView) findViewById(R.id.start);
+        startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onPageSelected(int position) {
-                // on changing the page
-                // make respected tab selected
-                actionBar.setSelectedNavigationItem(position);
-            }
-
-            @Override
-            public void onPageScrolled(int arg0, float arg1, int arg2) {
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int arg0) {
+            public void onClick(View view) {
+                save();
             }
         });
 
+        setupViewPager(viewPager);
+
+        createDirIfNotExists();
+        checkConfig();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
-        return true;
-    }
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.start) {
-            save();
-        }
-        return super.onOptionsItemSelected(item);
-    }
+        StorageTabFragment storageTabFragment =  new StorageTabFragment();
+        adapter.addFragment(storageTabFragment, tabs[0]);
+        HardwareTabFragment hardwareTabFragment =  new HardwareTabFragment();
+        adapter.addFragment(hardwareTabFragment, tabs[1]);
+        MiscTabFragment miscTabFragment =  new MiscTabFragment();
+        adapter.addFragment(miscTabFragment, tabs[2]);
 
-    @Override
-    public void onTabReselected(Tab tab, FragmentTransaction ft) {
-    }
-
-    @Override
-    public void onTabSelected(Tab tab, FragmentTransaction ft) {
-        // on tab selected
-        // show respected fragment view
-        viewPager.setCurrentItem(tab.getPosition());
-    }
-
-    @Override
-    public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+        viewPager.setAdapter(adapter);
+        viewPager.setOffscreenPageLimit(2);
     }
 
     static String getFileName(String path) {

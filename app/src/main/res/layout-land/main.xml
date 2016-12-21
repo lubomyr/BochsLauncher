@@ -14,7 +14,6 @@
             android:id="@+id/mytoolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:weightSum="1.0"
             android:orientation="horizontal">
 
             <ImageView
@@ -26,6 +25,7 @@
                 android:src="@drawable/icon" />
 
             <TextView
+                android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
@@ -33,6 +33,13 @@
                 android:layout_centerVertical="true"
                 android:text="@string/app_name"
                 android:textStyle="bold"/>
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tabs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                app:tabMode="scrollable" />
 
             <ImageView
                 android:id="@+id/start"
@@ -43,14 +50,6 @@
                 android:src="@drawable/start" />
 
         </RelativeLayout>
-
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/my_border"
-            app:tabMode="scrollable"
-            app:tabIndicatorHeight="2dp"/>
 
     </android.support.design.widget.AppBarLayout>
 
