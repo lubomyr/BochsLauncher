@@ -16,6 +16,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
             android:background="@drawable/my_border"
             android:gravity="center_vertical|center_horizontal"
             android:orientation="vertical">
@@ -47,15 +49,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
+            android:weightSum="1.0"
             android:gravity="center_vertical|center_horizontal"
             android:orientation="horizontal">
 
             <RadioGroup
                 android:id="@+id/chipsetLayout"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="0.26"
                 android:layout_marginLeft="2dp"
-                android:layout_marginRight="5dp"
+                android:layout_marginRight="2dp"
                 android:background="@drawable/my_border"
                 android:gravity="center_vertical|center_horizontal"
                 android:orientation="vertical">
@@ -83,9 +87,11 @@
 
             <LinearLayout
                 android:id="@+id/memoryLayout"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
+                android:layout_weight="0.74"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
                 android:background="@drawable/my_border"
                 android:gravity="center"
                 android:orientation="vertical">
@@ -115,11 +121,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
+            android:weightSum="1.0"
             android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="0.56"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -223,9 +231,11 @@
 
             <LinearLayout
                 android:id="@+id/pciLayout"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
+                android:layout_weight="0.44"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
                 android:background="@drawable/my_border"
                 android:gravity="center_vertical|center_horizontal"
                 android:orientation="vertical">
