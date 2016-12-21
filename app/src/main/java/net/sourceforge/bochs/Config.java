@@ -60,10 +60,10 @@ class Config {
     }
 
     static void readConfig(String path) throws FileNotFoundException {
+        setDefaulValues();
         File file = new File(path);
         Scanner sc = new Scanner(file).useDelimiter("[\n]");
         StringBuilder sb = new StringBuilder();
-        setDefaulValues();
         while (sc.hasNext()) {
             String str = sc.next() + "\n";
             if (str.startsWith("floppya:")) {
