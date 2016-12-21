@@ -36,6 +36,10 @@ public class StorageTabFragment extends Fragment implements OnClickListener {
     private final int ATA_1_MASTER = Config.ATA_1_MASTER;
     private final int ATA_1_SLAVE = Config.ATA_1_SLAVE;
     private final String NONE = Config.NONE;
+    private final String DISK = Config.DISK;
+    private final String CDROM = Config.CDROM;
+    private final String FLOPPY = Config.FLOPPY;
+    private final String VFAT = Config.VFAT;
     private TextView tvFloppy[] = new TextView[floppyNum];
     private CheckBox cbFloppy[] = new CheckBox[floppyNum];
     private Button btBrowseFloppy[] = new Button[floppyNum];
@@ -65,10 +69,10 @@ public class StorageTabFragment extends Fragment implements OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.storageButtonFloppyA:
-                fileSelection(Requestor.FLOPPY_A, "floppy");
+                fileSelection(Requestor.FLOPPY_A, FLOPPY);
                 break;
             case R.id.storageButtonFloppyB:
-                fileSelection(Requestor.FLOPPY_B, "floppy");
+                fileSelection(Requestor.FLOPPY_B, FLOPPY);
                 break;
             case R.id.storageButtonAta0m:
                 if (cbVvfatAta[ATA_0_MASTER].isChecked())
@@ -98,8 +102,8 @@ public class StorageTabFragment extends Fragment implements OnClickListener {
     }
 
     private void setupView(View rootView) {
-        final List<String> typeList = Arrays.asList("disk", "cdrom");
-        final List<String> bootList = Arrays.asList("disk", "cdrom", "floppy");
+        final List<String> typeList = Arrays.asList(DISK, CDROM);
+        final List<String> bootList = Arrays.asList(DISK, CDROM, FLOPPY);
         cbFloppy[FLOPPY_A] = (CheckBox) rootView.findViewById(R.id.storageCheckBoxFloppyA);
         tvFloppy[FLOPPY_A] = (TextView) rootView.findViewById(R.id.storageTextViewFloppyA);
         btBrowseFloppy[FLOPPY_A] = (Button) rootView.findViewById(R.id.storageButtonFloppyA);
@@ -174,7 +178,7 @@ public class StorageTabFragment extends Fragment implements OnClickListener {
             cbAta[i].setChecked(Config.ata[i]);
             tvAta[i].setText(MainActivity.getFileName(Config.ataImage[i]));
             tvAta[i].setEnabled(Config.ata[i]);
-            cbVvfatAta[i].setChecked(Config.ataMode[i].equals("vvfat"));
+            cbVvfatAta[i].setChecked(Config.ataMode[i].equals(VFAT));
             cbVvfatAta[i].setEnabled(Config.ata[i]);
             btBrowseAta[i].setEnabled(Config.ata[i]);
             spAtaType[i].setEnabled(Config.ata[i]);
@@ -191,7 +195,7 @@ public class StorageTabFragment extends Fragment implements OnClickListener {
                                                         btBrowseAta[j].setEnabled(Config.ata[j]);
                                                         tvAta[j].setEnabled(Config.ata[j]);
                                                         spAtaType[j].setEnabled(Config.ata[j]);
-                                                        if (!Config.ataType[j].equals("cdrom"))
+                                                        if (!Config.ataType[j].equals(CDROM))
                                                             cbVvfatAta[j].setEnabled(Config.ata[j]);
 
                                                     }
@@ -207,7 +211,7 @@ public class StorageTabFragment extends Fragment implements OnClickListener {
                         tvAta[j].setText(NONE);
                     }
                     Config.ataType[j] = typeList.get(p3);
-                    if (!Config.ataType[j].equals("cdrom") && cbAta[j].isChecked()) {
+                    if (!Config.ataType[j].equals(CDROM) && cbAta[j].isChecked()) {
                         cbVvfatAta[j].setEnabled(true);
                     } else {
                         cbVvfatAta[j].setChecked(false);
@@ -225,7 +229,7 @@ public class StorageTabFragment extends Fragment implements OnClickListener {
 
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    Config.ataMode[j] = isChecked ? "vvfat" : "";
+                    Config.ataMode[j] = isChecked ? VFAT : "";
                     Config.ataImage[j] = NONE;
                     tvAta[j].setText(NONE);
                 }
@@ -238,7 +242,6 @@ public class StorageTabFragment extends Fragment implements OnClickListener {
     }
 
     private void dirSelection(final Requestor num) {
-        final String vvfat = "vvfat";
         // Create DirectoryChooserDialog and register a callback
         DirectoryChooserDialog directoryChooserDialog =
                 new DirectoryChooserDialog(getActivity(),
@@ -250,22 +253,18 @@ public class StorageTabFragment extends Fragment implements OnClickListener {
                                     case ATA0_MASTER:
                                         tvAta[ATA_0_MASTER].setText(chosenDir);
                                         Config.ataImage[ATA_0_MASTER] = chosenDir;
-                                        Config.ataMode[ATA_0_MASTER] = vvfat;
                                         break;
                                     case ATA0_SLAVE:
                                         tvAta[ATA_0_SLAVE].setText(chosenDir);
                                         Config.ataImage[ATA_0_SLAVE] = chosenDir;
-                                        Config.ataMode[ATA_0_SLAVE] = vvfat;
                                         break;
                                     case ATA1_MASTER:
                                         tvAta[ATA_1_MASTER].setText(chosenDir);
                                         Config.ataImage[ATA_1_MASTER] = chosenDir;
-                                        Config.ataMode[ATA_1_MASTER] = vvfat;
                                         break;
                                     case ATA1_SLAVE:
                                         tvAta[ATA_1_SLAVE].setText(chosenDir);
                                         Config.ataImage[ATA_1_SLAVE] = chosenDir;
-                                        Config.ataMode[ATA_1_SLAVE] = vvfat;
                                         break;
                                 }
                             }
@@ -282,13 +281,13 @@ public class StorageTabFragment extends Fragment implements OnClickListener {
         // Set up extension
         String extension[] = null;
         switch (type) {
-            case "disk":
+            case DISK:
                 extension = new String[]{".img", ".vmdk", ".vhd", ".vdi"};
                 break;
-            case "cdrom":
+            case CDROM:
                 extension = new String[]{".iso"};
                 break;
-            case "floppy":
+            case FLOPPY:
                 extension = new String[]{".img", ".ima"};
                 break;
         }

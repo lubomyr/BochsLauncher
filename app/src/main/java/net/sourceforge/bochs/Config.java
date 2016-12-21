@@ -8,6 +8,10 @@ import java.util.Scanner;
 
 class Config {
     static final String NONE = "none";
+    static final String DISK = "disk";
+    static final String CDROM = "cdrom";
+    static final String FLOPPY = "floppy";
+    static final String VFAT = "vvfat";
     static final int floppyNum = 2;
     static final int ataNum = 4;
     static boolean useSb16 = false;
@@ -22,7 +26,7 @@ class Config {
     static String ataImage[] = new String[ataNum];
     static String ataType[] = new String[ataNum];
     static String ataMode[] = new String[ataNum];
-    static String boot = "disk";
+    static String boot = DISK;
 
     static String romImage = "BIOS-bochs-latest";
     static String vgaRomImage = "VGABIOS-lgpl-latest-cirrus";
@@ -54,7 +58,7 @@ class Config {
         for (int i=0; i < ataNum; i++) {
             ata[i] = false;
             ataImage[i] = NONE;
-            ataType[i] = "disk";
+            ataType[i] = DISK;
             ataMode[i] = "";
         }
     }
