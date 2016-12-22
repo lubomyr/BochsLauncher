@@ -132,7 +132,7 @@ public class MiscTabFragment extends Fragment {
     }
 
     private void fileSelection(final Requestor num) {
-        FileChooser filechooser = new FileChooser(getActivity(), MainActivity.appPath);
+        FileChooser filechooser = new FileChooser(getActivity(), MainActivity.appPath, null);
         filechooser.setFileListener(new FileChooser.FileSelectedListener() {
             @Override
             public void fileSelected(final File file) {
@@ -151,8 +151,6 @@ public class MiscTabFragment extends Fragment {
 
             }
         });
-        // Set up and filter my extension I am looking for
-        //filechooser.setExtension("img");
         filechooser.showDialog();
     }
 
