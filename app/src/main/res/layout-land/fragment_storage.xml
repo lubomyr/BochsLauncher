@@ -15,17 +15,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
+            android:weightSum="1.0"
             android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="0.33"
                 android:layout_marginLeft="5dp"
                 android:background="@drawable/my_border"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical|center_horizontal"
@@ -35,6 +37,8 @@
                         android:id="@+id/storageCheckBoxFloppyA"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
                         android:text="Floppy A" />
 
                     <Button
@@ -42,10 +46,10 @@
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
+                        android:layout_alignParentRight="true"
                         android:text="select" />
 
-                </LinearLayout>
+                </RelativeLayout>
 
                 <TextView
                     android:id="@+id/storageTextViewFloppyA"
@@ -57,14 +61,15 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="0.33"
                 android:layout_marginLeft="5dp"
                 android:background="@drawable/my_border"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical|center_horizontal"
@@ -74,6 +79,8 @@
                         android:id="@+id/storageCheckBoxFloppyB"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
                         android:text="Floppy B" />
 
                     <Button
@@ -81,11 +88,10 @@
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
+                        android:layout_alignParentRight="true"
                         android:text="select" />
 
-                </LinearLayout>
-
+                </RelativeLayout>
                 <TextView
                     android:id="@+id/storageTextViewFloppyB"
                     android:layout_width="wrap_content"
@@ -96,8 +102,9 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="0.34"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:background="@drawable/my_border"
