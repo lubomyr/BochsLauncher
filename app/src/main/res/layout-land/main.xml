@@ -20,6 +20,7 @@
                 android:id="@+id/logo"
                 android:layout_width="@dimen/toolbar_height"
                 android:layout_height="@dimen/toolbar_height"
+                android:layout_marginLeft="5dp"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:src="@drawable/icon" />
@@ -46,6 +47,7 @@
                 android:id="@+id/start"
                 android:layout_width="@dimen/toolbar_height"
                 android:layout_height="@dimen/toolbar_height"
+                android:layout_marginRight="5dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:src="@drawable/start" />
