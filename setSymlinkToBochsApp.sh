@@ -1,5 +1,5 @@
 #!/bin/sh
 
-ln -s ~/androidsdl/project/src bochsApp/src
-ln -s ~/androidsdl/project/res bochsApp/res
-ln -s ~/androidsdl/project/libs app/src/main/jniLibs
+ln -sf ../../sdl/project/src bochsApp/src
+ln -sf ../../sdl/project/res bochsApp/res
+ln -sf ../../../../sdl/project/libs app/src/main/jniLibs
