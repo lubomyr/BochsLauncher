@@ -47,7 +47,11 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
             Config.setDefaulValues();
 
         verifyStoragePermissions();
+        setupTabs();
+    }
 
+    @SuppressWarnings("deprecation")
+    private void setupTabs() {
         // Initilization
         viewPager = (ViewPager) findViewById(R.id.pager);
         actionBar = getActionBar();
@@ -184,9 +188,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     }
 
     public void verifyStoragePermissions() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
 
-            String[] PERMISSIONS_STORAGE = new String[]{ Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE };
+            String[] PERMISSIONS_STORAGE = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
             ActivityCompat.requestPermissions(
                     this,
@@ -198,6 +202,5 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         createDirIfNotExists();
         checkConfig();
     }
-
 
 }
