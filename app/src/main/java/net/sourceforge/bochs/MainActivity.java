@@ -43,6 +43,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                 "/Android/data/" + getPackageName() + "/files/";
         configPath = appPath + "bochsrc.txt";
 
+        if (!Config.configLoaded)
+            Config.setDefaulValues();
+
         verifyStoragePermissions();
 
         // Initilization
