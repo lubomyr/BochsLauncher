@@ -25,7 +25,7 @@ import java.io.IOException;
 
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
 
-    static String appPath;
+    private String appPath;
     private String configPath;
     private ViewPager viewPager;
     private ActionBar actionBar;
@@ -147,6 +147,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
     private void checkConfig() {
         if (!Config.configLoaded) {
+            Config.configLoaded = true;
             try {
                 Config.readConfig(configPath);
             } catch (FileNotFoundException e) {
@@ -154,7 +155,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                 return;
             }
             Toast.makeText(MainActivity.this, "config loaded", Toast.LENGTH_SHORT).show();
-            Config.configLoaded = true;
         }
     }
 
