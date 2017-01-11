@@ -45,6 +45,15 @@
                 android:layout_centerVertical="true"
                 android:src="@drawable/start" />
 
+            <ImageView
+                android:id="@+id/download"
+                android:layout_width="@dimen/toolbar_height"
+                android:layout_height="@dimen/toolbar_height"
+                android:layout_marginRight="5dp"
+                android:layout_toLeftOf="@id/start"
+                android:layout_centerVertical="true"
+                android:src="@drawable/download" />
+
         </RelativeLayout>
 
         <android.support.design.widget.TabLayout

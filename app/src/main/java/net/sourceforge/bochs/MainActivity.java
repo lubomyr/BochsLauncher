@@ -1,8 +1,13 @@
 package net.sourceforge.bochs;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.app.DownloadManager;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
@@ -10,6 +15,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -20,7 +26,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     static String appPath;
     private String configPath;
@@ -45,16 +51,26 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
 
         ImageView startBtn = (ImageView) findViewById(R.id.start);
-        startBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                save();
-            }
-        });
+        startBtn.setOnClickListener(this);
+
+        ImageView downloadBtn = (ImageView) findViewById(R.id.download);
+        downloadBtn.setOnClickListener(this);
 
         setupViewPager(viewPager);
 
         verifyStoragePermissions();
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.start:
+                save();
+                break;
+            case R.id.download:
+                downloadImages();
+                break;
+        }
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -135,8 +151,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-
     public void verifyStoragePermissions() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
 
@@ -151,6 +165,47 @@ public class MainActivity extends AppCompatActivity {
         }
         createDirIfNotExists();
         checkConfig();
+    }
+
+    private void downloadImages() {
+        final String urls[] = {
+                "https://sourceforge.net/projects/libsdl-android/files/Bochs/mulinux13r2.img/download",
+                "https://sourceforge.net/projects/libsdl-android/files/Bochs/FreeDos.vdi/download",
+                "https://sourceforge.net/projects/libsdl-android/files/Bochs/tinycore-2.1-x86.vdi/download",
+                "https://sourceforge.net/projects/libsdl-android/files/Bochs/LucidPuppy-520.vdi/download",
+        };
+        final String names[] = {
+                "muLinux - 34 Mb",
+                "FreeDOS - 114 Mb",
+                "Tiny Core Linux - 123 Mb",
+                "Puppy Linux - 690 Mb",
+        };
+
+        new AlertDialog.Builder(this)
+                .setTitle("Download disk images")
+                .setItems(names, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int i) {
+                        String destination = Uri.parse(urls[i]).getPathSegments()
+                                .get(Uri.parse(urls[i]).getPathSegments().size() - 2);
+                        Log.d("BOCHS", "Downloading image " + urls[i] + " to " + destination);
+                        DownloadManager downloader = (DownloadManager) MainActivity.this
+                                .getSystemService(Context.DOWNLOAD_SERVICE);
+                        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(urls[i]));
+                        request.setTitle(names[i]);
+                        request.setDescription(urls[i]);
+                        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,
+                                destination);
+                        downloader.enqueue(request);
+                        dialog.dismiss();
+                    }
+                })
+                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .create()
+                .show();
     }
 
 }
