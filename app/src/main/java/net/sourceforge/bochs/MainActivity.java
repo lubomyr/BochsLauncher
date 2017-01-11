@@ -3,7 +3,9 @@ package net.sourceforge.bochs;
 import android.Manifest;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
+import android.app.AlertDialog;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -22,6 +24,8 @@ import net.sourceforge.bochs.adapter.TabsPagerAdapter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
+import static net.sourceforge.bochs.Config.NONE;
 
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
 
@@ -137,6 +141,30 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
             Toast.makeText(MainActivity.this, "Error, config not saved", Toast.LENGTH_SHORT).show();
         }
         Toast.makeText(MainActivity.this, "config saved", Toast.LENGTH_SHORT).show();
+        boolean diskConfigured = false;
+        for (int i = 0; i < Config.ataNum; i++) {
+            if (Config.ata[i] && Config.ataImage != null && !Config.ataImage.equals("") && !Config.ataImage.equals(NONE))
+                diskConfigured = true;
+        }
+        for (int i = 0; i < Config.floppyNum; i++) {
+            if (Config.floppy[i] && Config.floppyImage != null && !Config.floppyImage.equals("") && !Config.floppyImage.equals(NONE))
+                diskConfigured = true;
+        }
+        if (!diskConfigured)
+        {
+            new AlertDialog.Builder(this)
+                    .setTitle("No image selected")
+                    .setMessage("Please download and select a disk image")
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .create()
+                    .show();
+            return;
+        }
 
         // run bochs app
         //ComponentName cn = new ComponentName("net.sourceforge.bochs", "net.sourceforge.bochs.MainActivity");

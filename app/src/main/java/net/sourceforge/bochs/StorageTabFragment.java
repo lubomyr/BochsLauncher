@@ -1,8 +1,13 @@
 package net.sourceforge.bochs;
 
+import android.app.AlertDialog;
+import android.app.DownloadManager;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -48,6 +53,7 @@ public class StorageTabFragment extends Fragment implements OnClickListener {
     private CheckBox cbAta[] = new CheckBox[ataNum];
     private Button btBrowseAta[] = new Button[ataNum];
     private Spinner spAtaType[] = new Spinner[ataNum];
+    private Button btDownloadImages = null;
 
     private String m_chosenDir = "";
     private boolean m_newFolderEnabled = true;
@@ -98,6 +104,9 @@ public class StorageTabFragment extends Fragment implements OnClickListener {
                 else
                     fileSelection(Requestor.ATA1_SLAVE, Config.ataType[ATA_1_SLAVE]);
                 break;
+            case R.id.storageDownloadImages:
+                downloadImages();
+                break;
         }
     }
 
@@ -130,6 +139,7 @@ public class StorageTabFragment extends Fragment implements OnClickListener {
         cbVvfatAta[ATA_1_SLAVE] = (CheckBox) rootView.findViewById(R.id.storageCheckBoxAta1sVvfat);
         btBrowseAta[ATA_1_SLAVE] = (Button) rootView.findViewById(R.id.storageButtonAta1s);
         spAtaType[ATA_1_SLAVE] = (Spinner) rootView.findViewById(R.id.storageSpinnerAta1s);
+        btDownloadImages = (Button) rootView.findViewById(R.id.storageDownloadImages);
 
         // setup boot selection logic
         Spinner spBoot = (Spinner) rootView.findViewById(R.id.storageSpinnerBoot);
@@ -239,6 +249,7 @@ public class StorageTabFragment extends Fragment implements OnClickListener {
             btBrowseAta[i].setOnClickListener(this);
         }
 
+        btDownloadImages.setOnClickListener(this);
     }
 
     private void dirSelection(final Requestor num) {
@@ -359,7 +370,44 @@ public class StorageTabFragment extends Fragment implements OnClickListener {
 
     private String getLastPath() {
         sPref = getActivity().getPreferences(MODE_PRIVATE);
-        return sPref.getString(SAVED_PATH, null);
+        return sPref.getString(SAVED_PATH, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath());
     }
 
+    private void downloadImages() {
+        final String urls[] = {
+                "https://sourceforge.net/projects/libsdl-android/files/Bochs/mulinux13r2.img/download",
+                "https://sourceforge.net/projects/libsdl-android/files/Bochs/FreeDos.vdi/download",
+                "https://sourceforge.net/projects/libsdl-android/files/Bochs/tinycore-2.1-x86.vdi/download",
+                "https://sourceforge.net/projects/libsdl-android/files/Bochs/LucidPuppy-520.vdi/download",
+        };
+        final String names[] = {
+                "muLinux - 34 Mb",
+                "FreeDOS - 114 Mb",
+                "Tiny Core Linux - 123 Mb",
+                "Puppy Linux - 690 Mb",
+        };
+
+        new AlertDialog.Builder(getActivity())
+                .setTitle("Download disk images")
+                .setItems(names, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int i) {
+                        String destination = Uri.parse(urls[i]).getPathSegments().get(Uri.parse(urls[i]).getPathSegments().size() - 2);
+                        Log.d("BOCHS", "Downloading image " + urls[i] + " to "  + destination);
+                        DownloadManager downloader = (DownloadManager) getActivity().getSystemService(getActivity().DOWNLOAD_SERVICE);
+                        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(urls[i]));
+                        request.setTitle(names[i]);
+                        request.setDescription(urls[i]);
+                        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, destination);
+                        downloader.enqueue(request);
+                        dialog.dismiss();
+                    }
+                })
+                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .create()
+                .show();
+    }
 }
