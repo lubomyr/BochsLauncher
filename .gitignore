@@ -1,2 +1,4 @@
 /build
-app/build
+/.idea
+/app/build
+/app/app.iml

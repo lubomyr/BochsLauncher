@@ -4,16 +4,19 @@ import android.Manifest;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.AlertDialog;
+import android.app.DownloadManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -24,8 +27,6 @@ import net.sourceforge.bochs.adapter.TabsPagerAdapter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
-import static net.sourceforge.bochs.Config.NONE;
 
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
 
@@ -104,8 +105,13 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.start) {
-            save();
+        switch (id) {
+            case R.id.start:
+                save();
+                break;
+            case R.id.download:
+                downloadImages();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -141,30 +147,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
             Toast.makeText(MainActivity.this, "Error, config not saved", Toast.LENGTH_SHORT).show();
         }
         Toast.makeText(MainActivity.this, "config saved", Toast.LENGTH_SHORT).show();
-        boolean diskConfigured = false;
-        for (int i = 0; i < Config.ataNum; i++) {
-            if (Config.ata[i] && Config.ataImage != null && !Config.ataImage.equals("") && !Config.ataImage.equals(NONE))
-                diskConfigured = true;
-        }
-        for (int i = 0; i < Config.floppyNum; i++) {
-            if (Config.floppy[i] && Config.floppyImage != null && !Config.floppyImage.equals("") && !Config.floppyImage.equals(NONE))
-                diskConfigured = true;
-        }
-        if (!diskConfigured)
-        {
-            new AlertDialog.Builder(this)
-                    .setTitle("No image selected")
-                    .setMessage("Please download and select a disk image")
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    })
-                    .create()
-                    .show();
-            return;
-        }
 
         // run bochs app
         //ComponentName cn = new ComponentName("net.sourceforge.bochs", "net.sourceforge.bochs.MainActivity");
@@ -199,7 +181,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
             case REQUEST_EXTERNAL_STORAGE:
                 if (grantResults.length != 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -216,9 +198,11 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     }
 
     public void verifyStoragePermissions() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
 
-            String[] PERMISSIONS_STORAGE = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+            String[] PERMISSIONS_STORAGE = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
             ActivityCompat.requestPermissions(
                     this,
@@ -229,6 +213,47 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         }
         createDirIfNotExists();
         checkConfig();
+    }
+
+    private void downloadImages() {
+        final String urls[] = {
+                "https://sourceforge.net/projects/libsdl-android/files/Bochs/mulinux13r2.img/download",
+                "https://sourceforge.net/projects/libsdl-android/files/Bochs/FreeDos.vdi/download",
+                "https://sourceforge.net/projects/libsdl-android/files/Bochs/tinycore-2.1-x86.vdi/download",
+                "https://sourceforge.net/projects/libsdl-android/files/Bochs/LucidPuppy-520.vdi/download",
+        };
+        final String names[] = {
+                "muLinux - 34 Mb",
+                "FreeDOS - 114 Mb",
+                "Tiny Core Linux - 123 Mb",
+                "Puppy Linux - 690 Mb",
+        };
+
+        new AlertDialog.Builder(this)
+                .setTitle("Download disk images")
+                .setItems(names, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int i) {
+                        String destination = Uri.parse(urls[i]).getPathSegments()
+                                .get(Uri.parse(urls[i]).getPathSegments().size() - 2);
+                        Log.d("BOCHS", "Downloading image " + urls[i] + " to " + destination);
+                        DownloadManager downloader = (DownloadManager) MainActivity.this
+                                .getSystemService(Context.DOWNLOAD_SERVICE);
+                        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(urls[i]));
+                        request.setTitle(names[i]);
+                        request.setDescription(urls[i]);
+                        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,
+                                destination);
+                        downloader.enqueue(request);
+                        dialog.dismiss();
+                    }
+                })
+                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .create()
+                .show();
     }
 
 }

@@ -103,46 +103,26 @@
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.33"
+                android:layout_height="match_parent"
+                android:layout_weight="0.34"
                 android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
                 android:background="@drawable/my_border"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="horizontal">
 
-                <RelativeLayout
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical|center_horizontal"
-                    android:orientation="horizontal">
+                    android:layout_marginLeft="10dp"
+                    android:text="Boot"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
 
-                    <Spinner
-                        android:id="@+id/storageSpinnerBoot"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Boot"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:layout_marginLeft="12dp"
-                        android:layout_marginStart="12dp"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true" />
-
-                    <Button
-                        android:id="@+id/storageDownloadImages"
-                        style="?android:attr/buttonStyleSmall"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="download images"
-                        android:layout_below="@+id/storageSpinnerBoot"
-                        android:layout_centerHorizontal="true" />
-
-                </RelativeLayout>
+                <Spinner
+                    android:id="@+id/storageSpinnerBoot"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp" />
 
             </LinearLayout>
 
