@@ -36,9 +36,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     private ActionBar actionBar;
     private final int REQUEST_EXTERNAL_STORAGE = 1;
 
-    // Tab titles
-    private String[] tabs = {"Storage", "Hardware", "Misc"};
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +62,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         viewPager.setAdapter(mAdapter);
         actionBar.setHomeButtonEnabled(false);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+        // Tab titles
+        String[] tabs = {getString(R.string.storage), getString(R.string.hardware), getString(R.string.misc)};
 
         // Adding Tabs
         for (String tab_name : tabs) {
@@ -144,9 +144,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         try {
             Config.writeConfig(configPath);
         } catch (IOException e) {
-            Toast.makeText(MainActivity.this, "Error, config not saved", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, getString(R.string.config_not_saved), Toast.LENGTH_SHORT).show();
         }
-        Toast.makeText(MainActivity.this, "config saved", Toast.LENGTH_SHORT).show();
+        Toast.makeText(MainActivity.this, getString(R.string.config_saved), Toast.LENGTH_SHORT).show();
 
         // run bochs app
         //ComponentName cn = new ComponentName("net.sourceforge.bochs", "net.sourceforge.bochs.MainActivity");
@@ -161,10 +161,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
             try {
                 Config.readConfig(configPath);
             } catch (FileNotFoundException e) {
-                Toast.makeText(MainActivity.this, "config not found", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, getString(R.string.config_not_found), Toast.LENGTH_SHORT).show();
                 return;
             }
-            Toast.makeText(MainActivity.this, "config loaded", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, getString(R.string.config_loaded), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -230,7 +230,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         };
 
         new AlertDialog.Builder(this)
-                .setTitle("Download disk images")
+                .setTitle(getString(R.string.download_disk_images))
                 .setItems(names, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int i) {
                         String destination = Uri.parse(urls[i]).getPathSegments()
