@@ -32,9 +32,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String configPath;
     private final int REQUEST_EXTERNAL_STORAGE = 1;
 
-    // Tab titles
-    private String[] tabs = {"Storage", "Hardware", "Misc"};
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //initToolbar();
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
 
+        //tabs = {getString(R.string.storage), getString(R.string.hardware), getString(R.string.misc)};
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
@@ -76,6 +74,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
+        // Tab titles
+        String[] tabs = {getString(R.string.storage), getString(R.string.hardware), getString(R.string.misc)};
+
         StorageTabFragment storageTabFragment =  new StorageTabFragment();
         adapter.addFragment(storageTabFragment, tabs[0]);
         HardwareTabFragment hardwareTabFragment =  new HardwareTabFragment();
@@ -100,9 +101,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         try {
             Config.writeConfig(configPath);
         } catch (IOException e) {
-            Toast.makeText(MainActivity.this, "Error, config not saved", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, getString(R.string.config_not_saved), Toast.LENGTH_SHORT).show();
         }
-        Toast.makeText(MainActivity.this, "config saved", Toast.LENGTH_SHORT).show();
+        Toast.makeText(MainActivity.this, getString(R.string.config_saved), Toast.LENGTH_SHORT).show();
 
         // run bochs app
         //ComponentName cn = new ComponentName("net.sourceforge.bochs", "net.sourceforge.bochs.MainActivity");
@@ -116,10 +117,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             try {
                 Config.readConfig(configPath);
             } catch (FileNotFoundException e) {
-                Toast.makeText(MainActivity.this, "config not found", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, getString(R.string.config_not_found), Toast.LENGTH_SHORT).show();
                 return;
             }
-            Toast.makeText(MainActivity.this, "config loaded", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, getString(R.string.config_loaded), Toast.LENGTH_SHORT).show();
             Config.configLoaded = true;
         }
     }
@@ -182,7 +183,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         };
 
         new AlertDialog.Builder(this)
-                .setTitle("Download disk images")
+                .setTitle(getString(R.string.download_disk_images))
                 .setItems(names, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int i) {
                         String destination = Uri.parse(urls[i]).getPathSegments()

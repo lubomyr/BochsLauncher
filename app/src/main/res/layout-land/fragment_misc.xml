@@ -25,7 +25,7 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="rom image" />
+                android:text="@string/rom_image" />
 
             <TextView
                 android:id="@+id/miscTextViewRomImage"
@@ -34,7 +34,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:gravity="center"
-                android:text="rom image"
+                android:text="@string/none"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
         </LinearLayout>
@@ -52,14 +52,14 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="vga rom image" />
+                android:text="@string/vga_rom_image" />
 
             <TextView
                 android:id="@+id/miscTextViewVgaRomImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="vga rom image"
+                android:text="@string/none"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
         </LinearLayout>
@@ -81,7 +81,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Clock:" />
+                    android:text="@string/clock" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -93,7 +93,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
-                        android:text="sync:"
+                        android:text="@string/sync"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <Spinner
@@ -118,7 +118,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="VGA update freq:" />
+                    android:text="@string/vga_update_freq" />
 
                 <SeekBar
                     android:id="@+id/miscSeekBarVgaUpdateFreq"
@@ -130,7 +130,7 @@
                     android:id="@+id/miscTextViewVgaUpdateFreq"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="value" />
+                    android:text="@string/value" />
 
             </LinearLayout>
 
@@ -141,14 +141,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="Full screen" />
+            android:text="@string/full_screen" />
 
         <CheckBox
             android:id="@+id/miscCheckBoxSpeaker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="Speaker" />
+            android:text="@string/speaker" />
 
     </LinearLayout>
 

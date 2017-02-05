@@ -39,7 +39,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:layout_centerVertical="true"
-                        android:text="Floppy A" />
+                        android:text="@string/floppy_a" />
 
                     <Button
                         android:id="@+id/storageButtonFloppyA"
@@ -47,7 +47,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:text="select" />
+                        android:text="@string/select" />
 
                 </RelativeLayout>
 
@@ -55,7 +55,7 @@
                     android:id="@+id/storageTextViewFloppyA"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="floppy A image"
+                    android:text="@string/none"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
             </LinearLayout>
@@ -81,7 +81,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:layout_centerVertical="true"
-                        android:text="Floppy B" />
+                        android:text="@string/floppy_b" />
 
                     <Button
                         android:id="@+id/storageButtonFloppyB"
@@ -89,14 +89,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:text="select" />
+                        android:text="@string/select" />
 
                 </RelativeLayout>
                 <TextView
                     android:id="@+id/storageTextViewFloppyB"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="floppy B image"
+                    android:text="@string/none"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
             </LinearLayout>
@@ -115,7 +115,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="Boot"
+                    android:text="@string/boot"
                     android:textAppearance="?android:attr/textAppearanceLarge" />
 
                 <Spinner
@@ -142,7 +142,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
-                android:text="ata0-master" />
+                android:text="@string/ata0_master" />
 
             <Spinner
                 android:id="@+id/storageSpinnerAta0m"
@@ -161,7 +161,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="5dp"
                 android:layout_toRightOf="@id/storageSpinnerAta0m"
-                android:text="vfat" />
+                android:text="@string/vfat" />
 
             <Button
                 android:id="@+id/storageButtonAta0m"
@@ -170,7 +170,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginLeft="5dp"
-                android:text="select" />
+                android:text="@string/select" />
 
             <TextView
                 android:id="@+id/storageTextViewAta0m"
@@ -180,7 +180,7 @@
                 android:layout_toLeftOf="@id/storageButtonAta0m"
                 android:layout_toRightOf="@id/storageCheckBoxAta0mVvfat"
                 android:gravity="center"
-                android:text="ata0 master image"
+                android:text="@string/none"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
         </RelativeLayout>
@@ -199,7 +199,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
-                android:text="ata0-slave" />
+                android:text="@string/ata0_slave" />
 
             <Spinner
                 android:id="@+id/storageSpinnerAta0s"
@@ -218,7 +218,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="5dp"
                 android:layout_toRightOf="@id/storageSpinnerAta0s"
-                android:text="vfat" />
+                android:text="@string/vfat" />
 
             <Button
                 android:id="@+id/storageButtonAta0s"
@@ -227,7 +227,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginLeft="5dp"
-                android:text="select" />
+                android:text="@string/select" />
 
             <TextView
                 android:id="@+id/storageTextViewAta0s"
@@ -237,7 +237,7 @@
                 android:layout_toLeftOf="@id/storageButtonAta0s"
                 android:layout_toRightOf="@id/storageCheckBoxAta0sVvfat"
                 android:gravity="center"
-                android:text="ata0 slave image"
+                android:text="@string/none"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
         </RelativeLayout>
@@ -256,7 +256,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
-                android:text="ata1-master" />
+                android:text="@string/ata1_master" />
 
             <Spinner
                 android:id="@+id/storageSpinnerAta1m"
@@ -275,7 +275,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="5dp"
                 android:layout_toRightOf="@id/storageSpinnerAta1m"
-                android:text="vfat" />
+                android:text="@string/vfat" />
 
             <Button
                 android:id="@+id/storageButtonAta1m"
@@ -284,7 +284,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginLeft="5dp"
-                android:text="select" />
+                android:text="@string/select" />
 
             <TextView
                 android:id="@+id/storageTextViewAta1m"
@@ -294,7 +294,7 @@
                 android:layout_toLeftOf="@id/storageButtonAta1m"
                 android:layout_toRightOf="@id/storageCheckBoxAta1mVvfat"
                 android:gravity="center"
-                android:text="ata1 master image"
+                android:text="@string/none"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
         </RelativeLayout>
@@ -313,7 +313,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
-                android:text="ata1-slave" />
+                android:text="@string/ata1_slave" />
 
             <Spinner
                 android:id="@+id/storageSpinnerAta1s"
@@ -332,7 +332,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="5dp"
                 android:layout_toRightOf="@id/storageSpinnerAta1s"
-                android:text="vfat" />
+                android:text="@string/vfat" />
 
             <Button
                 android:id="@+id/storageButtonAta1s"
@@ -341,7 +341,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginLeft="5dp"
-                android:text="select" />
+                android:text="@string/select" />
 
             <TextView
                 android:id="@+id/storageTextViewAta1s"
@@ -351,7 +351,7 @@
                 android:layout_toLeftOf="@id/storageButtonAta1s"
                 android:layout_toRightOf="@id/storageCheckBoxAta1sVvfat"
                 android:gravity="center"
-                android:text="ata1 slave image"
+                android:text="@string/none"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
         </RelativeLayout>
