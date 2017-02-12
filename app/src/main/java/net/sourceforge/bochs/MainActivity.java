@@ -41,6 +41,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 "/Android/data/" + getPackageName() + "/files/";
         configPath = appPath + "bochsrc.txt";
 
+        if (!Config.configLoaded)
+            Config.setDefaulValues();
+
         //initToolbar();
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
 
