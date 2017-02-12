@@ -50,7 +50,7 @@ class Config {
     static final int ATA_1_MASTER = 2;
     static final int ATA_1_SLAVE = 3;
 
-    static private void setDefaulValues() {
+    static void setDefaulValues() {
         for (int i=0; i < floppyNum; i++) {
             floppy[i] = false;
             floppyImage[i] = NONE;
@@ -64,10 +64,8 @@ class Config {
     }
 
     static void readConfig(String path) throws FileNotFoundException {
-        setDefaulValues();
         File file = new File(path);
         Scanner sc = new Scanner(file).useDelimiter("[\n]");
-        StringBuilder sb = new StringBuilder();
         while (sc.hasNext()) {
             String str = sc.next() + "\n";
             if (str.startsWith("floppya:")) {
@@ -230,7 +228,6 @@ class Config {
                             str2.substring(5, str2.indexOf(",")) : str2.substring(5, str2.length());
                 }
             }
-            sb.append(str);
         }
         sc.close();
     }

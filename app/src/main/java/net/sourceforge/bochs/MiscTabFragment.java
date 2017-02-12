@@ -1,6 +1,7 @@
 package net.sourceforge.bochs;
 
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -132,7 +133,9 @@ public class MiscTabFragment extends Fragment {
     }
 
     private void fileSelection(final Requestor num) {
-        FileChooser filechooser = new FileChooser(getActivity(), MainActivity.appPath, null);
+        String appPath = Environment.getExternalStorageDirectory().getAbsolutePath() +
+                "/Android/data/" + getActivity().getPackageName() + "/files/";
+        FileChooser filechooser = new FileChooser(getActivity(), appPath, null);
         filechooser.setFileListener(new FileChooser.FileSelectedListener() {
             @Override
             public void fileSelected(final File file) {

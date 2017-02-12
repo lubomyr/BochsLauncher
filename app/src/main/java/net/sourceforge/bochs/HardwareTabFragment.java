@@ -40,11 +40,12 @@ public class HardwareTabFragment extends Fragment {
     private TextView tvEthernetDescription;
     private TextView tvMemory;
     private Spinner[] spSlot = new Spinner[5];
-    private ArrayAdapter<String> slotAdapter;
-    private List<CpuModel> cpuModel = new ArrayList<CpuModel>();
-    private List<VgaCard> vgaCard = new ArrayList<VgaCard>();
-    private List<SoundCard> soundCard = new ArrayList<SoundCard>();
-    private List<EthernetCard> ethernetCard = new ArrayList<EthernetCard>();
+    private ArrayAdapter slotAdapter[] = new ArrayAdapter[5];
+    private List<CpuModel> cpuModel = new ArrayList<>();
+    private List<VgaCard> vgaCard = new ArrayList<>();
+    private List<SoundCard> soundCard = new ArrayList<>();
+    private List<EthernetCard> ethernetCard = new ArrayList<>();
+    private List<String>[] slotList = new List[5];
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,9 +58,11 @@ public class HardwareTabFragment extends Fragment {
     }
 
     private void setupView(View rootView) {
-        final List<String> slotList = Arrays.asList("none", "pcivga", "cirrus", "voodoo", "es1370", "ne2k", "e1000");
         final int memoryStep = 8;
         final int minValueMemory = 8;
+        for (int i = 0; i < 5; i++)
+            slotList[i] = new ArrayList<>();
+        updateSlotLists();
 
         if (cpuModel.size() == 0)
             readCpuList();
@@ -82,7 +85,8 @@ public class HardwareTabFragment extends Fragment {
         spSlot[3] = (Spinner) rootView.findViewById(R.id.hardwareSpinnerSlot4);
         spSlot[4] = (Spinner) rootView.findViewById(R.id.hardwareSpinnerSlot5);
         SpinnerAdapter cpuModelAdapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_row, getCpuModelValues());
-        slotAdapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_row, slotList);
+        for (int i = 0; i < 5; i++)
+            slotAdapter[i] = new ArrayAdapter<String>(getActivity(), R.layout.spinner_row, slotList[i]);
         SpinnerAdapter vgaAdapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_row, getVgaCardValues());
         SpinnerAdapter soundAdapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_row, getSoundCardValues());
         SpinnerAdapter ethernetAdapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_row, getEthernetCardValues());
@@ -90,9 +94,8 @@ public class HardwareTabFragment extends Fragment {
         spVga.setAdapter(vgaAdapter);
         spSound.setAdapter(soundAdapter);
         spEthernet.setAdapter(ethernetAdapter);
-        for (Spinner aSpSlot : spSlot) {
-            aSpSlot.setAdapter(slotAdapter);
-        }
+        for (int i = 0; i < 5; i++)
+            spSlot[i].setAdapter(slotAdapter[i]);
         int selectedCpuModel = getCpuModelValues().indexOf(Config.cpuModel);
         spCpuModel.setSelection(selectedCpuModel);
         tvCpuDescription.setText(cpuModel.get(selectedCpuModel).getDescription());
@@ -102,7 +105,7 @@ public class HardwareTabFragment extends Fragment {
         tvMemory.setText(String.format("%s mb", Config.megs));
         Integer[] selectedSlot = new Integer[5];
         for (int i = 0; i < spSlot.length; i++) {
-            selectedSlot[i] = slotList.indexOf(Config.slot[i]);
+            selectedSlot[i] = slotList[i].indexOf(Config.slot[i]);
             spSlot[i].setSelection((selectedSlot[i] == -1) ? 0 : selectedSlot[i]);
         }
         checkVga();
@@ -139,8 +142,8 @@ public class HardwareTabFragment extends Fragment {
                         Config.vgaExtension = "vbe";
                         Config.vgaRomImage = "VGABIOS-lgpl-latest";
                         setFreePciSlot("cirrus");
-                        spSlot[0].setSelection(slotList.indexOf("pcivga"));
-                        slotAdapter.notifyDataSetChanged();
+                        spSlot[0].setSelection(slotList[0].indexOf("pcivga"));
+                        slotAdapter[0].notifyDataSetChanged();
                         break;
                     case 2:
                         Config.vgaExtension = "cirrus";
@@ -152,8 +155,8 @@ public class HardwareTabFragment extends Fragment {
                         Config.vgaExtension = "cirrus";
                         Config.vgaRomImage = "VGABIOS-lgpl-latest-cirrus";
                         setFreePciSlot("pcivga");
-                        spSlot[0].setSelection(slotList.indexOf("cirrus"));
-                        slotAdapter.notifyDataSetChanged();
+                        spSlot[0].setSelection(slotList[0].indexOf("cirrus"));
+                        slotAdapter[0].notifyDataSetChanged();
                         break;
                 }
             }
@@ -182,8 +185,8 @@ public class HardwareTabFragment extends Fragment {
                     case 2:
                         Config.useSb16 = false;
                         Config.useEs1370 = true;
-                        spSlot[2].setSelection(slotList.indexOf("es1370"));
-                        slotAdapter.notifyDataSetChanged();
+                        spSlot[2].setSelection(slotList[2].indexOf("es1370"));
+                        slotAdapter[2].notifyDataSetChanged();
                         break;
                 }
             }
@@ -218,16 +221,16 @@ public class HardwareTabFragment extends Fragment {
                         Config.useRtl8029 = true;
                         Config.useE1000 = false;
                         setFreePciSlot("e1000");
-                        spSlot[1].setSelection(slotList.indexOf("ne2k"));
-                        slotAdapter.notifyDataSetChanged();
+                        spSlot[1].setSelection(slotList[1].indexOf("ne2k"));
+                        slotAdapter[1].notifyDataSetChanged();
                         break;
                     case 3:
                         Config.useNe2000 = false;
                         Config.useRtl8029 = false;
                         Config.useE1000 = true;
                         setFreePciSlot("ne2k");
-                        spSlot[1].setSelection(slotList.indexOf("e1000"));
-                        slotAdapter.notifyDataSetChanged();
+                        spSlot[1].setSelection(slotList[1].indexOf("e1000"));
+                        slotAdapter[1].notifyDataSetChanged();
                         break;
                 }
             }
@@ -243,9 +246,10 @@ public class HardwareTabFragment extends Fragment {
 
                 @Override
                 public void onItemSelected(AdapterView<?> p1, View p2, int p3, long p4) {
-                    String str = slotList.get(p3);
+                    String str = slotList[finalI].get(p3);
                     Config.slot[finalI] = (p3 == 0) ? "" : str;
                     setOnInConfig(str);
+                    updateSlotLists();
                 }
 
                 @Override
@@ -330,7 +334,7 @@ public class HardwareTabFragment extends Fragment {
     }
 
     private List<String> getCpuModelValues() {
-        List<String> result = new ArrayList<String>();
+        List<String> result = new ArrayList<>();
         for (CpuModel cm : cpuModel) {
             result.add(cm.getValue());
         }
@@ -338,7 +342,7 @@ public class HardwareTabFragment extends Fragment {
     }
 
     private List<String> getVgaCardValues() {
-        List<String> result = new ArrayList<String>();
+        List<String> result = new ArrayList<>();
         for (VgaCard vc : vgaCard) {
             result.add(vc.getValue());
         }
@@ -346,7 +350,7 @@ public class HardwareTabFragment extends Fragment {
     }
 
     private List<String> getSoundCardValues() {
-        List<String> result = new ArrayList<String>();
+        List<String> result = new ArrayList<>();
         for (SoundCard sc : soundCard) {
             result.add(sc.getValue());
         }
@@ -354,7 +358,7 @@ public class HardwareTabFragment extends Fragment {
     }
 
     private List<String> getEthernetCardValues() {
-        List<String> result = new ArrayList<String>();
+        List<String> result = new ArrayList<>();
         for (EthernetCard ec : ethernetCard) {
             result.add(ec.getValue());
         }
@@ -384,7 +388,7 @@ public class HardwareTabFragment extends Fragment {
             if (Config.slot[i].equals(str)) {
                 Config.slot[i] = "";
                 spSlot[i].setSelection(0);
-                slotAdapter.notifyDataSetChanged();
+                slotAdapter[i].notifyDataSetChanged();
             }
         }
     }
@@ -442,4 +446,30 @@ public class HardwareTabFragment extends Fragment {
                 break;
         }
     }
+
+    private List<String> getSlotList(int num) {
+        List<String> list = new ArrayList<>();
+        final List<String> fullSlotList = Arrays.asList("none", "pcivga", "cirrus", "voodoo",
+                "es1370", "ne2k", "e1000");
+        list.addAll(fullSlotList);
+        for (int i = 0; i < 5; i++) {
+            list.remove(Config.slot[i]);
+        }
+        if (!Config.slot[num].isEmpty())
+            list.add(Config.slot[num]);
+        return list;
+    }
+
+    private void updateSlotLists() {
+        for (int i = 0; i < 5; i++) {
+            slotList[i].clear();
+            slotList[i].addAll(getSlotList(i));
+            if (slotAdapter[i] != null) {
+                slotAdapter[i].notifyDataSetChanged();
+                int selectedSlot = slotList[i].indexOf(Config.slot[i]);
+                spSlot[i].setSelection((selectedSlot == -1) ? 0 : selectedSlot);
+            }
+        }
+    }
+
 }
