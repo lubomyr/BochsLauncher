@@ -9,6 +9,7 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -34,6 +35,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     private String configPath;
     private ViewPager viewPager;
     private ActionBar actionBar;
+    private SharedPreferences sPref;
+    final String SAVED_PATH = "saved_path";
     private final int REQUEST_EXTERNAL_STORAGE = 1;
 
     @Override
@@ -245,6 +248,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                                 destination);
                         downloader.enqueue(request);
                         dialog.dismiss();
+                        setPathToDownload();
                     }
                 })
                 .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
@@ -254,6 +258,13 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                 })
                 .create()
                 .show();
+    }
+
+    private void setPathToDownload() {
+        sPref = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor ed = sPref.edit();
+        ed.putString(SAVED_PATH, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getPath());
+        ed.apply();
     }
 
 }
