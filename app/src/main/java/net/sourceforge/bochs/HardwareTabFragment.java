@@ -250,6 +250,9 @@ public class HardwareTabFragment extends Fragment {
                     Config.slot[finalI] = (p3 == 0) ? "" : str;
                     setOnInConfig(str);
                     updateSlotLists();
+                    checkVga();
+                    checkSound();
+                    checkEthernet();
                 }
 
                 @Override
