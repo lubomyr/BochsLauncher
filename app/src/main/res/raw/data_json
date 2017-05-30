@@ -4,6 +4,12 @@
 			"description":"Default Bochs CPU configured with CPUID option",
 			"required":"cpu level 5"
 		},
+		
+		{
+			"value":"pentium",
+			"description":"Intel Pentium (P54C)",
+			"required":"cpu level 5"
+		},
 
 		{
 			"value":"pentium_mmx",
@@ -94,6 +100,12 @@
 			"description":"Intel(R) Core(TM) i5 M 520 (Arrandale)",
 			"required":"cpu level 6, x86-64"
 		},
+		
+		{
+			"value":"corei7_sandy_bridge_2600k",
+			"description":"Intel(R) Core(TM) i7-2600K (Sandy Bridge)",
+			"required":"cpu level 6, x86-64, avx"
+		},
 
 		{
 			"value":"zambezi",
@@ -106,10 +118,10 @@
 			"description":"AMD A8-5600K APU (Trinity)",
 			"required":"cpu level 6, x86-64, avx"
 		},
-
+		
 		{
-			"value":"corei7_sandy_bridge_2600k",
-			"description":"Intel(R) Core(TM) i7-2600K (Sandy Bridge)",
+			"value":"ryzen",
+			"description":"AMD Ryzen 7 1700",
 			"required":"cpu level 6, x86-64, avx"
 		},
 
@@ -122,6 +134,12 @@
 		{
 			"value":"corei7_haswell_4770",
 			"description":"Intel(R) Core(TM) i7-4770 CPU (Haswell)",
+			"required":"cpu level 6, x86-64, avx"
+		},
+		
+		{
+			"value":"broadwell_ult",
+			"description":"Intel(R) Processor 5Y70 CPU (Broadwell)",
 			"required":"cpu level 6, x86-64, avx"
 		}
 
