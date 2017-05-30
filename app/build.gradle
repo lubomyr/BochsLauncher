@@ -8,8 +8,8 @@ android {
         applicationId "net.sourceforge.bochs"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 26825
-        versionName "2.6.8.25"
+        versionCode 269
+        versionName "2.6.9"
     }
     buildTypes {
         release {
