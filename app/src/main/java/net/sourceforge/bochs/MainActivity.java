@@ -7,17 +7,20 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import net.sourceforge.bochs.adapter.ViewPagerAdapter;
@@ -50,6 +53,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //tabs = {getString(R.string.storage), getString(R.string.hardware), getString(R.string.misc)};
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
+
+        // Tab layout setup ( divider beetwin tab)
+        View root = tabLayout.getChildAt(0);
+        if (root instanceof LinearLayout) {
+            ((LinearLayout) root).setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
+            GradientDrawable drawable = new GradientDrawable();
+            drawable.setColor(ContextCompat.getColor(this, R.color.colorBorder));
+            drawable.setSize(2, 1);
+            ((LinearLayout) root).setDividerPadding(20);
+            ((LinearLayout) root).setDividerDrawable(drawable);
+        }
 
         ImageView startBtn = (ImageView) findViewById(R.id.start);
         startBtn.setOnClickListener(this);
